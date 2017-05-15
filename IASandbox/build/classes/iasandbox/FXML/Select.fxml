@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.SelectController">
+    <children>
+      <Pane layoutX="84.0" layoutY="29.0">
+         <children>
+              <Label fx:id="label" layoutX="33.0" minHeight="16" minWidth="69" text="Selecione  jogo:" />
+            <ChoiceBox fx:id="choiceGame" layoutY="25.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="metodPane" layoutX="86.0" layoutY="92.0">
+         <children>
+            <Label layoutX="51.0" text="Método:" />
+            <ChoiceBox fx:id="choiceMetod" layoutY="24.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+        <Button fx:id="button" layoutX="141.0" layoutY="161.0" onAction="#start" text="Start" />
+    </children>
+</AnchorPane>

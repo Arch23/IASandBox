@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.MainController">
+   <children>
+      <StackPane fx:id="stack" layoutY="-2.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Pane fx:id="canvasPane" onKeyPressed="#spaceRestart" prefHeight="377.0" prefWidth="600.0" />
+         </children>
+      </StackPane>
+      <MenuBar fx:id="menuBar" prefHeight="22.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="novoGame" mnemonicParsing="false" onAction="#newGame" text="Novo Jogo" />
+                  <MenuItem fx:id="changeGame" mnemonicParsing="false" text="Mudar jogo" />
+              <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem fx:id="configurações" mnemonicParsing="false" text="Configurações" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
