@@ -1,0 +1,11 @@
+*.properties
+*.jar
+*.mf
+*.xml
+*.class
+*.html
+*.jnlp
+*.png
+*.gif
+*.js
+/CodePlayer/nbproject/private/
