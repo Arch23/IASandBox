@@ -6,7 +6,7 @@
 package IOStream;
 
 import ArvoreMinimax.Node;
-import ArvoreMinimax.TreeGenerator;
+import ArvoreMinimax.TreeMiniMax;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -39,7 +39,7 @@ public class Writer {
             writer = new BufferedWriter(new FileWriter(terminalNodes));
 
         } catch (IOException ex) {
-            Logger.getLogger(TreeGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TreeMiniMax.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -88,7 +88,7 @@ public class Writer {
         try {
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(TreeGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TreeMiniMax.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

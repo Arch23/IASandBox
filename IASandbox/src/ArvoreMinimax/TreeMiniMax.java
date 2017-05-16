@@ -14,36 +14,43 @@ import java.util.Iterator;
  *
  * @author Gabriel
  */
-public class TreeGenerator {
+public class TreeMiniMax {
 
+    private TreeMiniMax instance;
+    
     private Node arvore;
     private int jogadormax, contador, height;
 
+    public TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
+    
+    private TreeMiniMax(){
+        startAlg();
+    }
+    
     public void geraArvore(Node node, int h) {
         if (TicTacToe.getInstance().checkBoard(node.getMap(), h) == -1) {
             node.setFilhos(geraFilhos(node, h));
             Iterator<Node> it = node.getFilhos().iterator();
             contador++;
             while (it.hasNext()) {
-                int fH = h + 1;
-                geraArvore(it.next(), fH);
+                geraArvore(it.next(),(h+1));
             }
         }
         if (node.getFilhos().isEmpty()) { //Se for folha( sem filhos )
             node.setUtilidade(calcUtLeaf(node.getMap(), h));
         } else { //Se não for filhos
-            calcUtFather(node, h);
+            node.setUtilidade(calcUtFather(node, h));
         }
         Writer.getInstance().writeNode(node,h);
     }
 
-    public void calcUtFather(Node node, int h) {
+    public int calcUtFather(Node node, int h) {
         int aux;
         if (h % 2 == 0) {
             aux = Integer.MIN_VALUE;
             for (int i = 0; i < node.getFilhos().size(); i++) {
                 if (node.getFilhos().get(i).getUtilidade() > aux) {
-                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
+//                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
                     aux = node.getFilhos().get(i).getUtilidade();
                 }
             }
@@ -51,11 +58,12 @@ public class TreeGenerator {
             aux = Integer.MAX_VALUE;
             for (int i = 0; i < node.getFilhos().size(); i++) {
                 if (node.getFilhos().get(i).getUtilidade() < aux) {
-                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
+//                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
                     aux = node.getFilhos().get(i).getUtilidade();
                 }
             }
         }
+        return(aux);
     }
 
     public void startAlg() {
@@ -104,9 +112,50 @@ public class TreeGenerator {
                 return (0);
         }
     }
-
-    public void insereNode(Node no) {
-
+    
+    public boolean compMap(int[][] map1,int[][] map2){
+        for(int i=0;i<map1.length;i++){
+            for(int j=0;j<map1[i].length;j++){
+                if(map1[i][j]!=map2[i][j]){
+                    return(false);
+                }
+            }
+        }
+        return(true);
+    }
+    
+    public boolean containsMap(int[][] mapOut,int[][] mapInner){
+        for(int i=0;i<mapOut.length;i++){
+            for(int j=0;j<mapOut[i].length;j++){
+                if((mapOut[i][j]==1 && mapInner[i][j]==2) || (mapOut[i][j]==2 && mapInner[i][j]==1)){
+                    return(false);
+                }
+            }
+        }
+        return(true);
+    }
+    
+    public Node getNode(Node node,int[][] map){
+        if(compMap(map,node.getMap())){
+            System.out.println("Encontrou!");
+            return(node);
+        }else{
+            Node aux =null;
+            Iterator<Node> it = node.getFilhos().iterator();
+            while(it.hasNext()){
+                Node n = it.next();
+                if(containsMap(n.getMap(),map)){
+                    aux = getNode(n, map);
+                    if(aux!=null){
+                        return(aux);
+                    }
+//                    else{
+//                        return(aux);
+//                    }
+                }
+            }
+            return(aux);
+        }
     }
 
     public int getJogadorMax() {
@@ -117,16 +166,38 @@ public class TreeGenerator {
         this.jogadormax = jogador;
     }
 
+    public Node getArvore() {
+        return arvore;
+    }
+
     public static void main(String[] args) {
-        TreeGenerator obj = new TreeGenerator();
+        
+        TreeMiniMax obj = new TreeMiniMax();
         obj.start();
+        
+        int[][] map={{1,2,1},{1,2,0},{1,0,2}};
+        Node res=obj.getNode(obj.arvore, map);
+        System.out.println("Objeto que contém o mapa: "+res);
+        obj.printTree(map);
+        if(res!=null){
+            obj.printTree(res.getMap());
+        }
+    }
+    
+    public void printTree(int[][] map){
+        System.out.println("");
+        for(int i=0;i<3;i++){
+            System.out.println("");
+            for(int j=0;j<3;j++){
+                System.out.print(map[i][j]+" ");
+            }
+        }
     }
 
     public void start() {
-        Writer.getInstance().initWriter();
+//        Writer.getInstance().initWriter();
         height = 0;
         startAlg();
-        System.out.println("Nós gerados: " + contador);
-        Writer.getInstance().closeWriter();
+//        Writer.getInstance().closeWriter();
     }
 }
