@@ -34,7 +34,7 @@ public class TreeGenerator {
         } else { //Se não for filhos
             calcUtFather(node, h);
         }
-        Writer.getInstance().writeNode(node);
+        Writer.getInstance().writeNode(node,h);
     }
 
     public void calcUtFather(Node node, int h) {

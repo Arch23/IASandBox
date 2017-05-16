@@ -51,7 +51,7 @@ public class Writer {
         }
     }
     
-    public void writeNode(Node node){
+    public void writeNode(Node node,int h){
         try{
             writer.write(newline+""+newline+"<node>");
             if(node.getFilhos().isEmpty()){
@@ -61,6 +61,7 @@ public class Writer {
             }
             writeMap(node.getMap());
             writer.write(newline+"\t\t<utilidade>"+node.getUtilidade()+"<utilidade/>");
+            writer.write(newline+"\t\t<height>"+h+"<height/>");
             if(node.getFilhos().isEmpty()){
                 writer.write(newline+"\t<leaf/>");
             }else{
