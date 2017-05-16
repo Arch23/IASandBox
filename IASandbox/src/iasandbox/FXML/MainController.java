@@ -170,7 +170,7 @@ public class MainController implements Initializable {
                     moveMade=!player2Turn;
                 }
             }
-            switch(TicTacToe.getInstance().checkBoard(TicTacToe.getInstance().getMap())){
+            switch(TicTacToe.getInstance().checkBoard(TicTacToe.getInstance().getMap(),TicTacToe.getInstance().getMovesMade())){
                 case(0):{
                     endGame();
                     text="draw!";

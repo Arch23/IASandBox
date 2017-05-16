@@ -97,7 +97,7 @@ public class TicTacToe {
         return(false);
     }
     
-    public int checkBoard(int[][] map){
+    public int checkBoard(int[][] map,int moves){
         if((map[0][0]==1) && (map[0][1]==1) && (map[0][2]==1)){
             map[0][0]=3;map[0][1]=3;map[0][2]=3;
             return(1);
@@ -147,7 +147,7 @@ public class TicTacToe {
             map[0][2]=4;map[1][1]=4;map[2][0]=4;
             return(2);
         }
-        if(movesMade==9){
+        if(moves==9){
             return(0);
         }else{
             return(-1);
@@ -194,11 +194,15 @@ public class TicTacToe {
             }
         }
     }
+
+    public int getMovesMade() {
+        return movesMade;
+    }
     
     public int[][] getMap() {
         return((mapGame==null)?clearMap(mapGame):mapGame);
     }
-
+    
     public EventHandler<MouseEvent> getPlayerClicked1() {
         return playerClicked1;
     }

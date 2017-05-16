@@ -19,7 +19,7 @@ public class TreeGenerator {
     private int jogadormax,contador,height;
 
     public void geraArvore(Node node,int h) {
-        if(TicTacToe.getInstance().checkBoard(node.getMap())==-1){
+        if(TicTacToe.getInstance().checkBoard(node.getMap(),h)==-1){
             node.setFilhos(geraFilhosMax(node,h));
             Iterator<Node> it = node.getFilhos().iterator();
             contador++;
@@ -29,7 +29,11 @@ public class TreeGenerator {
             }
         }
         if(node.getFilhos().isEmpty()){
-            node.setUtilidade(TicTacToe.getInstance().checkBoard(node.getMap()));
+            printMap(node.getMap());
+
+            node.setUtilidade(calcUtLeaf(node.getMap(), h));
+            System.out.println("\n"+node.getUtilidade());
+            System.out.print("\n\n");
         }    
     }
     
@@ -68,8 +72,8 @@ public class TreeGenerator {
         return filhos;
     }
     
-    private int calcUtLeaf(int[][] map){
-        int res = TicTacToe.getInstance().checkBoard(map);
+    private int calcUtLeaf(int[][] map,int h){
+        int res = TicTacToe.getInstance().checkBoard(map,h);
         switch(res){
             case(1):
                 return(1);
