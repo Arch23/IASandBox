@@ -45,18 +45,20 @@ public class TicTacToeHuman implements ticTacToePlayer{
                 }
             }
         }
-
+        
         if(cord[0]!=-1 && cord[1]!=-1){
-            TicTacToe.getInstance().makeMove(logic(),playerNumber);
-            ControleUI.getInstance().getMainController().setMoveMade(true);
-            if(playerNumber==1){
-                ControleUI.getInstance().getMainController().setPlayer1Turn(false);
-                ControleUI.getInstance().getMainController().setPlayer2Turn(true);
-            }else{
-                ControleUI.getInstance().getMainController().setPlayer2Turn(false);
-                ControleUI.getInstance().getMainController().setPlayer1Turn(true);
+            if(TicTacToe.getInstance().getMap()[cord[0]][cord[1]]==0){
+                TicTacToe.getInstance().makeMove(logic(),playerNumber);
+                ControleUI.getInstance().getMainController().setMoveMade(true);
+                if(playerNumber==1){
+                    ControleUI.getInstance().getMainController().setPlayer1Turn(false);
+                    ControleUI.getInstance().getMainController().setPlayer2Turn(true);
+                }else{
+                    ControleUI.getInstance().getMainController().setPlayer2Turn(false);
+                    ControleUI.getInstance().getMainController().setPlayer1Turn(true);
+                }
+                ControleUI.getInstance().getMainController().ticTacToe();
             }
-            ControleUI.getInstance().getMainController().ticTacToe();
         }
     }
 }

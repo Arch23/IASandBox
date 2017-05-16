@@ -85,13 +85,16 @@ public class TicTacToe {
     }
     
     public boolean makeMove(int[] cord,int player){
-        if(map[cord[0]][cord[1]]==0){
-            map[cord[0]][cord[1]] = player;
-            movesMade++;
-            return (false);
-        } else {
-            return (true);
-        }
+//        if(map[cord[0]][cord[1]]==0){
+//            map[cord[0]][cord[1]] = player;
+//            movesMade++;
+//            return (false);
+//        } else {
+//            return (true);
+//        }
+        map[cord[0]][cord[1]] = player;
+        movesMade++;
+        return (false);
     }
     
     public int checkBoard(){
