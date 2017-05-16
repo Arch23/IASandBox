@@ -15,12 +15,13 @@ public class Node {
     private int map[][]= new int[3][3];
     private int utilidade;
     
+    private ArrayList<Node> filhos;
+    
     public Node(int[][] map){
         this.map = map;
+        filhos = new ArrayList<>();
     }
     
-    private ArrayList<Node> filhos;
-
     public int[][] getMap() {
         int[][] tempMap = new int[3][3];
         for(int i=0;i<3;i++){

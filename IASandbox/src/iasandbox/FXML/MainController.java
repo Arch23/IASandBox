@@ -170,8 +170,8 @@ public class MainController implements Initializable {
                     moveMade=!player2Turn;
                 }
             }
-            switch(TicTacToe.getInstance().checkBoard()){
-                case(-1):{
+            switch(TicTacToe.getInstance().checkBoard(TicTacToe.getInstance().getMap())){
+                case(0):{
                     endGame();
                     text="draw!";
                     break;
@@ -186,7 +186,7 @@ public class MainController implements Initializable {
                     text="player 2 won!";
                     break;
                 }
-                case(0):{
+                case(-1):{
                     if(player1Turn){
                         text="player 1";
                     }else if(player2Turn){

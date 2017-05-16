@@ -5,6 +5,7 @@
  */
 package ArvoreMinimax;
 
+import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -18,13 +19,18 @@ public class TreeGenerator {
     private int jogadormax,contador,height;
 
     public void geraArvore(Node node,int h) {
-        node.setFilhos(geraFilhosMax(node,h));
-        Iterator<Node> it = node.getFilhos().iterator();
-        contador++;
-        while(it.hasNext()){
-            int fH = h+1;
-            geraArvore(it.next(),fH);
+        if(TicTacToe.getInstance().checkBoard(node.getMap())==-1){
+            node.setFilhos(geraFilhosMax(node,h));
+            Iterator<Node> it = node.getFilhos().iterator();
+            contador++;
+            while(it.hasNext()){
+                int fH = h+1;
+                geraArvore(it.next(),fH);
+            }
         }
+        if(node.getFilhos().isEmpty()){
+            node.setUtilidade(TicTacToe.getInstance().checkBoard(node.getMap()));
+        }    
     }
     
     public void startAlg(){
@@ -49,7 +55,7 @@ public class TreeGenerator {
         return freeposition;
     }
 
-    public ArrayList<Node> geraFilhosMax(Node no,int h) {
+    private ArrayList<Node> geraFilhosMax(Node no,int h) {
         Node filho;
         ArrayList<Position> zeros = getZerosPos(no);
         ArrayList<Node> filhos = new ArrayList<>();
@@ -60,6 +66,18 @@ public class TreeGenerator {
             filhos.add(filho);
         }
         return filhos;
+    }
+    
+    private int calcUtLeaf(int[][] map){
+        int res = TicTacToe.getInstance().checkBoard(map);
+        switch(res){
+            case(1):
+                return(1);
+            case(2):
+                return(-1);
+            default:
+                return(0);
+        }
     }
 
     public void insereNode(Node no) {
@@ -73,7 +91,7 @@ public class TreeGenerator {
     public void setJogadorMax(int jogador) {
         this.jogadormax = jogador;
     }
-
+    
     public static void main(String[] args) {
         TreeGenerator obj = new TreeGenerator();
         obj.start();

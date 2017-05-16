@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 public class TicTacToe {
     
     private static TicTacToe instance = null;
-    private int[][] map;
+    private int[][] mapGame;
     private int n = 3;
     private int movesMade=0;
     
@@ -41,7 +41,7 @@ public class TicTacToe {
         player2=null;
         playerClicked1=null;
         playerClicked2=null;
-        clearMap();
+        mapGame = clearMap(mapGame);
         setPlayers();
         ControleUI.getInstance().getMainController().setVarTicTacToe();
     }
@@ -92,12 +92,12 @@ public class TicTacToe {
 //        } else {
 //            return (true);
 //        }
-        map[cord[0]][cord[1]] = player;
+        mapGame[cord[0]][cord[1]] = player;
         movesMade++;
-        return (false);
+        return(false);
     }
     
-    public int checkBoard(){
+    public int checkBoard(int[][] map){
         if((map[0][0]==1) && (map[0][1]==1) && (map[0][2]==1)){
             map[0][0]=3;map[0][1]=3;map[0][2]=3;
             return(1);
@@ -148,13 +148,13 @@ public class TicTacToe {
             return(2);
         }
         if(movesMade==9){
-            return(-1);
-        }else{
             return(0);
+        }else{
+            return(-1);
         }
     }
     
-    private int[][] clearMap(){
+    private int[][] clearMap(int[][] map){
         map = new int[n][n];
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
@@ -196,7 +196,7 @@ public class TicTacToe {
     }
     
     public int[][] getMap() {
-        return((map==null)?clearMap():map);
+        return((mapGame==null)?clearMap(mapGame):mapGame);
     }
 
     public EventHandler<MouseEvent> getPlayerClicked1() {
