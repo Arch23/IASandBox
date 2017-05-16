@@ -78,6 +78,7 @@ public class MainController implements Initializable {
     
     @FXML
     public void newGame(){
+        endGame();
         switch(ControleUI.getInstance().getGame()){
             case(0):{
                 TicTacToe.getInstance().deleteInstance();
@@ -214,7 +215,6 @@ public class MainController implements Initializable {
     
     public void endGame(){
         gameRunning=false;
-        
         if(TicTacToe.getInstance().getPlayerClicked1()!=null){
             canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED,TicTacToe.getInstance().getPlayerClicked1());
         }

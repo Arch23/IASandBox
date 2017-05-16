@@ -36,7 +36,7 @@ public class TicTacToeHuman implements ticTacToePlayer{
     public void translateClick(MouseEvent click) {
         cord[0]=-1;
         cord[1]=-1;
-
+        
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 if(ControleUI.getInstance().getMainController().getCels()[i][j].contains(click.getSceneX(),click.getSceneY())){
@@ -48,7 +48,6 @@ public class TicTacToeHuman implements ticTacToePlayer{
 
         if(cord[0]!=-1 && cord[1]!=-1){
             TicTacToe.getInstance().makeMove(logic(),playerNumber);
-            System.out.println("Player "+playerNumber+" jogou.");
             ControleUI.getInstance().getMainController().setMoveMade(true);
             if(playerNumber==1){
                 ControleUI.getInstance().getMainController().setPlayer1Turn(false);
