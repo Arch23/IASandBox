@@ -5,6 +5,7 @@
  */
 package ArvoreMinimax;
 
+import IOStream.Writer;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +21,7 @@ public class TreeGenerator {
 
     public void geraArvore(Node node, int h) {
         if (TicTacToe.getInstance().checkBoard(node.getMap(), h) == -1) {
-            node.setFilhos(geraFilhosMax(node, h));
+            node.setFilhos(geraFilhos(node, h));
             Iterator<Node> it = node.getFilhos().iterator();
             contador++;
             while (it.hasNext()) {
@@ -29,15 +30,11 @@ public class TreeGenerator {
             }
         }
         if (node.getFilhos().isEmpty()) { //Se for folha( sem filhos )
-            printMap(node.getMap());
-
             node.setUtilidade(calcUtLeaf(node.getMap(), h));
-            //   System.out.println("\n"+node.getUtilidade());
-            // System.out.print("\n\n");
         } else { //Se não for filhos
             calcUtFather(node, h);
-            System.out.println("\n" + node.getUtilidade());
         }
+        Writer.getInstance().writeNode(node);
     }
 
     public void calcUtFather(Node node, int h) {
@@ -83,7 +80,7 @@ public class TreeGenerator {
         return freeposition;
     }
 
-    private ArrayList<Node> geraFilhosMax(Node no, int h) {
+    private ArrayList<Node> geraFilhos(Node no, int h) {
         Node filho;
         ArrayList<Position> zeros = getZerosPos(no);
         ArrayList<Node> filhos = new ArrayList<>();
@@ -126,17 +123,10 @@ public class TreeGenerator {
     }
 
     public void start() {
+        Writer.getInstance().initWriter();
         height = 0;
         startAlg();
         System.out.println("Nós gerados: " + contador);
-    }
-
-    public void printMap(int[][] map) {
-        for (int i = 0; i < 3; i++) {
-            System.out.println("");
-            for (int j = 0; j < 3; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-        }
+        Writer.getInstance().closeWriter();
     }
 }
