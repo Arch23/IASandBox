@@ -26,18 +26,25 @@ public class TicTacToe {
     private ticTacToePlayer player1=null;
     private ticTacToePlayer player2=null;
     
-    private EventHandler<MouseEvent> playerClicked1;
-    private EventHandler<MouseEvent> playerClicked2;
+    private EventHandler<MouseEvent> playerClicked1=null;
+    private EventHandler<MouseEvent> playerClicked2=null;
+    
+    
     
     private TicTacToe(){}
     
     public static TicTacToe getInstance(){return(instance==null?instance=new TicTacToe():instance);}
     
     public void startGame(){
+        movesMade=0;
+        player1=null;
+        player2=null;
+        playerClicked1=null;
+        playerClicked2=null;
         clearMap();
         setPlayers();
-        movesMade=0;
         ControleUI.getInstance().getMainController().setVarTicTacToe();
+        System.out.println("NEW GAME");
     }
     
     public boolean player1Move(){
@@ -196,5 +203,10 @@ public class TicTacToe {
 
     public EventHandler<MouseEvent> getPlayerClicked2() {
         return playerClicked2;
+    }
+    
+    
+    public void deleteInstance(){
+        instance=null;
     }
 }

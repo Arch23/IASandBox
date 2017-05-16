@@ -74,18 +74,17 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initCanvas();
         bindingElements();
-        
-        canvasPane.widthProperty().addListener(e->reDraw());
-        canvasPane.heightProperty().addListener(e->reDraw());
     }
     
     @FXML
     public void newGame(){
         switch(ControleUI.getInstance().getGame()){
             case(0):{
+                TicTacToe.getInstance().deleteInstance();
                 setVarTicTacToe();
                 TicTacToe.getInstance().startGame();
                 ticTacToe();
+                
                 break;
             }
             case(1):{
@@ -115,9 +114,13 @@ public class MainController implements Initializable {
         stack.addEventHandler(KeyEvent.KEY_PRESSED, (key->spaceRestart(key)));
         
         menuBar.prefWidthProperty().bind(ControleUI.getInstance().getMainStage().widthProperty());
+        
+        canvasPane.widthProperty().addListener(e->reDraw());
+        canvasPane.heightProperty().addListener(e->reDraw());
     }
     
     private void initCanvas(){
+        canvas = null;
         canvas = new ResizableCanvas();
         canvasPane.getChildren().add(canvas);
         ControleUI.getInstance().setCanvas(canvas);
@@ -159,15 +162,11 @@ public class MainController implements Initializable {
                 if(player1Turn){
                     player1Turn=TicTacToe.getInstance().player1Move();
                     player2Turn=!player1Turn;
-                    if(!player1Turn){
-                        moveMade=true;
-                    }
+                    moveMade=!player1Turn;
                 }else if(player2Turn){
                     player2Turn=TicTacToe.getInstance().player2Move();
                     player1Turn=!player2Turn;
-                    if(!player2Turn){
-                        moveMade=true;
-                    }
+                    moveMade=!player2Turn;
                 }
             }
             switch(TicTacToe.getInstance().checkBoard()){
@@ -207,7 +206,7 @@ public class MainController implements Initializable {
     public void setVarTicTacToe(){
         gameRunning=true;
         player1Turn=true;
-        player2Turn = false;
+        player2Turn=!player1Turn;
         moveMade = false;
         text="";
         cels= new Rectangle[3][3];
@@ -215,6 +214,7 @@ public class MainController implements Initializable {
     
     public void endGame(){
         gameRunning=false;
+        
         if(TicTacToe.getInstance().getPlayerClicked1()!=null){
             canvas.removeEventHandler(MouseEvent.MOUSE_CLICKED,TicTacToe.getInstance().getPlayerClicked1());
         }
