@@ -6,7 +6,7 @@
 package ArvoreMinimax;
 
 import java.util.ArrayList;
-import static javafx.application.Application.launch;
+import java.util.Iterator;
 
 /**
  *
@@ -15,35 +15,48 @@ import static javafx.application.Application.launch;
 public class TreeGenerator {
 
     private Node arvore;
-    private static ArrayList<Position> freepositon = new ArrayList<>();
-    private int jogadormax;
+    private int jogadormax,contador,height;
 
-    public void geraArvore() {
-
+    public void geraArvore(Node node,int h) {
+        node.setFilhos(geraFilhosMax(node,h));
+        Iterator<Node> it = node.getFilhos().iterator();
+        contador++;
+        while(it.hasNext()){
+            int fH = h+1;
+            geraArvore(it.next(),fH);
+        }
+    }
+    
+    public void startAlg(){
+        setRoot();
+        geraArvore(arvore,height);
     }
 
-    public static ArrayList<Position> getZerosPos(Node no) {
+    private void setRoot(){
+        int[][] map = {{0,0,0},{0,0,0},{0,0,0}};
+        arvore = new Node(map);
+    }
+    
+    public ArrayList<Position> getZerosPos(Node no) {
+        ArrayList<Position> freeposition = new ArrayList<>();
         for (int i = 0; i < no.getMap().length; i++) {
             for (int j = 0; j < no.getMap()[i].length; j++) {
                 if (no.getMap()[i][j] == 0) {
-                    freepositon.add(new Position(i, j));
+                    freeposition.add(new Position(i, j));
                 }
             }
         }
-        return freepositon;
+        return freeposition;
     }
 
-    public static ArrayList<Node> geraFilhosMax(Node no) {
-        System.out.println("Foi");
+    public ArrayList<Node> geraFilhosMax(Node no,int h) {
         Node filho;
         ArrayList<Position> zeros = getZerosPos(no);
         ArrayList<Node> filhos = new ArrayList<>();
-        System.out.println("Teste " + zeros.size());
         for (int i = 0; i < zeros.size(); i++) {
             int map[][] = no.getMap();
-            filho = new Node();
-            map[zeros.get(i).getX()][zeros.get(i).getY()] = 1;
-            filho.setMap(map);
+            map[zeros.get(i).getX()][zeros.get(i).getY()] = (((h%2)==0)?1:2);
+            filho = new Node(map);
             filhos.add(filho);
         }
         return filhos;
@@ -62,19 +75,22 @@ public class TreeGenerator {
     }
 
     public static void main(String[] args) {
-        ArrayList<Node> teste;
-        Node no = new Node();
-        int map[][] ={{0,0,1},{1,0,1},{1,2,2}};
-        no.setMap(map);
-        teste = geraFilhosMax(no);
-        for (int aux = 0; aux < teste.size(); aux++) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    System.out.print(teste.get(aux).getMap()[i][j] + "\t");
-                }
-                System.out.println("");
-            }
+        TreeGenerator obj = new TreeGenerator();
+        obj.start();
+    }
+    
+    public void start(){
+        height=0;
+        startAlg();
+        System.out.println("Nós gerados: "+contador);
+    }
+    
+    public void printMap(int[][] map){
+        for(int i=0;i<3;i++){
             System.out.println("");
+            for(int j=0;j<3;j++){
+                System.out.print(map[i][j]+" ");
+            }
         }
     }
 }

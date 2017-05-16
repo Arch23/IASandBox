@@ -13,6 +13,11 @@ import java.util.ArrayList;
  */
 public class Node {
     private int map[][]= new int[3][3];
+    private int utilidade;
+    
+    public Node(int[][] map){
+        this.map = map;
+    }
     
     private ArrayList<Node> filhos;
 
@@ -37,7 +42,13 @@ public class Node {
     public void setFilhos(ArrayList<Node> filhos) {
         this.filhos = filhos;
     }
-  
-        
+
+    public int getUtilidade() {
+        return utilidade;
+    }
+
+    public void setUtilidade(int utilidade) {
+        this.utilidade = utilidade;
+    }
     
 }

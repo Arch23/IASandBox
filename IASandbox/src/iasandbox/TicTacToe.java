@@ -44,7 +44,6 @@ public class TicTacToe {
         clearMap();
         setPlayers();
         ControleUI.getInstance().getMainController().setVarTicTacToe();
-        System.out.println("NEW GAME");
     }
     
     public boolean player1Move(){
