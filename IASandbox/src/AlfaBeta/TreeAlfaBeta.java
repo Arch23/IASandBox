@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ArvoreMinimax;
+package AlfaBeta;
 
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
@@ -13,16 +13,16 @@ import java.util.Iterator;
  *
  * @author Gabriel
  */
-public class TreeMiniMax {
+public class TreeAlfaBeta {
 
-    private static TreeMiniMax instance;
+    private static TreeAlfaBeta instance;
     
     private Node arvore;
     private int jogadormax, contador, height;
 
-    public static TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
+    public static TreeAlfaBeta getInstance(){return((instance==null)?(instance=new TreeAlfaBeta()):instance);}
     
-    private TreeMiniMax(){
+    private TreeAlfaBeta(){
         startAlg();
     }
     

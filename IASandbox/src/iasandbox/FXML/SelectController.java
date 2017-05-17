@@ -26,9 +26,9 @@ public class SelectController implements Initializable {
     @FXML
     private Label label;
     @FXML
-    private ChoiceBox choiceGame;
+    private ChoiceBox<String> choiceGame;
     @FXML
-    private ChoiceBox choiceMetod;
+    private ChoiceBox<String> choiceMetod;
     @FXML
     private Pane metodPane;
     

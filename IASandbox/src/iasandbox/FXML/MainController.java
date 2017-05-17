@@ -99,7 +99,6 @@ public class MainController implements Initializable {
 
     @FXML
     private void changeGame() {
-        System.out.println("odin mete fogo");
         endGame();
         ControleUI.getInstance().getMainStage().hide();
         ControleUI.getInstance().mostraSelect();

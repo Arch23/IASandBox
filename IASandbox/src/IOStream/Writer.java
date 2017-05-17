@@ -37,8 +37,6 @@ public class Writer {
         File terminalNodes = new File("TerminalNodes.txt");
         try {
             terminalNodes.createNewFile();
-            System.out.println(terminalNodes.canWrite());
-            System.out.println(terminalNodes.getCanonicalPath());
             writer = new BufferedWriter(new FileWriter(terminalNodes));
 
         } catch (IOException ex) {
@@ -50,8 +48,6 @@ public class Writer {
         File terminalNodes = new File(filename);
         try {
             terminalNodes.createNewFile();
-            System.out.println(terminalNodes.canWrite());
-            System.out.println(terminalNodes.getCanonicalPath());
             writer = new BufferedWriter(new FileWriter(terminalNodes));
 
         } catch (IOException ex) {
