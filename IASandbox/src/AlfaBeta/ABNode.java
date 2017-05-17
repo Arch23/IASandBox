@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ArvoreMinimax;
+package AlfaBeta;
 
 import java.util.ArrayList;
 
@@ -11,14 +11,18 @@ import java.util.ArrayList;
  *
  * @author Gabriel
  */
-public class Node {
+public class ABNode {
     private int map[][]= new int[3][3];
     private int utilidade;
+    private int alfa,beta;
     
-    private ArrayList<Node> filhos;
     
-    public Node(int[][] map){
+    private ArrayList<ABNode> filhos;
+    
+    public ABNode(int[][] map,int a,int b){
         this.map = map;
+        alfa=a;
+        beta=b;
         filhos = new ArrayList<>();
     }
     
@@ -32,15 +36,31 @@ public class Node {
         return tempMap;
     }
 
+    public int getAlfa() {
+        return alfa;
+    }
+
+    public void setAlfa(int alfa) {
+        this.alfa = alfa;
+    }
+
+    public int getBeta() {
+        return beta;
+    }
+
+    public void setBeta(int beta) {
+        this.beta = beta;
+    }
+
     public void setMap(int[][] map) {
         this.map = map;
     }
 
-    public ArrayList<Node> getFilhos() {
+    public ArrayList<ABNode> getFilhos() {
         return filhos;
     }
 
-    public void setFilhos(ArrayList<Node> filhos) {
+    public void setFilhos(ArrayList<ABNode> filhos) {
         this.filhos = filhos;
     }
 
@@ -51,5 +71,4 @@ public class Node {
     public void setUtilidade(int utilidade) {
         this.utilidade = utilidade;
     }
-    
 }

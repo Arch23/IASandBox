@@ -5,6 +5,7 @@
  */
 package AlfaBeta;
 
+import IOStream.Writer;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,39 +18,55 @@ public class TreeAlfaBeta {
 
     private static TreeAlfaBeta instance;
     
-    private Node arvore;
-    private int jogadormax, contador, height;
-
+    private ABNode arvore;
+    private int jogadormax, contador, height,contado=0;
+    
     public static TreeAlfaBeta getInstance(){return((instance==null)?(instance=new TreeAlfaBeta()):instance);}
     
     private TreeAlfaBeta(){
         startAlg();
     }
     
-    public void geraArvore(Node node, int h) {
-        if (TicTacToe.getInstance().checkBoard(node.getMap(), h) == -1) {
-            node.setFilhos(geraFilhos(node, h));
-            Iterator<Node> it = node.getFilhos().iterator();
-            contador++;
-            while (it.hasNext()) {
-                geraArvore(it.next(),(h+1));
+    public void geraArvore(ABNode node, int h) {
+        //verifica se o jogo não acabou
+        if(TicTacToe.getInstance().checkBoard(node.getMap(), h)==-1){
+            ArrayList<ABNode> filhos = new ArrayList<>();
+            ArrayList<Position> zeros = getZerosPos(node);
+            Iterator<Position> it = zeros.iterator();
+            int indice=0;
+            while(it.hasNext()){
+                Position pos = it.next();
+                int[][] map = node.getMap();
+                map[pos.getX()][pos.y] =(((h%2)==0)?(1):(2));
+                filhos.add(new ABNode(map,node.getAlfa(),node.getBeta()));
+                
+                geraArvore(filhos.get(indice),(h+1));
+                //verificar se é max ou min
+                if((h%2)==0){
+                    //max
+                    if(filhos.get(indice).getUtilidade()>node.getAlfa()){
+                        node.setAlfa(filhos.get(indice).getUtilidade());
+                    }
+                }else{
+                    //min
+                    if(filhos.get(indice).getUtilidade()<node.getBeta()){
+                        node.setBeta(filhos.get(indice).getUtilidade());
+                    }
+                }
+                indice++;
             }
-        }
-        if (node.getFilhos().isEmpty()) { //Se for folha( sem filhos )
-            node.setUtilidade(calcUtLeaf(node.getMap(), h));
-        } else { //Se não for filhos
-            node.setUtilidade(calcUtFather(node, h));
-        }
-//        Writer.getInstance().writeNode(node,h);
+            
+        }else{
+            
+        }//nó terminal por que o jogo acabou
     }
 
-    public int calcUtFather(Node node, int h) {
+    public int calcUtFather(ABNode node, int h) {
         int aux;
         if (h % 2 == 0) {
             aux = Integer.MIN_VALUE;
             for (int i = 0; i < node.getFilhos().size(); i++) {
                 if (node.getFilhos().get(i).getUtilidade() > aux) {
-//                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
                     aux = node.getFilhos().get(i).getUtilidade();
                 }
             }
@@ -57,7 +74,6 @@ public class TreeAlfaBeta {
             aux = Integer.MAX_VALUE;
             for (int i = 0; i < node.getFilhos().size(); i++) {
                 if (node.getFilhos().get(i).getUtilidade() < aux) {
-//                    node.setUtilidade(node.getFilhos().get(i).getUtilidade());
                     aux = node.getFilhos().get(i).getUtilidade();
                 }
             }
@@ -72,10 +88,10 @@ public class TreeAlfaBeta {
 
     private void setRoot() {
         int[][] map = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-        arvore = new Node(map);
+        arvore = new ABNode(map,Integer.MIN_VALUE,Integer.MAX_VALUE);
     }
 
-    public ArrayList<Position> getZerosPos(Node no) {
+    public ArrayList<Position> getZerosPos(ABNode no) {
         ArrayList<Position> freeposition = new ArrayList<>();
         for (int i = 0; i < no.getMap().length; i++) {
             for (int j = 0; j < no.getMap()[i].length; j++) {
@@ -87,17 +103,7 @@ public class TreeAlfaBeta {
         return freeposition;
     }
 
-    private ArrayList<Node> geraFilhos(Node no, int h) {
-        Node filho;
-        ArrayList<Position> zeros = getZerosPos(no);
-        ArrayList<Node> filhos = new ArrayList<>();
-        for (int i = 0; i < zeros.size(); i++) {
-            int map[][] = no.getMap();
-            map[zeros.get(i).getX()][zeros.get(i).getY()] = (((h % 2) == 0) ? 1 : 2);
-            filho = new Node(map);
-            filhos.add(filho);
-        }
-        return filhos;
+    private ArrayList<ABNode> geraFilhos(ABNode no, int h) {
     }
 
     private int calcUtLeaf(int[][] map, int h) {
@@ -134,14 +140,14 @@ public class TreeAlfaBeta {
         return(true);
     }
     
-    public Node getNode(Node node,int[][] map){
+    public ABNode getNode(ABNode node,int[][] map){
         if(compMap(map,node.getMap())){
             return(node);
         }else{
-            Node aux =null;
-            Iterator<Node> it = node.getFilhos().iterator();
+            ABNode aux =null;
+            Iterator<ABNode> it = node.getFilhos().iterator();
             while(it.hasNext()){
-                Node n = it.next();
+                ABNode n = it.next();
                 if(containsMap(n.getMap(),map)){
                     aux = getNode(n, map);
                     if(aux!=null){
@@ -164,7 +170,7 @@ public class TreeAlfaBeta {
         this.jogadormax = jogador;
     }
 
-    public Node getArvore() {
+    public ABNode getArvore() {
         return arvore;
     }
     
@@ -177,5 +183,19 @@ public class TreeAlfaBeta {
                 System.out.print(map[i][j]+" ");
             }
         }
+    }
+    
+    public static void main(String args[]){
+        TreeAlfaBeta obj = new TreeAlfaBeta();
+        obj.start();
+    }
+    
+    
+    public void start(){
+//        Writer.getInstance().initWriter("AlfaBeta.txt");
+        contador=0;
+        startAlg();
+        System.out.println("Nós gerados: "+contador);
+//        Writer.getInstance().closeWriter();
     }
 }

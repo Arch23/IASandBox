@@ -11,13 +11,13 @@ import java.util.ArrayList;
  *
  * @author Gabriel
  */
-public class Node {
+public class MMNode {
     private int map[][]= new int[3][3];
     private int utilidade;
     
-    private ArrayList<Node> filhos;
+    private ArrayList<MMNode> filhos;
     
-    public Node(int[][] map){
+    public MMNode(int[][] map){
         this.map = map;
         filhos = new ArrayList<>();
     }
@@ -36,11 +36,11 @@ public class Node {
         this.map = map;
     }
 
-    public ArrayList<Node> getFilhos() {
+    public ArrayList<MMNode> getFilhos() {
         return filhos;
     }
 
-    public void setFilhos(ArrayList<Node> filhos) {
+    public void setFilhos(ArrayList<MMNode> filhos) {
         this.filhos = filhos;
     }
 

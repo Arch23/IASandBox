@@ -5,7 +5,8 @@
  */
 package IOStream;
 
-import ArvoreMinimax.Node;
+import AlfaBeta.ABNode;
+import ArvoreMinimax.MMNode;
 import ArvoreMinimax.TreeMiniMax;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,7 +64,7 @@ public class Writer {
         }
     }
 
-    public void writeNode(Node node, int h) {
+    public void writeNode(MMNode node, int h) {
         try {
             writer.write(newline + "" + newline + "<node>");
             if (node.getFilhos().isEmpty()) {
@@ -74,6 +75,30 @@ public class Writer {
             writeMap(node.getMap());
             writer.write(newline + "\t\t<utilidade>" + node.getUtilidade() + "<utilidade/>");
             writer.write(newline + "\t\t<height>" + h + "<height/>");
+            if (node.getFilhos().isEmpty()) {
+                writer.write(newline + "\t<leaf/>");
+            } else {
+                writer.write(newline + "\t<branc/h>");
+            }
+            writer.write(newline + "<node/>");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void writeNode(ABNode node, int h) {
+        try {
+            writer.write(newline + "" + newline + "<node>");
+            if (node.getFilhos().isEmpty()) {
+                writer.write(newline + "\t<leaf>");
+            } else {
+                writer.write(newline + "\t<branch>");
+            }
+            writeMap(node.getMap());
+            writer.write(newline + "\t\t<utilidade>" + node.getUtilidade() + "<utilidade/>");
+            writer.write(newline + "\t\t<height>" + h + "<height/>");
+            writer.write(newline + "\t\t<alfa>" + node.getAlfa() + "<alfa/>");
+            writer.write(newline + "\t\t<beta>" + node.getBeta()+ "<beta/>");
             if (node.getFilhos().isEmpty()) {
                 writer.write(newline + "\t<leaf/>");
             } else {
@@ -131,7 +156,7 @@ public class Writer {
         }
     }
 
-    public void printOptions(Node atual, ArrayList<Node> Options,int player) throws Exception {
+    public void printOptions(MMNode atual, ArrayList<MMNode> Options,int player) throws Exception {
         writer.write("Tabuleiro" + newline);
         cleanWritemap(atual.getMap());
         if(player==1){

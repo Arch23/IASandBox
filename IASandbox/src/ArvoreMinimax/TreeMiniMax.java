@@ -17,7 +17,7 @@ public class TreeMiniMax {
 
     private static TreeMiniMax instance;
     
-    private Node arvore;
+    private MMNode arvore;
     private int jogadormax, contador, height;
 
     public static TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
@@ -26,10 +26,10 @@ public class TreeMiniMax {
         startAlg();
     }
     
-    public void geraArvore(Node node, int h) {
+    public void geraArvore(MMNode node, int h) {
         if (TicTacToe.getInstance().checkBoard(node.getMap(), h) == -1) {
             node.setFilhos(geraFilhos(node, h));
-            Iterator<Node> it = node.getFilhos().iterator();
+            Iterator<MMNode> it = node.getFilhos().iterator();
             contador++;
             while (it.hasNext()) {
                 geraArvore(it.next(),(h+1));
@@ -43,7 +43,7 @@ public class TreeMiniMax {
 //        Writer.getInstance().writeNode(node,h);
     }
 
-    public int calcUtFather(Node node, int h) {
+    public int calcUtFather(MMNode node, int h) {
         int aux;
         if (h % 2 == 0) {
             aux = Integer.MIN_VALUE;
@@ -72,10 +72,10 @@ public class TreeMiniMax {
 
     private void setRoot() {
         int[][] map = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-        arvore = new Node(map);
+        arvore = new MMNode(map);
     }
 
-    public ArrayList<Position> getZerosPos(Node no) {
+    public ArrayList<Position> getZerosPos(MMNode no) {
         ArrayList<Position> freeposition = new ArrayList<>();
         for (int i = 0; i < no.getMap().length; i++) {
             for (int j = 0; j < no.getMap()[i].length; j++) {
@@ -87,14 +87,14 @@ public class TreeMiniMax {
         return freeposition;
     }
 
-    private ArrayList<Node> geraFilhos(Node no, int h) {
-        Node filho;
+    private ArrayList<MMNode> geraFilhos(MMNode no, int h) {
+        MMNode filho;
         ArrayList<Position> zeros = getZerosPos(no);
-        ArrayList<Node> filhos = new ArrayList<>();
+        ArrayList<MMNode> filhos = new ArrayList<>();
         for (int i = 0; i < zeros.size(); i++) {
             int map[][] = no.getMap();
             map[zeros.get(i).getX()][zeros.get(i).getY()] = (((h % 2) == 0) ? 1 : 2);
-            filho = new Node(map);
+            filho = new MMNode(map);
             filhos.add(filho);
         }
         return filhos;
@@ -134,14 +134,14 @@ public class TreeMiniMax {
         return(true);
     }
     
-    public Node getNode(Node node,int[][] map){
+    public MMNode getNode(MMNode node,int[][] map){
         if(compMap(map,node.getMap())){
             return(node);
         }else{
-            Node aux =null;
-            Iterator<Node> it = node.getFilhos().iterator();
+            MMNode aux =null;
+            Iterator<MMNode> it = node.getFilhos().iterator();
             while(it.hasNext()){
-                Node n = it.next();
+                MMNode n = it.next();
                 if(containsMap(n.getMap(),map)){
                     aux = getNode(n, map);
                     if(aux!=null){
@@ -164,7 +164,7 @@ public class TreeMiniMax {
         this.jogadormax = jogador;
     }
 
-    public Node getArvore() {
+    public MMNode getArvore() {
         return arvore;
     }
     

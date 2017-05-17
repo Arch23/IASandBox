@@ -5,7 +5,7 @@
  */
 package iasandbox.TicTacToePackage;
 
-import ArvoreMinimax.Node;
+import ArvoreMinimax.MMNode;
 import ArvoreMinimax.TreeMiniMax;
 import IOStream.Writer;
 import iasandbox.TicTacToe;
@@ -20,7 +20,7 @@ import java.util.Random;
 public class TicTacToeMiniMax implements ticTacToePlayer {
 
     private int player;
-    private Node atual;
+    private MMNode atual;
     private Random rand = new Random();
     private double level = 1;
 
@@ -42,7 +42,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             atual = TreeMiniMax.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
             
         }
-        ArrayList<Node> options = getOptions();
+        ArrayList<MMNode> options = getOptions();
         try{
         Writer.getInstance().printOptions(atual,options,player);
         }
@@ -71,18 +71,18 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
 //        }
 //        return(null);
 //    }
-    private ArrayList<Node> getOptions() {
-        ArrayList<Node> res = new ArrayList<>();
+    private ArrayList<MMNode> getOptions() {
+        ArrayList<MMNode> res = new ArrayList<>();
         double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
         if (player == 1) {
             //jogador MAX
             //achar o maior valor entre os filhos
-            Iterator<Node> it = atual.getFilhos().iterator();
+            Iterator<MMNode> it = atual.getFilhos().iterator();
 
             if (dif < level) {
                 int max = Integer.MIN_VALUE;
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (max < tmp.getUtilidade()) {
                         max = tmp.getUtilidade();
                     }
@@ -90,7 +90,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 //pegar todos os nós com a utilidade máxima
                 it = atual.getFilhos().iterator();
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (tmp.getUtilidade() == max) {
                         res.add(tmp);
                     }
@@ -98,7 +98,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             } else {
                 int min = Integer.MAX_VALUE;
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (min > tmp.getUtilidade()) {
                         min = tmp.getUtilidade();
                     }
@@ -106,7 +106,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 //pegar todos os nós com a utilidade mínima
                 it = atual.getFilhos().iterator();
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (tmp.getUtilidade() == min) {
                         res.add(tmp);
                     }
@@ -115,11 +115,11 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         } else {
             //jogador MIN
             //achar o maior valor entre os filhos
-            Iterator<Node> it = atual.getFilhos().iterator();
+            Iterator<MMNode> it = atual.getFilhos().iterator();
             if (dif < level) {
                 int min = Integer.MAX_VALUE;
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (min > tmp.getUtilidade()) {
                         min = tmp.getUtilidade();
                     }
@@ -127,7 +127,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 //pegar todos os nós com a utilidade mínima
                 it = atual.getFilhos().iterator();
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (tmp.getUtilidade() == min) {
                         res.add(tmp);
                     }
@@ -135,7 +135,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             } else {
                 int max = Integer.MIN_VALUE;
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (max < tmp.getUtilidade()) {
                         max = tmp.getUtilidade();
                     }
@@ -143,7 +143,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 //pegar todos os nós com a utilidade máxima
                 it = atual.getFilhos().iterator();
                 while (it.hasNext()) {
-                    Node tmp = it.next();
+                    MMNode tmp = it.next();
                     if (tmp.getUtilidade() == max) {
                         res.add(tmp);
                     }
