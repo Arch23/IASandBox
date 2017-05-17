@@ -7,6 +7,7 @@ package iasandbox.TicTacToePackage;
 
 import ArvoreMinimax.Node;
 import ArvoreMinimax.TreeMiniMax;
+import IOStream.Writer;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,12 +22,13 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
     private int player;
     private Node atual;
     private Random rand = new Random();
-    private double level =1;
+    private double level = 1;
 
-    public TicTacToeMiniMax(int number,double level) {
+    public TicTacToeMiniMax(int number, double level) {
+        Writer.getInstance().initWriter("testeops.txt");
         player = number;
         atual = null;
-        this.level=level;
+        this.level = level;
     }
 
     @Override
@@ -38,9 +40,15 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         } else {//se não for o primeiro movimento dele
 //          //procura o proximo apenas nos filhos do estado anterios
             atual = TreeMiniMax.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
+            
         }
-
         ArrayList<Node> options = getOptions();
+        try{
+        Writer.getInstance().printOptions(atual,options,player);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
         int randomNum = (rand.nextInt(options.size()));
         int[] move = move(atual.getMap(), options.get(randomNum).getMap());
@@ -65,13 +73,13 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
 //    }
     private ArrayList<Node> getOptions() {
         ArrayList<Node> res = new ArrayList<>();
-        double dif = (rand.nextDouble()*(1 - 0.1 )+0.1);
+        double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
         if (player == 1) {
             //jogador MAX
             //achar o maior valor entre os filhos
             Iterator<Node> it = atual.getFilhos().iterator();
-            
-            if (dif <level) {
+
+            if (dif < level) {
                 int max = Integer.MIN_VALUE;
                 while (it.hasNext()) {
                     Node tmp = it.next();
@@ -108,7 +116,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             //jogador MIN
             //achar o maior valor entre os filhos
             Iterator<Node> it = atual.getFilhos().iterator();
-            if(dif<level){
+            if (dif < level) {
                 int min = Integer.MAX_VALUE;
                 while (it.hasNext()) {
                     Node tmp = it.next();
@@ -124,7 +132,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                         res.add(tmp);
                     }
                 }
-            }else{
+            } else {
                 int max = Integer.MIN_VALUE;
                 while (it.hasNext()) {
                     Node tmp = it.next();

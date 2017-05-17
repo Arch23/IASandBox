@@ -5,6 +5,7 @@
  */
 package iasandbox.FXML;
 
+import IOStream.Writer;
 import iasandbox.ControleUI;
 import iasandbox.ResizableCanvas;
 import iasandbox.TicTacToe;
@@ -293,7 +294,7 @@ public class MainController implements Initializable {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                double x1 = (w1 + (wCel * i)), y1 = (h1 + (hCel * j)), x2 = (w1 + (wCel * (i + 1))), y2 = (h1 + (hCel * (j + 1)));
+                double x1 = (w1 + (wCel * j)), y1 = (h1 + (hCel * i)), x2 = (w1 + (wCel * (j + 1))), y2 = (h1 + (hCel * (i + 1)));
                 cels[i][j] = new Rectangle(x1, y1, (x2 - x1), (y2 - y1));
             }
         }
@@ -303,7 +304,7 @@ public class MainController implements Initializable {
         GC.setLineWidth(6);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                switch (TicTacToe.getInstance().getMap()[i][j]) {
+                switch (TicTacToe.getInstance().getMap()[j][i]) {
                     case (1): {
                         GC.setStroke(Color.LIGHTBLUE);
                         double x1 = ((wCel * i) + (wCel * 0.2) + w1),
