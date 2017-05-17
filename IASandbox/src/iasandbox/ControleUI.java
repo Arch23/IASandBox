@@ -5,6 +5,7 @@
  */
 package iasandbox;
 
+import ArvoreMinimax.TreeMiniMax;
 import iasandbox.FXML.MainController;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -31,10 +32,12 @@ public final class ControleUI{
     private Parent selectParent;
     private Parent mainStageParent;
     private Parent playersParent;
+    private Parent loadingParent;
     
     private Scene selectScene;
     private Scene mainStageScene;
     private Scene playersScene;
+    private Scene loadingScene;
     
     private MainController mainController;
     private FXMLLoader mainLoader;
@@ -81,6 +84,10 @@ public final class ControleUI{
     
     public void mostraMain(){
         try{
+            if(game==0 && ((player1==1)||(player2==1))){
+                //gera a árvore
+                TreeMiniMax.getInstance();
+            }
             mainLoader = new FXMLLoader(getClass().getResource("FXML/Main.fxml"));
             mainStageParent = mainLoader.load();
             mainStageScene = new Scene(mainStageParent);

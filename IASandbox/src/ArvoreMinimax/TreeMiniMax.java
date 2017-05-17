@@ -16,12 +16,12 @@ import java.util.Iterator;
  */
 public class TreeMiniMax {
 
-    private TreeMiniMax instance;
+    private static TreeMiniMax instance;
     
     private Node arvore;
     private int jogadormax, contador, height;
 
-    public TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
+    public static TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
     
     private TreeMiniMax(){
         startAlg();
@@ -41,7 +41,7 @@ public class TreeMiniMax {
         } else { //Se não for filhos
             node.setUtilidade(calcUtFather(node, h));
         }
-        Writer.getInstance().writeNode(node,h);
+//        Writer.getInstance().writeNode(node,h);
     }
 
     public int calcUtFather(Node node, int h) {
@@ -137,7 +137,6 @@ public class TreeMiniMax {
     
     public Node getNode(Node node,int[][] map){
         if(compMap(map,node.getMap())){
-            System.out.println("Encontrou!");
             return(node);
         }else{
             Node aux =null;
@@ -169,21 +168,8 @@ public class TreeMiniMax {
     public Node getArvore() {
         return arvore;
     }
-
-    public static void main(String[] args) {
-        
-        TreeMiniMax obj = new TreeMiniMax();
-        obj.start();
-        
-        int[][] map={{1,2,1},{1,2,0},{1,0,2}};
-        Node res=obj.getNode(obj.arvore, map);
-        System.out.println("Objeto que contém o mapa: "+res);
-        obj.printTree(map);
-        if(res!=null){
-            obj.printTree(res.getMap());
-        }
-    }
     
+    //Para debug APAGAR DEPOIS    
     public void printTree(int[][] map){
         System.out.println("");
         for(int i=0;i<3;i++){
@@ -192,12 +178,5 @@ public class TreeMiniMax {
                 System.out.print(map[i][j]+" ");
             }
         }
-    }
-
-    public void start() {
-//        Writer.getInstance().initWriter();
-        height = 0;
-        startAlg();
-//        Writer.getInstance().closeWriter();
     }
 }

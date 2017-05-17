@@ -171,7 +171,7 @@ public class TicTacToe {
                 break;
             }
             case(1):{
-                player1 = new TicTacToeMiniMax();
+                player1 = new TicTacToeMiniMax(1);
                 break;
             }
             case(2):{
@@ -185,7 +185,7 @@ public class TicTacToe {
                 break;
             }
             case(1):{
-                player2 = new TicTacToeMiniMax();
+                player2 = new TicTacToeMiniMax(2);
                 break;
             }
             case(2):{
