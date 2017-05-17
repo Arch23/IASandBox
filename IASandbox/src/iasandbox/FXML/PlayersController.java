@@ -69,6 +69,18 @@ public class PlayersController implements Initializable {
         choicePlayer2.setItems(FXCollections.observableArrayList(playerOptions));
         choicePlayer1.setValue(playerOptions[0]);
         choicePlayer2.setValue(playerOptions[0]);
+        choicePlayer1.valueProperty().addListener(listener ->adjustSlider(Dificuldade,choicePlayer1));
+        choicePlayer2.valueProperty().addListener(listener->adjustSlider(Dificuldade2,choicePlayer2));
+        Dificuldade.setDisable(true);
+        Dificuldade2.setDisable(true);
+    }
+
+    private void adjustSlider(Slider player,ChoiceBox playerbox) {
+        if (playerbox.getValue().equals("Human")) {
+            player.setDisable(true);
+        } else {
+            player.setDisable(false);
+        }
     }
 
     public Slider getDificuldade() {
