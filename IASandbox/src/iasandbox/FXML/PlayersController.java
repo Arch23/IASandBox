@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 
 /**
  * FXML Controller class
@@ -20,16 +21,20 @@ import javafx.scene.control.ChoiceBox;
  * @author noda2
  */
 public class PlayersController implements Initializable {
-    
+
     @FXML
     private ChoiceBox<String> choicePlayer1;
     @FXML
     private ChoiceBox<String> choicePlayer2;
     @FXML
     private Button start;
-    
-    private String[] playerOptions={"Human","MiniMax","Poda Alfa-Beta"};
-    
+    @FXML
+    private Slider Dificuldade;
+    @FXML
+    private Slider Dificuldade2;
+
+    private String[] playerOptions = {"Human", "MiniMax", "Poda Alfa-Beta"};
+
     /**
      * Initializes the controller class.
      */
@@ -37,32 +42,41 @@ public class PlayersController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         initChoiceBox();
-    }    
-    
+    }
+
     @FXML
-    private void saveOptions(){
-        if(choicePlayer1.getValue().equals(playerOptions[0])){
+    private void saveOptions() {
+        if (choicePlayer1.getValue().equals(playerOptions[0])) {
             ControleUI.getInstance().setPlayer1(0);
-        }else if(choicePlayer1.getValue().equals(playerOptions[1])){
+        } else if (choicePlayer1.getValue().equals(playerOptions[1])) {
             ControleUI.getInstance().setPlayer1(1);
-        }else{
+        } else {
             ControleUI.getInstance().setPlayer1(2);
         }
-        if(choicePlayer2.getValue().equals(playerOptions[0])){
+        if (choicePlayer2.getValue().equals(playerOptions[0])) {
             ControleUI.getInstance().setPlayer2(0);
-        }else if(choicePlayer2.getValue().equals(playerOptions[1])){
+        } else if (choicePlayer2.getValue().equals(playerOptions[1])) {
             ControleUI.getInstance().setPlayer2(1);
-        }else{
+        } else {
             ControleUI.getInstance().setPlayer2(2);
         }
         ControleUI.getInstance().mostraMain();
         ControleUI.getInstance().getPlayersStage().hide();
     }
-    
-    private void initChoiceBox(){
+
+    private void initChoiceBox() {
         choicePlayer1.setItems(FXCollections.observableArrayList(playerOptions));
         choicePlayer2.setItems(FXCollections.observableArrayList(playerOptions));
         choicePlayer1.setValue(playerOptions[0]);
         choicePlayer2.setValue(playerOptions[0]);
     }
+
+    public Slider getDificuldade() {
+        return Dificuldade;
+    }
+
+    public Slider getDificuldade2() {
+        return Dificuldade2;
+    }
+
 }

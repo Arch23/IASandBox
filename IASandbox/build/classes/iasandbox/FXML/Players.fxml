@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -20,6 +21,18 @@
             <Label layoutX="54.0" text="Player 2" />
          </children>
       </Pane>
-      <Button fx:id="start" layoutX="264.0" layoutY="188.0" mnemonicParsing="false" onAction="#saveOptions" text="start game" />
+      <Button fx:id="start" layoutX="259.0" layoutY="298.0" mnemonicParsing="false" onAction="#saveOptions" text="start game" />
+      <Pane layoutX="225.0" layoutY="171.0">
+         <children>
+            <Slider fx:id="Dificuldade" layoutY="17.0" majorTickUnit="1.0" max="10.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+            <Label layoutX="6.0" text="Dificuldade Player 1" />
+         </children>
+      </Pane>
+      <Pane layoutX="225.0" layoutY="226.0">
+         <children>
+            <Label layoutX="2.0" prefHeight="17.0" prefWidth="105.0" text="Dificuldade Player 2" />
+            <Slider fx:id="Dificuldade2" layoutY="17.0" majorTickUnit="1.0" max="10.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

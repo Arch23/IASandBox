@@ -171,7 +171,8 @@ public class TicTacToe {
                 break;
             }
             case(1):{
-                player1 = new TicTacToeMiniMax(1);
+                player1 = new TicTacToeMiniMax(1,ControleUI.getInstance().getPlayersController().getDificuldade()
+                .getValue()/10);
                 break;
             }
             case(2):{
@@ -185,7 +186,8 @@ public class TicTacToe {
                 break;
             }
             case(1):{
-                player2 = new TicTacToeMiniMax(2);
+                player2 = new TicTacToeMiniMax(2,ControleUI.getInstance().getPlayersController().getDificuldade2()
+                .getValue()/10);
                 break;
             }
             case(2):{

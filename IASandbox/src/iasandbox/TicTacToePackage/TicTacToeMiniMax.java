@@ -21,11 +21,12 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
     private int player;
     private Node atual;
     private Random rand = new Random();
-    private double level = 0;
+    private double level =1;
 
-    public TicTacToeMiniMax(int number) {
+    public TicTacToeMiniMax(int number,double level) {
         player = number;
         atual = null;
+        this.level=level;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             //achar o maior valor entre os filhos
             Iterator<Node> it = atual.getFilhos().iterator();
             
-            if (dif > level) {
+            if (dif <level) {
                 int max = Integer.MIN_VALUE;
                 while (it.hasNext()) {
                     Node tmp = it.next();
@@ -107,7 +108,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
             //jogador MIN
             //achar o maior valor entre os filhos
             Iterator<Node> it = atual.getFilhos().iterator();
-            if(dif>level){
+            if(dif<level){
                 int min = Integer.MAX_VALUE;
                 while (it.hasNext()) {
                     Node tmp = it.next();

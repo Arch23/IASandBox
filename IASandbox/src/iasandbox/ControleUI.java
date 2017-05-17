@@ -7,6 +7,7 @@ package iasandbox;
 
 import ArvoreMinimax.TreeMiniMax;
 import iasandbox.FXML.MainController;
+import iasandbox.FXML.PlayersController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,49 +18,53 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
  *
  * @author noda2
  */
-public final class ControleUI{
+public final class ControleUI {
 
     private static ControleUI instance = null;
     private Stage select;
     private Stage mainStage;
     private Stage playersStage;
-    
+
     private Parent selectParent;
     private Parent mainStageParent;
     private Parent playersParent;
     private Parent loadingParent;
-    
+
     private Scene selectScene;
     private Scene mainStageScene;
     private Scene playersScene;
     private Scene loadingScene;
-    
+
     private MainController mainController;
+    private PlayersController playersController;
     private FXMLLoader mainLoader;
-    
+    private FXMLLoader playersLoader;
+
     private ResizableCanvas canvas;
-    
-    private int game=0;
-    private int metod=0;
-    
-    private int player1=0;
-    private int player2=0;
-    
-    private ControleUI() {}
-    
-    public static ControleUI getInstance(){return((instance==null)?instance=new ControleUI():instance);}
-    
-    public void start(Stage primaryStage){
+
+    private int game = 0;
+    private int metod = 0;
+
+    private int player1 = 0;
+    private int player2 = 0;
+
+    private ControleUI() {
+    }
+
+    public static ControleUI getInstance() {
+        return ((instance == null) ? instance = new ControleUI() : instance);
+    }
+
+    public void start(Stage primaryStage) {
         //init stages
         select = new Stage();
         mainStage = new Stage();
         playersStage = new Stage();
-        
+
         mostraSelect();
     }
 
@@ -81,10 +86,10 @@ public final class ControleUI{
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void mostraMain(){
-        try{
-            if(game==0 && ((player1==1)||(player2==1))){
+
+    public void mostraMain() {
+        try {
+            if (game == 0 && ((player1 == 1) || (player2 == 1))) {
                 //gera a árvore
                 TreeMiniMax.getInstance();
             }
@@ -101,19 +106,21 @@ public final class ControleUI{
             );
             mainStage.show();
             mainController.newGame();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void mostraPlayers(){
-        try{
-            playersParent = FXMLLoader.load(getClass().getResource("FXML/Players.fxml"));
+
+    public void mostraPlayers() {
+        try {
+            playersLoader = new FXMLLoader(getClass().getResource("FXML/Players.fxml"));
+            playersParent = playersLoader.load();
             playersScene = new Scene(playersParent);
+            playersController=playersLoader.getController();
             playersStage.setScene(playersScene);
             playersStage.setTitle("AI SandBox");
             playersStage.show();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -121,6 +128,11 @@ public final class ControleUI{
     public MainController getMainController() {
         return mainController;
     }
+
+    public PlayersController getPlayersController() {
+        return playersController;
+    }
+    
 
     public ResizableCanvas getCanvas() {
         return canvas;
@@ -137,7 +149,7 @@ public final class ControleUI{
     public Stage getPlayersStage() {
         return playersStage;
     }
-    
+
     public int getPlayer1() {
         return player1;
     }
@@ -153,11 +165,11 @@ public final class ControleUI{
     public void setPlayer2(int player2) {
         this.player2 = player2;
     }
-    
+
     public Stage getMainStage() {
         return mainStage;
     }
-    
+
     public int getGame() {
         return game;
     }
