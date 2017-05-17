@@ -8,6 +8,7 @@ package iasandbox;
 import iasandbox.TicTacToePackage.TicTacToeHuman;
 import iasandbox.TicTacToePackage.TicTacToeMiniMax;
 import iasandbox.TicTacToePackage.TicTacToePoda;
+import iasandbox.TicTacToePackage.TicTacToeRules;
 import iasandbox.TicTacToePackage.ticTacToePlayer;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -179,6 +180,10 @@ public class TicTacToe {
                 player1 = new TicTacToePoda();
                 break;
             }
+            case(3):{
+                player1=new TicTacToeRules(1);
+                break;
+            }
         }
         switch(ControleUI.getInstance().getPlayer2()){
             case(0):{
@@ -192,6 +197,10 @@ public class TicTacToe {
             }
             case(2):{
                 player2 = new TicTacToePoda();
+                break;
+            }
+            case(3):{
+                player2= new TicTacToeRules(2);
                 break;
             }
         }

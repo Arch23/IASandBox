@@ -33,7 +33,7 @@ public class PlayersController implements Initializable {
     @FXML
     private Slider Dificuldade2;
 
-    private String[] playerOptions = {"Human", "MiniMax", "Poda Alfa-Beta"};
+    private String[] playerOptions = {"Human", "MiniMax", "Poda Alfa-Beta", "SBR"};
 
     /**
      * Initializes the controller class.
@@ -50,6 +50,8 @@ public class PlayersController implements Initializable {
             ControleUI.getInstance().setPlayer1(0);
         } else if (choicePlayer1.getValue().equals(playerOptions[1])) {
             ControleUI.getInstance().setPlayer1(1);
+        } else if (choicePlayer1.getValue().equals(playerOptions[3])) {
+            ControleUI.getInstance().setPlayer1(3);
         } else {
             ControleUI.getInstance().setPlayer1(2);
         }
@@ -57,11 +59,16 @@ public class PlayersController implements Initializable {
             ControleUI.getInstance().setPlayer2(0);
         } else if (choicePlayer2.getValue().equals(playerOptions[1])) {
             ControleUI.getInstance().setPlayer2(1);
+        } else if (choicePlayer2.getValue().equals(playerOptions[3])) {
+            ControleUI.getInstance().setPlayer2(3);
         } else {
             ControleUI.getInstance().setPlayer2(2);
         }
-        ControleUI.getInstance().mostraMain();
-        ControleUI.getInstance().getPlayersStage().hide();
+
+        ControleUI.getInstance()
+                .mostraMain();
+        ControleUI.getInstance()
+                .getPlayersStage().hide();
     }
 
     private void initChoiceBox() {
@@ -69,13 +76,13 @@ public class PlayersController implements Initializable {
         choicePlayer2.setItems(FXCollections.observableArrayList(playerOptions));
         choicePlayer1.setValue(playerOptions[0]);
         choicePlayer2.setValue(playerOptions[0]);
-        choicePlayer1.valueProperty().addListener(listener ->adjustSlider(Dificuldade,choicePlayer1));
-        choicePlayer2.valueProperty().addListener(listener->adjustSlider(Dificuldade2,choicePlayer2));
+        choicePlayer1.valueProperty().addListener(listener -> adjustSlider(Dificuldade, choicePlayer1));
+        choicePlayer2.valueProperty().addListener(listener -> adjustSlider(Dificuldade2, choicePlayer2));
         Dificuldade.setDisable(true);
         Dificuldade2.setDisable(true);
     }
 
-    private void adjustSlider(Slider player,ChoiceBox playerbox) {
+    private void adjustSlider(Slider player, ChoiceBox playerbox) {
         if (playerbox.getValue().equals("Human")) {
             player.setDisable(true);
         } else {
