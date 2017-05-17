@@ -53,6 +53,9 @@ public class TreeAlfaBeta {
                         node.setBeta(filhos.get(indice).getUtilidade());
                     }
                 }
+//                if(){
+//                
+//                }
                 indice++;
             }
             
@@ -101,9 +104,6 @@ public class TreeAlfaBeta {
             }
         }
         return freeposition;
-    }
-
-    private ArrayList<ABNode> geraFilhos(ABNode no, int h) {
     }
 
     private int calcUtLeaf(int[][] map, int h) {

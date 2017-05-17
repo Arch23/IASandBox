@@ -177,7 +177,8 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player1 = new TicTacToePoda();
+                player1 = new TicTacToePoda(1,ControleUI.getInstance().getPlayersController().getDificuldade()
+                .getValue()/10);
                 break;
             }
             case(3):{
@@ -196,7 +197,8 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player2 = new TicTacToePoda();
+                player2 = new TicTacToePoda(2,ControleUI.getInstance().getPlayersController().getDificuldade2()
+                .getValue()/10);
                 break;
             }
             case(3):{
