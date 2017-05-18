@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package iasandbox.TicTacToePackage;
-
-import iasandbox.ControleUI;
 import iasandbox.TicTacToe;
 import javafx.scene.input.MouseEvent;
 
@@ -15,14 +13,31 @@ import javafx.scene.input.MouseEvent;
  */
 public class TicTacToeHuman implements ticTacToePlayer{
     
+    /*
+        Var
+    */
     private int[] cord = new int[2];
     private int playerNumber=0;
+    /*
+        End var
+    */
     
+    /*
+        constructor
+    */
     public TicTacToeHuman(int number){
         playerNumber=number;
         setUpPlayer();
     }
+    /*
+        End constructor
+    */
     
+    /*
+        Methods
+    */
+    
+    //Método para mandar a resposta de volta
     @Override
     public int[] logic() {
         return(cord);
@@ -39,7 +54,7 @@ public class TicTacToeHuman implements ticTacToePlayer{
         
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(ControleUI.getInstance().getMainController().getCels()[i][j].contains(click.getSceneX(),click.getSceneY())){
+                if(TicTacToe.getInstance().getCels()[i][j].contains(click.getSceneX(),click.getSceneY())){
                     cord[0]=i;
                     cord[1]=j;
                 }
@@ -49,16 +64,20 @@ public class TicTacToeHuman implements ticTacToePlayer{
         if(cord[0]!=-1 && cord[1]!=-1){
             if(TicTacToe.getInstance().getMap()[cord[0]][cord[1]]==0){
                 TicTacToe.getInstance().makeMove(logic(),playerNumber);
-                ControleUI.getInstance().getMainController().setMoveMade(true);
+                TicTacToe.getInstance().setMoveMade(true);
                 if(playerNumber==1){
-                    ControleUI.getInstance().getMainController().setPlayer1Turn(false);
-                    ControleUI.getInstance().getMainController().setPlayer2Turn(true);
+                    TicTacToe.getInstance().setPlayer1Turn(false);
+                    TicTacToe.getInstance().setPlayer2Turn(true);
                 }else{
-                    ControleUI.getInstance().getMainController().setPlayer2Turn(false);
-                    ControleUI.getInstance().getMainController().setPlayer1Turn(true);
+                    TicTacToe.getInstance().setPlayer2Turn(false);
+                    TicTacToe.getInstance().setPlayer1Turn(true);
                 }
-                ControleUI.getInstance().getMainController().ticTacToe();
+                TicTacToe.getInstance().ticTacToe();
             }
         }
     }
+    
+    /*
+        End Methods
+    */
 }
