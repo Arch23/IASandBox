@@ -85,7 +85,7 @@ public class Writer {
             ex.printStackTrace();
         }
     }
-    
+
     public void writeNode(ABNode node, int h) {
         try {
             writer.write(newline + "" + newline + "<node>");
@@ -98,7 +98,7 @@ public class Writer {
             writer.write(newline + "\t\t<utilidade>" + node.getUtilidade() + "<utilidade/>");
             writer.write(newline + "\t\t<height>" + h + "<height/>");
             writer.write(newline + "\t\t<alfa>" + node.getAlfa() + "<alfa/>");
-            writer.write(newline + "\t\t<beta>" + node.getBeta()+ "<beta/>");
+            writer.write(newline + "\t\t<beta>" + node.getBeta() + "<beta/>");
             if (node.getFilhos().isEmpty()) {
                 writer.write(newline + "\t<leaf/>");
             } else {
@@ -156,13 +156,13 @@ public class Writer {
         }
     }
 
-    public void printOptions(MMNode atual, ArrayList<MMNode> Options,int player) throws Exception {
+    public void printOptions(MMNode atual, ArrayList<MMNode> Options, int player) throws Exception {
         writer.write("Tabuleiro" + newline);
         cleanWritemap(atual.getMap());
-        if(player==1){
-        writer.write(newline+"Opções de jogadas do Max" + newline);
-         }else{
-            writer.write(newline+"Opções de jogadas do Min"+newline);
+        if (player == 1) {
+            writer.write(newline + "Opções de jogadas do Max" + newline);
+        } else {
+            writer.write(newline + "Opções de jogadas do Min" + newline);
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < Options.size(); j++) {
@@ -171,7 +171,25 @@ public class Writer {
             writer.write(newline);
         }
         writer.write(newline);
-        writer.write("__________________________________________________________"+newline);
+        writer.write("__________________________________________________________" + newline);
+    }
+
+    public void printOptions(ABNode atual, ArrayList<ABNode> Options, int player) throws Exception {
+        writer.write("Tabuleiro" + newline);
+        cleanWritemap(atual.getMap());
+        if (player == 1) {
+            writer.write(newline + "Opções de jogadas do Poda Max" + newline);
+        } else {
+            writer.write(newline + "Opções de jogadas do Poda Min" + newline);
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < Options.size(); j++) {
+                writeLineMap(Options.get(j).getMap(), i);
+            }
+            writer.write(newline);
+        }
+        writer.write(newline);
+        writer.write("__________________________________________________________" + newline);
 
     }
 }

@@ -25,7 +25,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
     private double level = 1;
 
     public TicTacToeMiniMax(int number, double level) {
-        Writer.getInstance().initWriter("testeops.txt");
+        Writer.getInstance().initWriter("Log_MinMax.txt");
         player = number;
         atual = null;
         this.level = level;
@@ -48,9 +48,12 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        long ini=System.nanoTime();
         int randomNum = (rand.nextInt(options.size()));
         int[] move = move(atual.getMap(), options.get(randomNum).getMap());
+        long fim=System.nanoTime();
+        Benchmark.Benchmark.getInstance().getInstance().calcTempoTopadaDecisaoTot(ini, fim);
+        System.out.println("Tempo da Escolha"+Benchmark.Benchmark.getInstance().getTempoTomadaDecisaoTot());
 
         if (move == null) {
             System.err.println("ERROOOOOOOOOO!");
@@ -208,7 +211,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         }
         long fim=System.nanoTime();
         Benchmark.Benchmark.getInstance().calctempAchaDecisoes(ini, fim);
-        System.out.println("Tomada de Decisao:"+Benchmark.Benchmark.getInstance().getTempoAchaDecisoes());
+        System.out.println("Verificação de decisões:"+Benchmark.Benchmark.getInstance().getTempoAchaDecisoes());
         return (res);
     }
 
