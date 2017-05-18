@@ -10,8 +10,8 @@ package ArvoreMinimax;
  * @author Gabriel
  */
 public class Position {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
     public int getX() {
         return x;

@@ -17,15 +17,15 @@ import java.util.Random;
  *
  * @author noda2
  */
-public class TicTacToePoda implements ticTacToePlayer{
+public class TicTacToeAlfaBeta implements ticTacToePlayer{
 
     private int player;
     private ABNode atual;
     private Random rand = new Random();
     private double level = 1;
 
-    public TicTacToePoda(int number, double level) {
-        Writer.getInstance().initWriter("testeops.txt");
+    public TicTacToeAlfaBeta(int number, double level) {
+//        Writer.getInstance().initWriter("testeops.txt");
         player = number;
         atual = null;
         this.level = level;
@@ -40,12 +40,20 @@ public class TicTacToePoda implements ticTacToePlayer{
         } else {//se não for o primeiro movimento dele
 //          //procura o proximo apenas nos filhos do estado anterios
             atual = TreeAlfaBeta.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
+//            atual=TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
+            if(atual==null){
+                //outro jogador fez movimento inesperado
+                atual = TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
+                System.out.println("gerou outra árvore");
+                //teve que gerar outra árvore baseada no nó atual
+            }
             
         }
-        if(atual==null){
-            System.err.println("ERROOOOOOOOOO! ERRO NA ARVORE");
-        }
-        TreeAlfaBeta.getInstance().printTree(TicTacToe.getInstance().getMap());
+
+        //teste
+        System.out.println("size filhos: "+atual.getFilhos().size());
+        
+        
         ArrayList<ABNode> options = getOptions();
         try{
 //        Writer.getInstance().printOptions(atual,options,player);
@@ -60,6 +68,8 @@ public class TicTacToePoda implements ticTacToePlayer{
         if (move == null) {
             System.err.println("ERROOOOOOOOOO!");
         }
+        
+        System.out.println("move: "+move[0]+" "+move[1]);
         return (move);
     }
 
@@ -78,6 +88,7 @@ public class TicTacToePoda implements ticTacToePlayer{
     private ArrayList<ABNode> getOptions() {
         ArrayList<ABNode> res = new ArrayList<>();
         double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
+        level=10;
         if (player == 1) {
             //jogador MAX
             //achar o maior valor entre os filhos

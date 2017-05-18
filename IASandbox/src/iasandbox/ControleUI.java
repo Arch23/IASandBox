@@ -92,6 +92,8 @@ public final class ControleUI {
             if (game == 0 && ((player1 == 1) || (player2 == 1))) {
                 //gera a árvore
                 TreeMiniMax.getInstance();
+            }else if((game==0) && (player1 == 2) || (player2 == 2)){
+                TreeMiniMax.getInstance();
             }
             mainLoader = new FXMLLoader(getClass().getResource("FXML/Main.fxml"));
             mainStageParent = mainLoader.load();

@@ -7,7 +7,7 @@ package iasandbox;
 
 import iasandbox.TicTacToePackage.TicTacToeHuman;
 import iasandbox.TicTacToePackage.TicTacToeMiniMax;
-import iasandbox.TicTacToePackage.TicTacToePoda;
+import iasandbox.TicTacToePackage.TicTacToeAlfaBeta;
 import iasandbox.TicTacToePackage.TicTacToeRules;
 import iasandbox.TicTacToePackage.ticTacToePlayer;
 import javafx.event.EventHandler;
@@ -49,6 +49,9 @@ public class TicTacToe {
     
     public boolean player1Move(){
         if(!player1.getClass().equals(TicTacToeHuman.class)){
+            if(playerClicked2!=null){
+                ControleUI.getInstance().getCanvas().removeEventHandler(MouseEvent.MOUSE_CLICKED, playerClicked2);
+            }
             int[] mov = player1.logic();
             return(makeMove(mov,1));
         }else{
@@ -64,10 +67,14 @@ public class TicTacToe {
             ControleUI.getInstance().getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, playerClicked1);
             return(true);
         }
+        
     }
     
     public boolean player2Move(){
         if(!player2.getClass().equals(TicTacToeHuman.class)){
+            if(playerClicked1!=null){
+                ControleUI.getInstance().getCanvas().removeEventHandler(MouseEvent.MOUSE_CLICKED, playerClicked1);
+            }
             int[] mov = player2.logic();
             return(makeMove(mov,2));
         }else{
@@ -177,7 +184,7 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player1 = new TicTacToePoda(1,ControleUI.getInstance().getPlayersController().getDificuldade()
+                player1 = new TicTacToeAlfaBeta(1,ControleUI.getInstance().getPlayersController().getDificuldade()
                 .getValue()/10);
                 break;
             }
@@ -197,7 +204,7 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player2 = new TicTacToePoda(2,ControleUI.getInstance().getPlayersController().getDificuldade2()
+                player2 = new TicTacToeAlfaBeta(2,ControleUI.getInstance().getPlayersController().getDificuldade2()
                 .getValue()/10);
                 break;
             }
