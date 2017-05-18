@@ -16,23 +16,25 @@ import java.util.Iterator;
 public class TreeMiniMax {
 
     private static TreeMiniMax instance;
-    
+
     private MMNode arvore;
     private int jogadormax, contador, height;
 
-    public static TreeMiniMax getInstance(){return((instance==null)?(instance=new TreeMiniMax()):instance);}
-    
-    private TreeMiniMax(){
+    public static TreeMiniMax getInstance() {
+        return ((instance == null) ? (instance = new TreeMiniMax()) : instance);
+    }
+
+    private TreeMiniMax() {
         startAlg();
     }
-    
+
     public void geraArvore(MMNode node, int h) {
         if (TicTacToe.getInstance().checkBoard(node.getMap(), h) == -1) {
             node.setFilhos(geraFilhos(node, h));
             Iterator<MMNode> it = node.getFilhos().iterator();
             contador++;
             while (it.hasNext()) {
-                geraArvore(it.next(),(h+1));
+                geraArvore(it.next(), (h + 1));
             }
         }
         if (node.getFilhos().isEmpty()) { //Se for folha( sem filhos )
@@ -40,7 +42,7 @@ public class TreeMiniMax {
         } else { //Se não for filhos
             node.setUtilidade(calcUtFather(node, h));
         }
-//        Writer.getInstance().writeNode(node,h);
+//        Writer.getInstance().writeNode(node,h);        
     }
 
     public int calcUtFather(MMNode node, int h) {
@@ -62,12 +64,16 @@ public class TreeMiniMax {
                 }
             }
         }
-        return(aux);
+        return (aux);
     }
 
     public void startAlg() {
         setRoot();
+        long ini = System.currentTimeMillis();
         geraArvore(arvore, height);
+        long fim = System.currentTimeMillis();
+        Benchmark.Benchmark.getInstance().calctempCalcArv(ini, fim);
+        System.out.println("Tempo Calc Arvore" + Benchmark.Benchmark.getInstance().getTempCalcArv());
     }
 
     private void setRoot() {
@@ -111,48 +117,48 @@ public class TreeMiniMax {
                 return (0);
         }
     }
-    
-    public boolean compMap(int[][] map1,int[][] map2){
-        for(int i=0;i<map1.length;i++){
-            for(int j=0;j<map1[i].length;j++){
-                if(map1[i][j]!=map2[i][j]){
-                    return(false);
+
+    public boolean compMap(int[][] map1, int[][] map2) {
+        for (int i = 0; i < map1.length; i++) {
+            for (int j = 0; j < map1[i].length; j++) {
+                if (map1[i][j] != map2[i][j]) {
+                    return (false);
                 }
             }
         }
-        return(true);
+        return (true);
     }
-    
-    public boolean containsMap(int[][] mapOut,int[][] mapInner){
-        for(int i=0;i<mapOut.length;i++){
-            for(int j=0;j<mapOut[i].length;j++){
-                if((mapOut[i][j]==1 && mapInner[i][j]==2) || (mapOut[i][j]==2 && mapInner[i][j]==1)){
-                    return(false);
+
+    public boolean containsMap(int[][] mapOut, int[][] mapInner) {
+        for (int i = 0; i < mapOut.length; i++) {
+            for (int j = 0; j < mapOut[i].length; j++) {
+                if ((mapOut[i][j] == 1 && mapInner[i][j] == 2) || (mapOut[i][j] == 2 && mapInner[i][j] == 1)) {
+                    return (false);
                 }
             }
         }
-        return(true);
+        return (true);
     }
-    
-    public MMNode getNode(MMNode node,int[][] map){
-        if(compMap(map,node.getMap())){
-            return(node);
-        }else{
-            MMNode aux =null;
+
+    public MMNode getNode(MMNode node, int[][] map) {
+        if (compMap(map, node.getMap())) {
+            return (node);
+        } else {
+            MMNode aux = null;
             Iterator<MMNode> it = node.getFilhos().iterator();
-            while(it.hasNext()){
+            while (it.hasNext()) {
                 MMNode n = it.next();
-                if(containsMap(n.getMap(),map)){
+                if (containsMap(n.getMap(), map)) {
                     aux = getNode(n, map);
-                    if(aux!=null){
-                        return(aux);
+                    if (aux != null) {
+                        return (aux);
                     }
 //                    else{
 //                        return(aux);
 //                    }
                 }
             }
-            return(aux);
+            return (aux);
         }
     }
 
@@ -167,14 +173,14 @@ public class TreeMiniMax {
     public MMNode getArvore() {
         return arvore;
     }
-    
+
     //Para debug APAGAR DEPOIS    
-    public void printTree(int[][] map){
+    public void printTree(int[][] map) {
         System.out.println("");
-        for(int i=0;i<3;i++){
+        for (int i = 0; i < 3; i++) {
             System.out.println("");
-            for(int j=0;j<3;j++){
-                System.out.print(map[i][j]+" ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(map[i][j] + " ");
             }
         }
     }

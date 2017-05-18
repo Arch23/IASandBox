@@ -72,6 +72,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
 //    }
     private ArrayList<MMNode> getOptions() {
         ArrayList<MMNode> res = new ArrayList<>();
+        long ini=System.nanoTime();
         double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
         if (player == 1) {
             //jogador MAX
@@ -205,6 +206,9 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 }
             }
         }
+        long fim=System.nanoTime();
+        Benchmark.Benchmark.getInstance().calctempAchaDecisoes(ini, fim);
+        System.out.println("Tomada de Decisao:"+Benchmark.Benchmark.getInstance().getTempoAchaDecisoes());
         return (res);
     }
 
