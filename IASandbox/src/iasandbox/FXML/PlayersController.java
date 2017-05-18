@@ -83,10 +83,10 @@ public class PlayersController implements Initializable {
     }
 
     private void adjustSlider(Slider player, ChoiceBox playerbox) {
-        if (playerbox.getValue().equals("Human")) {
-            player.setDisable(true);
-        } else {
+        if (playerbox.getValue().equals("MiniMax")) {
             player.setDisable(false);
+        } else {
+            player.setDisable(true);
         }
     }
 

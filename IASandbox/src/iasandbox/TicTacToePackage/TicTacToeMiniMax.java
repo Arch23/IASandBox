@@ -40,13 +40,12 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         } else {//se não for o primeiro movimento dele
 //          //procura o proximo apenas nos filhos do estado anterios
             atual = TreeMiniMax.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
-            
+
         }
         ArrayList<MMNode> options = getOptions();
-        try{
-        Writer.getInstance().printOptions(atual,options,player);
-        }
-        catch(Exception e){
+        try {
+            Writer.getInstance().printOptions(atual, options, player);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -96,19 +95,47 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                     }
                 }
             } else {
-                int min = Integer.MAX_VALUE;
-                while (it.hasNext()) {
-                    MMNode tmp = it.next();
-                    if (min > tmp.getUtilidade()) {
-                        min = tmp.getUtilidade();
+                if (dif < (level / 2)) {
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (0 == tmp.getUtilidade()) {
+                            res.add(tmp);
+                        }
                     }
-                }
-                //pegar todos os nós com a utilidade mínima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    MMNode tmp = it.next();
-                    if (tmp.getUtilidade() == min) {
-                        res.add(tmp);
+                    if (res.isEmpty()) {
+                        it = atual.getFilhos().iterator();
+                        int min = Integer.MAX_VALUE;
+                        while (it.hasNext()) {
+                            MMNode tmp = it.next();
+                            if (min > tmp.getUtilidade()) {
+                                min = tmp.getUtilidade();
+                            }
+                        }
+                        //pegar todos os nós com a utilidade mínima
+                        it = atual.getFilhos().iterator();
+                        while (it.hasNext()) {
+                            MMNode tmp = it.next();
+                            if (tmp.getUtilidade() == min) {
+                                res.add(tmp);
+                            }
+                        }
+                    }
+                } else {
+                    it = atual.getFilhos().iterator();
+                    int min = Integer.MAX_VALUE;
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (min > tmp.getUtilidade()) {
+                            min = tmp.getUtilidade();
+                        }
+                    }
+                    //pegar todos os nós com a utilidade mínima
+                    it = atual.getFilhos().iterator();
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (tmp.getUtilidade() == min) {
+                            res.add(tmp);
+                        }
                     }
                 }
             }
@@ -133,19 +160,47 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                     }
                 }
             } else {
-                int max = Integer.MIN_VALUE;
-                while (it.hasNext()) {
-                    MMNode tmp = it.next();
-                    if (max < tmp.getUtilidade()) {
-                        max = tmp.getUtilidade();
+                if (dif < (level / 2)) {
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (0 == tmp.getUtilidade()) {
+                            res.add(tmp);
+                        }
                     }
-                }
-                //pegar todos os nós com a utilidade máxima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    MMNode tmp = it.next();
-                    if (tmp.getUtilidade() == max) {
-                        res.add(tmp);
+                    if (res.isEmpty()) {
+                        it = atual.getFilhos().iterator();
+                        int max = Integer.MIN_VALUE;
+                        while (it.hasNext()) {
+                            MMNode tmp = it.next();
+                            if (max < tmp.getUtilidade()) {
+                                max = tmp.getUtilidade();
+                            }
+                        }
+                        //pegar todos os nós com a utilidade máxima
+                        it = atual.getFilhos().iterator();
+                        while (it.hasNext()) {
+                            MMNode tmp = it.next();
+                            if (tmp.getUtilidade() == max) {
+                                res.add(tmp);
+                            }
+                        }
+                    }
+                } else {
+                    it = atual.getFilhos().iterator();
+                    int max = Integer.MIN_VALUE;
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (max < tmp.getUtilidade()) {
+                            max = tmp.getUtilidade();
+                        }
+                    }
+                    //pegar todos os nós com a utilidade máxima
+                    it = atual.getFilhos().iterator();
+                    while (it.hasNext()) {
+                        MMNode tmp = it.next();
+                        if (tmp.getUtilidade() == max) {
+                            res.add(tmp);
+                        }
                     }
                 }
             }

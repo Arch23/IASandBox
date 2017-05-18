@@ -17,18 +17,16 @@ import java.util.Random;
  *
  * @author noda2
  */
-public class TicTacToeAlfaBeta implements ticTacToePlayer{
+public class TicTacToeAlfaBeta implements ticTacToePlayer {
 
     private int player;
     private ABNode atual;
     private Random rand = new Random();
-    private double level = 1;
 
-    public TicTacToeAlfaBeta(int number, double level) {
+    public TicTacToeAlfaBeta(int number) {
 //        Writer.getInstance().initWriter("testeops.txt");
         player = number;
         atual = null;
-        this.level = level;
     }
 
     @Override
@@ -41,24 +39,19 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer{
 //          //procura o proximo apenas nos filhos do estado anterios
             atual = TreeAlfaBeta.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
 //            atual=TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
-            if(atual==null){
+            if (atual == null) {
                 //outro jogador fez movimento inesperado
                 atual = TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
-                System.out.println("gerou outra árvore");
+                System.out.println("gerou outra árvore...");
                 //teve que gerar outra árvore baseada no nó atual
             }
-            
+
         }
 
-        //teste
-        System.out.println("size filhos: "+atual.getFilhos().size());
-        
-        
         ArrayList<ABNode> options = getOptions();
-        try{
+        try {
 //        Writer.getInstance().printOptions(atual,options,player);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -66,10 +59,8 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer{
         int[] move = move(atual.getMap(), options.get(randomNum).getMap());
 
         if (move == null) {
-            System.err.println("ERROOOOOOOOOO!");
+            System.err.println("Erro! sem movimento...");
         }
-        
-        System.out.println("move: "+move[0]+" "+move[1]);
         return (move);
     }
 
@@ -87,81 +78,44 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer{
 //    }
     private ArrayList<ABNode> getOptions() {
         ArrayList<ABNode> res = new ArrayList<>();
-        double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
-        level=10;
         if (player == 1) {
             //jogador MAX
             //achar o maior valor entre os filhos
             Iterator<ABNode> it = atual.getFilhos().iterator();
 
-            if (dif < level) {
-                int max = Integer.MIN_VALUE;
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (max < tmp.getUtilidade()) {
-                        max = tmp.getUtilidade();
-                    }
-                }
-                //pegar todos os nós com a utilidade máxima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (tmp.getUtilidade() == max) {
-                        res.add(tmp);
-                    }
-                }
-            } else {
-                int min = Integer.MAX_VALUE;
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (min > tmp.getUtilidade()) {
-                        min = tmp.getUtilidade();
-                    }
-                }
-                //pegar todos os nós com a utilidade mínima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (tmp.getUtilidade() == min) {
-                        res.add(tmp);
-                    }
+            int max = Integer.MIN_VALUE;
+            while (it.hasNext()) {
+                ABNode tmp = it.next();
+                if (max < tmp.getUtilidade()) {
+                    max = tmp.getUtilidade();
                 }
             }
+            //pegar todos os nós com a utilidade máxima
+            it = atual.getFilhos().iterator();
+            while (it.hasNext()) {
+                ABNode tmp = it.next();
+                if (tmp.getUtilidade() == max) {
+                    res.add(tmp);
+                }
+            }
+
         } else {
             //jogador MIN
             //achar o maior valor entre os filhos
             Iterator<ABNode> it = atual.getFilhos().iterator();
-            if (dif < level) {
-                int min = Integer.MAX_VALUE;
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (min > tmp.getUtilidade()) {
-                        min = tmp.getUtilidade();
-                    }
+            int min = Integer.MAX_VALUE;
+            while (it.hasNext()) {
+                ABNode tmp = it.next();
+                if (min > tmp.getUtilidade()) {
+                    min = tmp.getUtilidade();
                 }
-                //pegar todos os nós com a utilidade mínima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (tmp.getUtilidade() == min) {
-                        res.add(tmp);
-                    }
-                }
-            } else {
-                int max = Integer.MIN_VALUE;
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (max < tmp.getUtilidade()) {
-                        max = tmp.getUtilidade();
-                    }
-                }
-                //pegar todos os nós com a utilidade máxima
-                it = atual.getFilhos().iterator();
-                while (it.hasNext()) {
-                    ABNode tmp = it.next();
-                    if (tmp.getUtilidade() == max) {
-                        res.add(tmp);
-                    }
+            }
+            //pegar todos os nós com a utilidade mínima
+            it = atual.getFilhos().iterator();
+            while (it.hasNext()) {
+                ABNode tmp = it.next();
+                if (tmp.getUtilidade() == min) {
+                    res.add(tmp);
                 }
             }
         }

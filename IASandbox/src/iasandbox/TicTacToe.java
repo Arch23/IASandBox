@@ -184,8 +184,7 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player1 = new TicTacToeAlfaBeta(1,ControleUI.getInstance().getPlayersController().getDificuldade()
-                .getValue()/10);
+                player1 = new TicTacToeAlfaBeta(1);
                 break;
             }
             case(3):{
@@ -204,8 +203,7 @@ public class TicTacToe {
                 break;
             }
             case(2):{
-                player2 = new TicTacToeAlfaBeta(2,ControleUI.getInstance().getPlayersController().getDificuldade2()
-                .getValue()/10);
+                player2 = new TicTacToeAlfaBeta(2);
                 break;
             }
             case(3):{
