@@ -31,22 +31,8 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer {
 
     @Override
     public int[] logic() {
-
-        //pegar a situação atual do jogo se o player não a tiver, provavelmente apenas quando ele tiver que fazer o primeiro movimento
-        if (atual == null) {
-            atual = TreeAlfaBeta.getInstance().getNode(TreeAlfaBeta.getInstance().getArvore(), TicTacToe.getInstance().getMap());
-        } else {//se não for o primeiro movimento dele
-//          //procura o proximo apenas nos filhos do estado anterios
-            atual = TreeAlfaBeta.getInstance().getNode(atual, TicTacToe.getInstance().getMap());
-//            atual=TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
-            if (atual == null) {
-                //outro jogador fez movimento inesperado
-                atual = TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
-                System.out.println("gerou outra árvore...");
-                //teve que gerar outra árvore baseada no nó atual
-            }
-
-        }
+        //sempre gera uma nova árvore para os movimentos
+        atual = TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
 
         ArrayList<ABNode> options = getOptions();
         try {
@@ -54,9 +40,10 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        int randomNum = (rand.nextInt(options.size()));
-        int[] move = move(atual.getMap(), options.get(randomNum).getMap());
+        
+        
+        //pega o primeiro movimento ótimo
+        int[] move = move(atual.getMap(), options.get(0).getMap());
 
         if (move == null) {
             System.err.println("Erro! sem movimento...");
@@ -64,18 +51,6 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer {
         return (move);
     }
 
-//    private Node getSon(int[][] map){
-//        Iterator<Node> it = atual.getFilhos().iterator();
-//        while(it.hasNext()){
-//            Node son=it.next();
-//            TreeMiniMax.getInstance().printTree(son.getMap());
-//            if(TreeMiniMax.getInstance().compMap(son.getMap(),map)){
-//                System.out.println("ACHOU O FILHO PERDIDOOOOOO!");
-//                return(son);
-//            }
-//        }
-//        return(null);
-//    }
     private ArrayList<ABNode> getOptions() {
         ArrayList<ABNode> res = new ArrayList<>();
         if (player == 1) {

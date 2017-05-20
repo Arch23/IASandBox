@@ -7,6 +7,7 @@ package iasandbox.FXML;
 
 import IOStream.Writer;
 import iasandbox.ControleUI;
+import iasandbox.Pathfinding;
 import iasandbox.ResizableCanvas;
 import iasandbox.TicTacToe;
 import java.net.URL;
@@ -18,12 +19,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -83,7 +81,10 @@ public class MainController implements Initializable {
                 break;
             }
             case (1): {
-                pathFinding();
+                Pathfinding.getInstance().endGame();
+                int[][] layout = new int[32][32];
+                Pathfinding.getInstance().setLayout(layout);
+                Pathfinding.getInstance().pathFinding();
                 break;
             }
         }
@@ -93,6 +94,8 @@ public class MainController implements Initializable {
     private void changeGame() {
         if(ControleUI.getInstance().getGame()==0){
             TicTacToe.getInstance().endGame();
+        }else{
+            Pathfinding.getInstance().endGame();
         }
         ControleUI.getInstance().getMainStage().hide();
         ControleUI.getInstance().mostraSelect();
@@ -154,25 +157,15 @@ public class MainController implements Initializable {
                 break;
             }
             case (1): {
-                calcPathFinding();
-                drawStaticPathFinding();
-                drawPlayerMovesPathFinding();
+                Pathfinding.getInstance().calcPathFinding();
+                Pathfinding.getInstance().drawStaticPathFinding();
+                Pathfinding.getInstance().drawPlayerMovesPathFinding();
                 break;
             }
         }
     }
 
-    private void pathFinding() {
-    }
-
-    private void calcPathFinding() {
-    }
-
-    private void drawStaticPathFinding() {
-    }
-
-    private void drawPlayerMovesPathFinding() {
-    }
+    
     /*
         End methods
     */

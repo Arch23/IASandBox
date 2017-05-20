@@ -19,7 +19,7 @@ public class TreeAlfaBeta {
     private static TreeAlfaBeta instance;
     
     private ABNode arvore;
-    private int jogadormax, contador, height;
+    private int jogadormax, height;
     
     public static TreeAlfaBeta getInstance(){return((instance==null)?(instance=new TreeAlfaBeta()):instance);}
     
@@ -61,7 +61,7 @@ public class TreeAlfaBeta {
                     }
                 }
                 if(node.getAlfa()>=node.getBeta()){
-//                    break;
+                    break;
                 }
                 indice++;
             }
@@ -69,7 +69,6 @@ public class TreeAlfaBeta {
         }else{//nó terminal por que o jogo acabou
             node.setUtilidade(calcUtLeaf(node.getMap(), h));
         }
-        contador++;
     }
 
     public int calcUtFather(ABNode node, int h) {

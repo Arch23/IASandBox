@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
@@ -33,7 +32,7 @@ public class SelectController implements Initializable {
     private Pane metodPane;
     
     private String[] game={"Tic Tac Toe","Pathfinding"},
-            metodGame2={"A*","Largura","Profundidade"};
+            metodGame2={"A*","Best-First"};
     
     private ObservableList<String> gameItems;
     private ObservableList<String> game2Items;

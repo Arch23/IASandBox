@@ -5,6 +5,7 @@
  */
 package iasandbox;
 
+import AlfaBeta.TreeAlfaBeta;
 import ArvoreMinimax.TreeMiniMax;
 import iasandbox.FXML.MainController;
 import iasandbox.FXML.PlayersController;
@@ -92,8 +93,9 @@ public final class ControleUI {
             if (game == 0 && ((player1 == 1) || (player2 == 1))) {
                 //gera a árvore
                 TreeMiniMax.getInstance();
-            }else if((game==0) && (player1 == 2) || (player2 == 2)){
-                TreeMiniMax.getInstance();
+            }
+            if((game==0) && ((player1 == 2) || (player2 == 2))){
+                TreeAlfaBeta.getInstance();
             }
             mainLoader = new FXMLLoader(getClass().getResource("FXML/Main.fxml"));
             mainStageParent = mainLoader.load();
