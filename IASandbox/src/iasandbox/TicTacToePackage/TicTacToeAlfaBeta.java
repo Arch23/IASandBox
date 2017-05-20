@@ -7,6 +7,8 @@ package iasandbox.TicTacToePackage;
 
 import AlfaBeta.ABNode;
 import AlfaBeta.TreeAlfaBeta;
+import Benchmark.Benchmark;
+import Benchmark.BenchmarkXML;
 import IOStream.Writer;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer {
 
     @Override
     public int[] logic() {
+        long ini=System.nanoTime();
         //sempre gera uma nova árvore para os movimentos
         atual = TreeAlfaBeta.getInstance().genNewTree(TicTacToe.getInstance().getMap());
 
@@ -48,6 +51,11 @@ public class TicTacToeAlfaBeta implements ticTacToePlayer {
         if (move == null) {
             System.err.println("Erro! sem movimento...");
         }
+        long fim=System.nanoTime();
+        Benchmark aux = new BenchmarkXML().xmltoBenchmark();
+        aux.setPodaLogic(aux.getPodaLogic()+(fim - ini));
+        aux.setPodaVezesLogic(aux.getPodaVezesLogic()+1);
+        new BenchmarkXML().geraXMLfile(aux);
         return (move);
     }
 

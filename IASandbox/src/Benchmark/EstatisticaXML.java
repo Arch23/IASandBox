@@ -133,9 +133,5 @@ public class EstatisticaXML {
             e.printStackTrace();
         }
     }
-    /*
-    public static void main(String[] args) {
-        EstatisticaXML rank = new EstatisticaXML();
-        rank.xmltoRank(1, 2);
-    }*/
+   
 }

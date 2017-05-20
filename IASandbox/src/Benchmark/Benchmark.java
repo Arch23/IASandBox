@@ -1,4 +1,5 @@
 package Benchmark;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,40 +12,81 @@ package Benchmark;
  */
 public class Benchmark {
 
-    private static Benchmark instance = null;
-    private long tempCalcArv;
-    private long tempoAchaDecisoes;
-    private long tempoTomadaDecisaoTot;
-
-    public static Benchmark getInstance() {
-        return (instance == null ? instance = new Benchmark() : instance);
-    }
-
-    private Benchmark() {
-    }
-
+    private long MinMaxGeraArvore;
+    private long MinMaxVezesGerouArvore;
+    private long MinMaxLogic;
+    private long MinMaxVezesLogic;
     
-    public void calctempCalcArv(long ini, long fim) {
-        this.tempCalcArv=fim - ini;
+    private long PodaLogic;
+    private long PodaVezesLogic;
+    
+    private long SbrLogic;
+    private long SbrVezesLogic;
+
+    public long getMinMaxGeraArvore() {
+        return MinMaxGeraArvore;
     }
 
-    public void calctempAchaDecisoes(long ini, long fim) {
-        this.tempoAchaDecisoes=fim-ini;
-    }
-    public void calcTempoTopadaDecisaoTot(long ini,long fim){
-        this.tempoTomadaDecisaoTot=fim-ini;
+    public void setMinMaxGeraArvore(long MinMaxGeraArvore) {
+        this.MinMaxGeraArvore = MinMaxGeraArvore;
     }
 
-    public long getTempCalcArv() {
-        return tempCalcArv;
+    public long getMinMaxVezesGerouArvore() {
+        return MinMaxVezesGerouArvore;
     }
 
-    public long getTempoAchaDecisoes() {
-        return tempoAchaDecisoes;
+    public void setMinMaxVezesGerouArvore(long MinMaxVezesGerouArvore) {
+        this.MinMaxVezesGerouArvore = MinMaxVezesGerouArvore;
     }
 
-    public long getTempoTomadaDecisaoTot() {
-        return tempoTomadaDecisaoTot;
+    public long getMinMaxLogic() {
+        return MinMaxLogic;
     }
+
+    public void setMinMaxLogic(long MinMaxLogic) {
+        this.MinMaxLogic = MinMaxLogic;
+    }
+
+    public long getMinMaxVezesLogic() {
+        return MinMaxVezesLogic;
+    }
+
+    public void setMinMaxVezesLogic(long MinVezesLogic) {
+        this.MinMaxVezesLogic = MinVezesLogic;
+    }
+
+    public long getPodaLogic() {
+        return PodaLogic;
+    }
+
+    public void setPodaLogic(long PodaLogic) {
+        this.PodaLogic = PodaLogic;
+    }
+
+    public long getPodaVezesLogic() {
+        return PodaVezesLogic;
+    }
+
+    public void setPodaVezesLogic(long PodaVezesLogic) {
+        this.PodaVezesLogic = PodaVezesLogic;
+    }
+
+    public long getSbrLogic() {
+        return SbrLogic;
+    }
+
+    public void setSbrLogic(long SbrLogic) {
+        this.SbrLogic = SbrLogic;
+    }
+
+    public long getSbrVezesLogic() {
+        return SbrVezesLogic;
+    }
+
+    public void setSbrVezesLogic(long SbrVezesLogic) {
+        this.SbrVezesLogic = SbrVezesLogic;
+    }
+    
+    
 
 }

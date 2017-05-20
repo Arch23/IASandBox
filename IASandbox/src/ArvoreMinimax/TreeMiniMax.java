@@ -5,6 +5,8 @@
  */
 package ArvoreMinimax;
 
+import Benchmark.Benchmark;
+import Benchmark.BenchmarkXML;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -69,11 +71,13 @@ public class TreeMiniMax {
 
     public void startAlg() {
         setRoot();
-        long ini = System.currentTimeMillis();
+        long ini = System.nanoTime();
         geraArvore(arvore, height);
-        long fim = System.currentTimeMillis();
-        Benchmark.Benchmark.getInstance().calctempCalcArv(ini, fim);
-        System.out.println("Tempo Calc Arvore" + Benchmark.Benchmark.getInstance().getTempCalcArv());
+        long fim = System.nanoTime();
+        Benchmark aux = new BenchmarkXML().xmltoBenchmark();
+        aux.setMinMaxGeraArvore(aux.getMinMaxGeraArvore()+(fim - ini));
+        aux.setMinMaxVezesGerouArvore(aux.getMinMaxVezesGerouArvore()+1);
+        new BenchmarkXML().geraXMLfile(aux);
     }
 
     private void setRoot() {

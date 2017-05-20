@@ -7,6 +7,8 @@ package iasandbox.TicTacToePackage;
 
 import ArvoreMinimax.MMNode;
 import ArvoreMinimax.TreeMiniMax;
+import Benchmark.Benchmark;
+import Benchmark.BenchmarkXML;
 import IOStream.Writer;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
 
     @Override
     public int[] logic() {
-
+        long ini = System.nanoTime();
         //pegar a situação atual do jogo se o player não a tiver, provavelmente apenas quando ele tiver que fazer o primeiro movimento
         if (atual == null) {
             atual = TreeMiniMax.getInstance().getNode(TreeMiniMax.getInstance().getArvore(), TicTacToe.getInstance().getMap());
@@ -48,16 +50,16 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        long ini=System.nanoTime();
         int randomNum = (rand.nextInt(options.size()));
         int[] move = move(atual.getMap(), options.get(randomNum).getMap());
-        long fim=System.nanoTime();
-        Benchmark.Benchmark.getInstance().getInstance().calcTempoTopadaDecisaoTot(ini, fim);
-        System.out.println("Tempo da Escolha"+Benchmark.Benchmark.getInstance().getTempoTomadaDecisaoTot());
-
         if (move == null) {
             System.err.println("ERROOOOOOOOOO!");
         }
+        long fim = System.nanoTime();
+        Benchmark aux = new BenchmarkXML().xmltoBenchmark();
+        aux.setMinMaxLogic(aux.getMinMaxLogic()+(fim-ini));
+        aux.setMinMaxVezesLogic(aux.getMinMaxVezesLogic()+1);
+        new BenchmarkXML().geraXMLfile(aux);
         return (move);
     }
 
@@ -75,7 +77,6 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
 //    }
     private ArrayList<MMNode> getOptions() {
         ArrayList<MMNode> res = new ArrayList<>();
-        long ini=System.nanoTime();
         double dif = (rand.nextDouble() * (1 - 0.1) + 0.1);
         if (player == 1) {
             //jogador MAX
@@ -209,9 +210,7 @@ public class TicTacToeMiniMax implements ticTacToePlayer {
                 }
             }
         }
-        long fim=System.nanoTime();
-        Benchmark.Benchmark.getInstance().calctempAchaDecisoes(ini, fim);
-        System.out.println("Verificação de decisões:"+Benchmark.Benchmark.getInstance().getTempoAchaDecisoes());
+
         return (res);
     }
 

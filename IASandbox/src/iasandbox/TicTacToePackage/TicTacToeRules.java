@@ -6,6 +6,8 @@
 package iasandbox.TicTacToePackage;
 
 import ArvoreMinimax.Position;
+import Benchmark.Benchmark;
+import Benchmark.BenchmarkXML;
 import iasandbox.TicTacToe;
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +39,7 @@ public class TicTacToeRules implements ticTacToePlayer {
 
         }
         randomPos = rand.nextInt(zeros.size());
-        return new int[]{zeros.get(randomPos).getX(),zeros.get(randomPos).getY()};
+        return new int[]{zeros.get(randomPos).getX(), zeros.get(randomPos).getY()};
     }
 
     public int[] verificaHorizontal() {
@@ -307,13 +309,24 @@ public class TicTacToeRules implements ticTacToePlayer {
 
     @Override
     public int[] logic() {
-
+        long ini = System.nanoTime();
         if (verificaVitoria() != null) {
+            attBenchmark(ini);
             return verificaVitoria();
         } else if (verificaPerigo() != null) {
+            attBenchmark(ini);
             return verificaPerigo();
         }
+        attBenchmark(ini);
         return setPosRandom();
+    }
+
+    private void attBenchmark(long ini) {
+        long fim = System.nanoTime();
+        Benchmark aux = new BenchmarkXML().xmltoBenchmark();
+        aux.setSbrLogic(aux.getSbrLogic() + (fim - ini));
+        aux.setSbrVezesLogic(aux.getSbrVezesLogic() + 1);
+        new BenchmarkXML().geraXMLfile(aux);
     }
 
 }
