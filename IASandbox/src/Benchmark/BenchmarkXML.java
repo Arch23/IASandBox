@@ -7,6 +7,7 @@ package Benchmark;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import iasandbox.ControleUI;
 import java.io.File;
 import java.io.PrintWriter;
 
@@ -30,6 +31,7 @@ public class BenchmarkXML {
             writer.print(textoxml);
             writer.flush();
             writer.close();
+            ControleUI.getInstance().getStatsController().atualizaAll();
         } catch (Exception e) {
             e.printStackTrace();
         }

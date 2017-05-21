@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsTicTacToeController">
+   <children>
+      <TableView fx:id="Stats" layoutX="5.0" layoutY="100.0" prefHeight="200.0" prefWidth="591.0">
+        <columns>
+          <TableColumn fx:id="Jogador" prefWidth="75.0" text="Jogador" />
+          <TableColumn fx:id="TempoTotal" prefWidth="182.0" text="Tempo Total das Jogadas (ns)" />
+            <TableColumn fx:id="JogadasRealizadas" prefWidth="134.0" text="Jogadas Realizadas" />
+            <TableColumn fx:id="MediaTempoJogada" prefWidth="197.0" text="Média de Tempo das Jogadas (ns)" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

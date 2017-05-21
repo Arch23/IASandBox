@@ -9,6 +9,7 @@ import AlfaBeta.TreeAlfaBeta;
 import ArvoreMinimax.TreeMiniMax;
 import iasandbox.FXML.MainController;
 import iasandbox.FXML.PlayersController;
+import iasandbox.FXML.StatsTicTacToeController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,21 +30,26 @@ public final class ControleUI {
     private Stage select;
     private Stage mainStage;
     private Stage playersStage;
+    private Stage statsStage;
 
     private Parent selectParent;
     private Parent mainStageParent;
     private Parent playersParent;
     private Parent loadingParent;
-
+    private Parent statsParent;
+    
     private Scene selectScene;
     private Scene mainStageScene;
     private Scene playersScene;
     private Scene loadingScene;
+    private Scene statsScene;
 
     private MainController mainController;
     private PlayersController playersController;
+    private StatsTicTacToeController statsController;
     private FXMLLoader mainLoader;
     private FXMLLoader playersLoader;
+    private FXMLLoader statsLoader;
 
     private ResizableCanvas canvas;
 
@@ -65,6 +71,7 @@ public final class ControleUI {
         select = new Stage();
         mainStage = new Stage();
         playersStage = new Stage();
+        statsStage= new Stage();
 
         mostraSelect();
     }
@@ -124,6 +131,20 @@ public final class ControleUI {
             playersStage.setScene(playersScene);
             playersStage.setTitle("AI SandBox");
             playersStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void mostraStats() {
+        try {
+            statsLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));
+            statsParent = statsLoader.load();
+            statsScene = new Scene(statsParent);
+            statsController=statsLoader.getController();
+            statsStage.setScene(statsScene);
+            statsStage.setTitle("AI SandBox");
+            statsStage.show();
         } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,4 +210,9 @@ public final class ControleUI {
     public void setMetod(int metod) {
         this.metod = metod;
     }
+
+    public StatsTicTacToeController getStatsController() {
+        return statsController;
+    }
+    
 }

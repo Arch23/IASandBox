@@ -70,6 +70,11 @@ public class PlayersController implements Initializable {
         ControleUI.getInstance()
                 .getPlayersStage().hide();
     }
+    @FXML
+    private void mostraStats(){
+        System.out.println("Stats");
+        ControleUI.getInstance().mostraStats();
+    }
 
     private void initChoiceBox() {
         choicePlayer1.setItems(FXCollections.observableArrayList(playerOptions));
