@@ -7,6 +7,7 @@ package iasandbox.FXML;
 
 import Benchmark.Benchmark;
 import Benchmark.BenchmarkXML;
+import iasandbox.ControleUI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -60,12 +61,9 @@ public class StatsTicTacToeController implements Initializable {
     }
     
     @FXML
-    private void mostraStatsTempo(){
-        System.out.println("Stats de Tempo");
-    }
-    @FXML
     private void mostraStatsJogo(){
         System.out.println("Stats de Jogo");
+        ControleUI.getInstance().mostraGameStats();
     }
     public void atualizaAll() {
         carregaTabela();

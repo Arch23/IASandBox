@@ -7,6 +7,7 @@ package iasandbox;
 
 import AlfaBeta.TreeAlfaBeta;
 import ArvoreMinimax.TreeMiniMax;
+import iasandbox.FXML.GameStatsController;
 import iasandbox.FXML.MainController;
 import iasandbox.FXML.PlayersController;
 import iasandbox.FXML.StatsTicTacToeController;
@@ -37,19 +38,24 @@ public final class ControleUI {
     private Parent playersParent;
     private Parent loadingParent;
     private Parent statsParent;
-    
+    private Parent gameStatsParent;
+
     private Scene selectScene;
     private Scene mainStageScene;
     private Scene playersScene;
     private Scene loadingScene;
     private Scene statsScene;
+    private Scene gameStatsScene;
 
     private MainController mainController;
     private PlayersController playersController;
     private StatsTicTacToeController statsController;
+    private GameStatsController gameStatsController;
+
     private FXMLLoader mainLoader;
     private FXMLLoader playersLoader;
     private FXMLLoader statsLoader;
+    private FXMLLoader gameStatsLoader;
 
     private ResizableCanvas canvas;
 
@@ -71,7 +77,7 @@ public final class ControleUI {
         select = new Stage();
         mainStage = new Stage();
         playersStage = new Stage();
-        statsStage= new Stage();
+        statsStage = new Stage();
 
         mostraSelect();
     }
@@ -101,7 +107,7 @@ public final class ControleUI {
                 //gera a árvore
                 TreeMiniMax.getInstance();
             }
-            if((game==0) && ((player1 == 2) || (player2 == 2))){
+            if ((game == 0) && ((player1 == 2) || (player2 == 2))) {
                 TreeAlfaBeta.getInstance();
             }
             mainLoader = new FXMLLoader(getClass().getResource("FXML/Main.fxml"));
@@ -127,7 +133,7 @@ public final class ControleUI {
             playersLoader = new FXMLLoader(getClass().getResource("FXML/Players.fxml"));
             playersParent = playersLoader.load();
             playersScene = new Scene(playersParent);
-            playersController=playersLoader.getController();
+            playersController = playersLoader.getController();
             playersStage.setScene(playersScene);
             playersStage.setTitle("AI SandBox");
             playersStage.show();
@@ -135,14 +141,28 @@ public final class ControleUI {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void mostraStats() {
         try {
             statsLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));
             statsParent = statsLoader.load();
             statsScene = new Scene(statsParent);
-            statsController=statsLoader.getController();
+            statsController = statsLoader.getController();
             statsStage.setScene(statsScene);
+            statsStage.setTitle("AI SandBox");
+            statsStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void mostraGameStats() {
+        try {
+            gameStatsLoader = new FXMLLoader(getClass().getResource("FXML/GameStats.fxml"));
+            gameStatsParent = gameStatsLoader.load();
+            gameStatsScene = new Scene(gameStatsParent);
+            gameStatsController = gameStatsLoader.getController();
+            statsStage.setScene(gameStatsScene);
             statsStage.setTitle("AI SandBox");
             statsStage.show();
         } catch (Exception ex) {
@@ -157,7 +177,6 @@ public final class ControleUI {
     public PlayersController getPlayersController() {
         return playersController;
     }
-    
 
     public ResizableCanvas getCanvas() {
         return canvas;
@@ -214,5 +233,13 @@ public final class ControleUI {
     public StatsTicTacToeController getStatsController() {
         return statsController;
     }
-    
+
+    public GameStatsController getGameStatsController() {
+        return gameStatsController;
+    }
+
+    public void setGameStatsController(GameStatsController gameStatsController) {
+        this.gameStatsController = gameStatsController;
+    }
+
 }

@@ -44,7 +44,8 @@ public class EstatisticaXML {
         }
         return aux;
     }
-     private String verificaPlayer2(int player) {
+
+    private String verificaPlayer2(int player) {
         String aux = null;
         switch (player) {
             case 0:
@@ -77,6 +78,10 @@ public class EstatisticaXML {
         }
     }
 
+    public Stats xmltoRank(File xml) {
+        return (Stats) xstream.fromXML(xml);
+    }
+
     private Stats xmltoRank(int Player1, int Player2) {
         try {
             Stats aux;
@@ -100,8 +105,9 @@ public class EstatisticaXML {
             staux.setEmpates(staux.getEmpates() + 1);
             xmlparser.geraXMLfile(staux, ControleUI.getInstance().getPlayer1(),
                     ControleUI.getInstance().getPlayer2());
+            ControleUI.getInstance().getGameStatsController().atualizaAll();
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -114,8 +120,9 @@ public class EstatisticaXML {
             staux.setVitorias(staux.getVitorias() + 1);
             xmlparser.geraXMLfile(staux, ControleUI.getInstance().getPlayer1(),
                     ControleUI.getInstance().getPlayer2());
+            ControleUI.getInstance().getGameStatsController().atualizaAll();
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
 
     }
@@ -129,9 +136,10 @@ public class EstatisticaXML {
             staux.setDerrotas(staux.getDerrotas() + 1);
             xmlparser.geraXMLfile(staux, ControleUI.getInstance().getPlayer1(),
                     ControleUI.getInstance().getPlayer2());
+            ControleUI.getInstance().getGameStatsController().atualizaAll();
         } catch (Exception e) {
-            e.printStackTrace();
+         //   e.printStackTrace();
         }
     }
-   
+
 }

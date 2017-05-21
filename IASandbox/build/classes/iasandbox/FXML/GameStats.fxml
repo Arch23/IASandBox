@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1371.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.GameStatsController">
+   <children>
+      <Pane layoutX="-1.0" layoutY="54.0" prefHeight="200.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="Stats" prefHeight="337.0" prefWidth="612.0">
+              <columns>
+                <TableColumn fx:id="Player1" prefWidth="75.0" text="Jogador 1" />
+                <TableColumn fx:id="Player2" prefWidth="75.0" text="Jogador 2" />
+                  <TableColumn fx:id="Vitorias" prefWidth="75.0" text="Vitórias" />
+                  <TableColumn fx:id="Derrotas" prefWidth="75.0" text="Derrotas" />
+                  <TableColumn fx:id="Empates" prefWidth="75.0" text="Empates" />
+                  <TableColumn fx:id="porcentV" prefWidth="75.0" text="\%V" />
+                  <TableColumn fx:id="porcentD" prefWidth="75.0" text="\%D" />
+                  <TableColumn fx:id="porcentE" prefWidth="85.0" text="\%E" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <MenuBar layoutX="-1.0" layoutY="1.0" prefHeight="25.0" prefWidth="1371.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#mostraStatsTempo" text="Stats de Tempo" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <BarChart fx:id="Grafico" animated="false" layoutX="632.0" layoutY="54.0" prefHeight="489.0" prefWidth="725.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

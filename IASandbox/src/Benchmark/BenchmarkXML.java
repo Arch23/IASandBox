@@ -33,7 +33,7 @@ public class BenchmarkXML {
             writer.close();
             ControleUI.getInstance().getStatsController().atualizaAll();
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
