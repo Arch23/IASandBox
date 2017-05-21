@@ -71,8 +71,7 @@ public class PlayersController implements Initializable {
                 .getPlayersStage().hide();
     }
     @FXML
-    private void mostraStats(){
-        System.out.println("Stats");
+    private void mostraStats(){        
         ControleUI.getInstance().mostraStats();
     }
 

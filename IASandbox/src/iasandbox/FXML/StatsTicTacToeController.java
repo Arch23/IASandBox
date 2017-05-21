@@ -24,6 +24,7 @@ import misc.FormatedBenchMark;
  * @author Gabriel
  */
 public class StatsTicTacToeController implements Initializable {
+    //Primeira Tabela
 
     @FXML
     TableView<FormatedBenchMark> Stats;
@@ -35,17 +36,42 @@ public class StatsTicTacToeController implements Initializable {
     TableColumn<FormatedBenchMark, Long> JogadasRealizadas;
     @FXML
     TableColumn<FormatedBenchMark, Long> MediaTempoJogada;
+
+    //Fim da primeira tabela
+    //Inicio da segunda tabela
+    @FXML
+    TableView<FormatedBenchMark> Stats2;
+    @FXML
+    TableColumn<FormatedBenchMark, String> Jogador2;
+    @FXML
+    TableColumn<FormatedBenchMark, Long> TempoTotalArvMinMax;
+    @FXML
+    TableColumn<FormatedBenchMark, Long> VezesArvMinMax;
+    @FXML
+    TableColumn<FormatedBenchMark, Long> MediaArvMinMax;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregaTabela();
+        carregaTabela2();
     }
-    public void atualizaAll(){
+    
+    @FXML
+    private void mostraStatsTempo(){
+        System.out.println("Stats de Tempo");
+    }
+    @FXML
+    private void mostraStatsJogo(){
+        System.out.println("Stats de Jogo");
+    }
+    public void atualizaAll() {
         carregaTabela();
+        carregaTabela2();
     }
-
+    
     private ObservableList<FormatedBenchMark> carregaLista() {
         ObservableList<FormatedBenchMark> Lista = FXCollections.observableArrayList();
         Benchmark bench = new BenchmarkXML().xmltoBenchmark();
@@ -57,20 +83,20 @@ public class StatsTicTacToeController implements Initializable {
             Lista.add(aux);
         }
         
-        if(bench.getPodaVezesLogic()>0){
-            aux=new  FormatedBenchMark("Poda", bench.getPodaLogic(),
-                    bench.getPodaVezesLogic(), (bench.getPodaLogic()/bench.getPodaVezesLogic()));
+        if (bench.getPodaVezesLogic() > 0) {
+            aux = new FormatedBenchMark("Poda", bench.getPodaLogic(),
+                    bench.getPodaVezesLogic(), (bench.getPodaLogic() / bench.getPodaVezesLogic()));
             Lista.add(aux);
         }
         
-        if(bench.getSbrVezesLogic()>0){
-            aux= new FormatedBenchMark("SBR", bench.getSbrLogic(),
-                    bench.getSbrVezesLogic(), (bench.getSbrLogic()/bench.getSbrVezesLogic()));
+        if (bench.getSbrVezesLogic() > 0) {
+            aux = new FormatedBenchMark("SBR", bench.getSbrLogic(),
+                    bench.getSbrVezesLogic(), (bench.getSbrLogic() / bench.getSbrVezesLogic()));
             Lista.add(aux);
         }
         return Lista;
     }
-
+    
     private void carregaTabela() {
         Jogador.setCellValueFactory(new PropertyValueFactory<>("Jogador"));
         TempoTotal.setCellValueFactory(new PropertyValueFactory<>("TempoTotal"));
@@ -79,5 +105,18 @@ public class StatsTicTacToeController implements Initializable {
         
         Stats.setItems(carregaLista());
     }
-
+    
+    private void carregaTabela2() {
+        Benchmark bench = new BenchmarkXML().xmltoBenchmark();
+        FormatedBenchMark ftb = new FormatedBenchMark("MinMax", bench.getMinMaxGeraArvore(),
+                bench.getMinMaxVezesGerouArvore());
+        ObservableList<FormatedBenchMark> Lista = FXCollections.observableArrayList();
+        Lista.add(ftb);
+        Jogador2.setCellValueFactory(new PropertyValueFactory<>("Jogador"));
+        TempoTotalArvMinMax.setCellValueFactory(new PropertyValueFactory<>("TempoTotalArvMinMax"));
+        VezesArvMinMax.setCellValueFactory(new PropertyValueFactory<>("VezesArvMinMax"));
+        MediaArvMinMax.setCellValueFactory(new PropertyValueFactory<>("MediaArvMinMax"));
+        Stats2.setItems(Lista);
+    }
+    
 }

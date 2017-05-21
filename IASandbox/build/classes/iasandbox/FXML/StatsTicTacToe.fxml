@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsTicTacToeController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsTicTacToeController">
    <children>
       <TableView fx:id="Stats" layoutX="5.0" layoutY="100.0" prefHeight="200.0" prefWidth="591.0">
         <columns>
@@ -14,5 +17,23 @@
             <TableColumn fx:id="MediaTempoJogada" prefWidth="197.0" text="Média de Tempo das Jogadas (ns)" />
         </columns>
       </TableView>
+      <TableView fx:id="Stats2" layoutX="10.0" layoutY="311.0" prefHeight="77.0" prefWidth="571.0">
+        <columns>
+          <TableColumn fx:id="Jogador2" prefWidth="120.0" text="Jogador" />
+          <TableColumn fx:id="TempoTotalArvMinMax" minWidth="2.0" prefWidth="228.0" text="Tempo Total das Arvores Geradas (ns)" />
+            <TableColumn fx:id="VezesArvMinMax" prefWidth="101.0" text="Vezes Geradas" />
+            <TableColumn fx:id="MediaArvMinMax" prefWidth="121.0" text="Média" />
+        </columns>
+      </TableView>
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#mostraStatsTempo" text="Stats de Tempo" />
+                  <MenuItem mnemonicParsing="false" onAction="#mostraStatsJogo" text="Stats de Jogo" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>
