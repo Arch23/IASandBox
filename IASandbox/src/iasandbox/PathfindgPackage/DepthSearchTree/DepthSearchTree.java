@@ -67,7 +67,9 @@ public class DepthSearchTree {
     }
 
     private void geraArvore(NoDS no, int[] fim) {
+        // System.out.println("Ida X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
         if (verificaNoVisitado(no)) {
+            //    System.out.println("Ida Checked X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
             if (!(no.getPos().getPos()[0] == fim[0] && no.getPos().getPos()[1] == fim[1])) {
                 no.setFilhos(geraFilhos(no));
                 NosVisitados.add(no);
@@ -75,12 +77,28 @@ public class DepthSearchTree {
                 while (it.hasNext()) {
                     geraArvore(it.next(), fim);
                 }
-                System.out.println("X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
+                //   System.out.println("X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
             } else {
-                System.out.println("Solução X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
+                // System.out.println("Solução X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
                 // solucaoEncontrada = true;
             }
 
+        }
+    }
+
+    private void depthSearc(NoDS no, int[] fim) {
+        if (!(no.getPos().getPos()[0] == fim[0] && no.getPos().getPos()[1] == fim[1])) {
+            if (no.getFilhos() != null) {
+                Iterator<NoDS> it = no.getFilhos().iterator();
+                while (it.hasNext()) {
+                    depthSearc(it.next(), fim);
+                }
+                System.out.println("X= " + no.getPos().getPos()[0] + " Y= "
+                        + no.getPos().getPos()[1]);
+            }
+        } else {
+            System.out.println("Solução:  X= " + no.getPos().getPos()[0] + " Y= "
+                    + no.getPos().getPos()[1]);
         }
     }
 
@@ -90,6 +108,8 @@ public class DepthSearchTree {
         MapNode[][] map = obj.init(layout);
         NoDS arv = new NoDS(map[0][0]);
         DepthSearchTree dst = new DepthSearchTree();
-        dst.geraArvore(arv, new int[]{2, 2});
+        dst.geraArvore(arv, new int[]{1, 2});
+        dst.depthSearc(arv, new int[]{1, 2});
+        //    System.out.println("Teste X= " + aux.getPos().getPos()[0] + " Y= " + aux.getPos().getPos()[1]);
     }
 }
