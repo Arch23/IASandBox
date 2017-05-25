@@ -8,6 +8,9 @@ package Pathfinding;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import iasandbox.Pathfinding;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * @author noda2
@@ -103,6 +106,17 @@ public class TreeGen {
         return(path);
     }
     
+    public ArrayDeque<TreeNode> getPathBFS(int[] origin, int[] end){
+        pathFound=false;
+        ArrayDeque<TreeNode> path = new ArrayDeque<>();
+        TreeNode root = new TreeNode(Pathfinding.getInstance().getMap()[origin[0]][origin[1]]);
+        genTree(root, end, path);
+        path.clear();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        
+        return(path);
+    }
+    
     private void dFS(TreeNode node, ArrayDeque<TreeNode> path,int[] end){
         path.push(node);
         if((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])){
@@ -120,12 +134,20 @@ public class TreeGen {
         }
     }
     
+    private void bFS(TreeNode node,ArrayDeque<TreeNode> path,Queue<TreeNode> queue,int[] end){
+        queue.add(node);
+        node.setVisited(true);
+        while(){
+        
+        }
+    }
+    
 
     public static void main(String[] Args) {
 //        int[][] layout = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
-        int tam=2;
+        int tam=3;
         int[] origin = new int[]{0,0};
-        int[] end = new int[]{1,1};
+        int[] end = new int[]{2,2};
         int[][] layout = new int[tam][tam];
         GenMap objGM = new GenMap();
         MapNode[][] map = objGM.init(layout);
