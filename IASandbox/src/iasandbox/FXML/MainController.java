@@ -82,7 +82,7 @@ public class MainController implements Initializable {
             }
             case (1): {
                 Pathfinding.getInstance().endGame();
-                int[][] layout = new int[6][6];
+                int[][] layout = new int[][]{{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,1,1,0,0},{0,0,0,0,0,0},{0,1,1,1,1,0},{0,0,0,0,0,0}};
                 Pathfinding.getInstance().setLayout(layout);
                 Pathfinding.getInstance().pathFinding();
                 break;

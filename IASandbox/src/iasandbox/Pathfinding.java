@@ -129,8 +129,8 @@ public class Pathfinding {
         gc.setLineWidth(2);
         for(int i=0;i<map.length;i++){
             for(int j=0;j<map[i].length;j++){
-                double x1 = (w1+(j*wCel)), y1 = (h1+(i*hCel)),x2 = (w1+((j+1)*wCel)), y2 = (h1+((i+1)*hCel));
-                cels[j][i] = new Rectangle(x1,y1,(x2-x1),(y2-y1));
+                double x1 = (w1+(i*wCel)), y1 = (h1+(j*hCel)),x2 = (w1+((i+1)*wCel)), y2 = (h1+((j+1)*hCel));
+                cels[i][j] = new Rectangle(x1,y1,(x2-x1),(y2-y1));
                 gc.beginPath();
                 gc.rect(x1, y1, (x2-x1), (y2-y1));
                 gc.stroke();
