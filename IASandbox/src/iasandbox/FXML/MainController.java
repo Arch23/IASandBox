@@ -5,11 +5,11 @@
  */
 package iasandbox.FXML;
 
-import IOStream.Writer;
+import statistics.IOStream.Writer;
 import iasandbox.ControleUI;
-import iasandbox.Pathfinding;
+import iasandbox.PathfindingLogic;
 import iasandbox.ResizableCanvas;
-import iasandbox.TicTacToe;
+import iasandbox.TicTacToeLogic;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -73,18 +73,18 @@ public class MainController implements Initializable {
     public void newGame() {
         switch (ControleUI.getInstance().getGame()) {
             case (0): {
-                TicTacToe.getInstance().endGame();
-                TicTacToe.getInstance().deleteInstance();
-                TicTacToe.getInstance().setVarTicTacToe();
-                TicTacToe.getInstance().startGame();
-                TicTacToe.getInstance().ticTacToe();
+                TicTacToeLogic.getInstance().endGame();
+                TicTacToeLogic.getInstance().deleteInstance();
+                TicTacToeLogic.getInstance().setVarTicTacToe();
+                TicTacToeLogic.getInstance().startGame();
+                TicTacToeLogic.getInstance().ticTacToe();
                 break;
             }
             case (1): {
-                Pathfinding.getInstance().endGame();
-                int[][] layout = new int[][]{{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,1,1,0,0},{0,0,0,0,0,0},{1,1,1,1,1,1},{0,0,0,0,0,0}};
-                Pathfinding.getInstance().setLayout(layout);
-                Pathfinding.getInstance().pathFinding();
+                PathfindingLogic.getInstance().endGame();
+                int[][] layout = new int[][]{{0,0,0,0,0,0},{0,0,1,0,1,0},{0,0,1,1,0,0},{0,0,0,0,0,0},{0,1,1,1,1,0},{0,0,0,0,0,0}};
+                PathfindingLogic.getInstance().setLayout(layout);
+                PathfindingLogic.getInstance().pathFinding();
                 break;
             }
         }
@@ -93,9 +93,9 @@ public class MainController implements Initializable {
     @FXML
     private void changeGame() {
         if(ControleUI.getInstance().getGame()==0){
-            TicTacToe.getInstance().endGame();
+            TicTacToeLogic.getInstance().endGame();
         }else{
-            Pathfinding.getInstance().endGame();
+            PathfindingLogic.getInstance().endGame();
         }
         ControleUI.getInstance().getMainStage().hide();
         ControleUI.getInstance().mostraSelect();
@@ -149,17 +149,17 @@ public class MainController implements Initializable {
     public void reDraw() {
         switch (ControleUI.getInstance().getGame()) {
             case (0): {
-                TicTacToe.getInstance().calcTicTacToe();
+                TicTacToeLogic.getInstance().calcTicTacToe();
                 try{
-                    TicTacToe.getInstance().drawStaticTicTacToe();
+                    TicTacToeLogic.getInstance().drawStaticTicTacToe();
                 }catch(Exception e){}
-                TicTacToe.getInstance().drawPlayerMovesTicTacToe();
+                TicTacToeLogic.getInstance().drawPlayerMovesTicTacToe();
                 break;
             }
             case (1): {
-                Pathfinding.getInstance().calcPathFinding();
-                Pathfinding.getInstance().drawStaticPathFinding();
-                Pathfinding.getInstance().drawPlayerMovesPathFinding();
+                PathfindingLogic.getInstance().calcPathFinding();
+                PathfindingLogic.getInstance().drawStaticPathFinding();
+                PathfindingLogic.getInstance().drawPlayerMovesPathFinding();
                 break;
             }
         }

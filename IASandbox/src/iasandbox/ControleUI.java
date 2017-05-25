@@ -5,8 +5,8 @@
  */
 package iasandbox;
 
-import AlfaBeta.TreeAlfaBeta;
-import ArvoreMinimax.TreeMiniMax;
+import iasandbox.TicTacToe.AlfaBetaTree.TreeAlfaBeta;
+import iasandbox.TicTacToe.MiniMaxTree.TreeMiniMax;
 import iasandbox.FXML.GameStatsController;
 import iasandbox.FXML.MainController;
 import iasandbox.FXML.PlayersController;

@@ -5,8 +5,8 @@
  */
 package iasandbox.FXML;
 
-import Benchmark.EstatisticaXML;
-import Benchmark.Stats;
+import statistics.benchmark.EstatisticaXML;
+import statistics.benchmark.Stats;
 import iasandbox.ControleUI;
 import java.io.File;
 import java.net.URL;

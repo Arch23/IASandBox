@@ -5,8 +5,8 @@
  */
 package iasandbox.FXML;
 
-import Benchmark.Benchmark;
-import Benchmark.BenchmarkXML;
+import statistics.benchmark.Benchmark;
+import statistics.benchmark.BenchmarkXML;
 import iasandbox.ControleUI;
 import java.net.URL;
 import java.util.ResourceBundle;
