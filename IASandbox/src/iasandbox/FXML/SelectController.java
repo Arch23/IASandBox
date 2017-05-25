@@ -32,7 +32,7 @@ public class SelectController implements Initializable {
     private Pane metodPane;
     
     private String[] game={"Tic Tac Toe","Pathfinding"},
-            metodGame2={"A*","Best-First"};
+            metodGame2={"A*","Best-First","Depth-First Search"};
     
     private ObservableList<String> gameItems;
     private ObservableList<String> game2Items;
@@ -53,7 +53,7 @@ public class SelectController implements Initializable {
                 ControleUI.getInstance().setMetod(0);
             }else if(choiceMetod.getValue().equals(metodGame2[1])){
                 ControleUI.getInstance().setMetod(1);
-            }else{
+            }else if(choiceMetod.getValue().equals(metodGame2[2])){
                 ControleUI.getInstance().setMetod(2);
             }
             ControleUI.getInstance().mostraMain();

@@ -5,11 +5,12 @@
  */
 package iasandbox;
 
-import Patifinding.GenMap;
-import Patifinding.MapNode;
+import Pathfinding.GenMap;
+import Pathfinding.MapNode;
 import iasandbox.PathfindgPackage.Dots;
 import iasandbox.PathfindgPackage.PathfindingA;
 import iasandbox.PathfindgPackage.PathfindingBF;
+import iasandbox.PathfindgPackage.PathfindingDFS;
 import iasandbox.PathfindgPackage.PathfindingMethod;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -129,7 +130,7 @@ public class Pathfinding {
         for(int i=0;i<map.length;i++){
             for(int j=0;j<map[i].length;j++){
                 double x1 = (w1+(j*wCel)), y1 = (h1+(i*hCel)),x2 = (w1+((j+1)*wCel)), y2 = (h1+((i+1)*hCel));
-                cels[i][j] = new Rectangle(x1,y1,(x2-x1),(y2-y1));
+                cels[j][i] = new Rectangle(x1,y1,(x2-x1),(y2-y1));
                 gc.beginPath();
                 gc.rect(x1, y1, (x2-x1), (y2-y1));
                 gc.stroke();
@@ -238,6 +239,12 @@ public class Pathfinding {
                 text="Best-First";
                 break;
             }
+            //depth first search
+            case(2):{
+                method = new PathfindingDFS();
+                text="Depth-First Search";
+                break;
+            }
         }
     }
     
@@ -255,6 +262,14 @@ public class Pathfinding {
     */
     public void setLayout(int[][] layout){
         this.layout = layout;
+    }
+
+    public MapNode[][] getMap() {
+        return map;
+    }
+
+    public void setMap(MapNode[][] map) {
+        this.map = map;
     }
     /*
         End Getters Setters

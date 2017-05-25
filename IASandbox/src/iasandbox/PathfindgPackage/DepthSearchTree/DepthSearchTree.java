@@ -5,10 +5,11 @@
  */
 package iasandbox.PathfindgPackage.DepthSearchTree;
 
-import Patifinding.GenMap;
-import Patifinding.MapNode;
+import Pathfinding.GenMap;
+import Pathfinding.MapNode;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Iterator;
+import iasandbox.Pathfinding;
 
 /**
  *
@@ -16,100 +17,81 @@ import java.util.Iterator;
  */
 public class DepthSearchTree {
 
-    private ArrayList<NoDS> NosVisitados = new ArrayList<>();
-    private boolean solucaoEncontrada = false;
-
-    private boolean verificaNoVisitado(NoDS no) {
-        for (int i = 0; i < NosVisitados.size(); i++) {
-            if (no.getPos().getPos()[0] == NosVisitados.get(i).getPos().getPos()[0]
-                    && no.getPos().getPos()[1] == NosVisitados.get(i).getPos().getPos()[1]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private ArrayList<NoDS> geraFilhos(NoDS no) {
-        ArrayList<NoDS> filhos = new ArrayList<>();
-
-        if (no.getPos().getDown() != null) { //Verifica se o próximo nó é vazio
-            //Verifica se é igual ao pai
-            if (no.getPos().getDown().getPos()[0] != no.getPos().getPos()[0]
-                    || no.getPos().getDown().getPos()[1] != no.getPos().getPos()[1]) {
-                //Caso não seja igual ao pai, adiciona na lista de flhos do nó
-                filhos.add(new NoDS(no.getPos().getDown()));
-            }
-        }
-        if (no.getPos().getLeft() != null) {
-            if (no.getPos().getLeft().getPos()[0] != no.getPos().getPos()[0]
-                    || no.getPos().getLeft().getPos()[1] != no.getPos().getPos()[1]) {
-                filhos.add(new NoDS(no.getPos().getLeft()));
-            }
-        }
-        if (no.getPos().getRight() != null) {
-            if (no.getPos().getRight().getPos()[0] != no.getPos().getPos()[0]
-                    || no.getPos().getRight().getPos()[1] != no.getPos().getPos()[1]) {
-                filhos.add(new NoDS(no.getPos().getRight()));
-            }
-        }
-        if (no.getPos().getUp() != null) {
-            if (no.getPos().getUp().getPos()[0] != no.getPos().getPos()[0]
-                    || no.getPos().getUp().getPos()[1] != no.getPos().getPos()[1]) {
-                filhos.add(new NoDS(no.getPos().getUp()));
-            }
-        }
-        //  System.out.println("O no tem " + filhos.size() + "filhos");
-        if (solucaoEncontrada == false) {
-            return filhos;// Retorna os filhos do nó
+    private boolean pathFound;
+    
+    public void getPath(NoDS node, int[] pos, ArrayDeque<NoDS> path) {
+        path.push(node);
+        if ((node.getPos()[0] == pos[0]) && (node.getPos()[1] == pos[1])) {
+            pathFound = true;
         } else {
-            return new ArrayList<>();
-        }
-    }
-
-    private void geraArvore(NoDS no, int[] fim) {
-        // System.out.println("Ida X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
-        if (verificaNoVisitado(no)) {
-            //    System.out.println("Ida Checked X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
-            if (!(no.getPos().getPos()[0] == fim[0] && no.getPos().getPos()[1] == fim[1])) {
-                no.setFilhos(geraFilhos(no));
-                NosVisitados.add(no);
-                Iterator<NoDS> it = no.getFilhos().iterator();
-                while (it.hasNext()) {
-                    geraArvore(it.next(), fim);
+            node.setFilhos(getSons(node));
+            for (NoDS son : node.getFilhos()) {
+                if (!isInPath(son.getPos(), path)) {
+                    getPath(son, pos, path);
+                    if (pathFound) {
+                        break;
+                    }
                 }
-                //   System.out.println("X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
-            } else {
-                // System.out.println("Solução X=" + no.getPos().getPos()[0] + " Y=" + no.getPos().getPos()[1]);
-                // solucaoEncontrada = true;
             }
-
+            if (!pathFound) {
+                path.pop();
+            }
         }
     }
-
-    private void depthSearc(NoDS no, int[] fim) {
-        if (!(no.getPos().getPos()[0] == fim[0] && no.getPos().getPos()[1] == fim[1])) {
-            if (no.getFilhos() != null) {
-                Iterator<NoDS> it = no.getFilhos().iterator();
-                while (it.hasNext()) {
-                    depthSearc(it.next(), fim);
-                }
-                System.out.println("X= " + no.getPos().getPos()[0] + " Y= "
-                        + no.getPos().getPos()[1]);
+    
+    private boolean isInPath(int[] pos,ArrayDeque<NoDS> path){
+        ArrayDeque<NoDS> aux = new ArrayDeque<>();
+        NoDS tmpNode = null;
+        boolean isHere=false;
+        while(!path.isEmpty()){
+            tmpNode = path.pop();
+            if((tmpNode.getPos()[0]==pos[0])&&tmpNode.getPos()[1]==pos[1]){
+                isHere=true;
             }
-        } else {
-            System.out.println("Solução:  X= " + no.getPos().getPos()[0] + " Y= "
-                    + no.getPos().getPos()[1]);
+            aux.push(tmpNode);
         }
+        while(!aux.isEmpty()){
+            path.push(aux.pop());
+        }
+        return(isHere);
     }
 
-    public static void main(String[] args) {
-        GenMap obj = new GenMap();
-        int[][] layout = new int[3][3];
-        MapNode[][] map = obj.init(layout);
-        NoDS arv = new NoDS(map[0][0]);
-        DepthSearchTree dst = new DepthSearchTree();
-        dst.geraArvore(arv, new int[]{1, 2});
-        dst.depthSearc(arv, new int[]{1, 2});
-        //    System.out.println("Teste X= " + aux.getPos().getPos()[0] + " Y= " + aux.getPos().getPos()[1]);
+    private ArrayList<NoDS> getSons(NoDS node) {
+        ArrayList<NoDS> sons = new ArrayList<>();
+
+        if (node.getMapNode().getDown() != null) {
+            sons.add(new NoDS(node.getMapNode().getDown()));
+        }
+        if (node.getMapNode().getRight() != null) {
+            sons.add(new NoDS(node.getMapNode().getRight()));
+        }
+        if (node.getMapNode().getUp() != null) {
+            sons.add(new NoDS(node.getMapNode().getUp()));
+        }
+        if (node.getMapNode().getLeft() != null) {
+            sons.add(new NoDS(node.getMapNode().getLeft()));
+        }
+        return (sons);
     }
+
+    public ArrayDeque<NoDS> init(int[] origin, int[] dest, ArrayDeque<NoDS> path){
+        getPath(new NoDS(Pathfinding.getInstance().getMap()[origin[0]][origin[1]]), dest, path);
+        return(path);
+    }
+    
+//    public static void main(String[] args) {
+//        GenMap obj = new GenMap();
+//        int[][] layout = new int[3][3];
+//        MapNode[][] map = obj.init(layout);
+//        NoDS arv = new NoDS(map[0][0]);
+//        ArrayDeque<NoDS> path = new ArrayDeque<>();
+//        boolean pathFound = false;
+//        DepthSearchTree obj2 = new DepthSearchTree();
+//        obj2.getPath(arv,new int[]{1,1}, path);
+//        System.out.println("caminho encontrado: ");
+//        while(!path.isEmpty()){
+//            System.out.println("Nó: "+path.peek().getPos()[0]+" "+path.peek().getPos()[1]);
+//            path.pop();
+//        }
+//    }
 }

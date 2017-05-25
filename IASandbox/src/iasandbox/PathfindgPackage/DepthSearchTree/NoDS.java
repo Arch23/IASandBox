@@ -5,7 +5,7 @@
  */
 package iasandbox.PathfindgPackage.DepthSearchTree;
 
-import Patifinding.MapNode;
+import Pathfinding.MapNode;
 import java.util.ArrayList;
 
 /**
@@ -13,15 +13,19 @@ import java.util.ArrayList;
  * @author Gabriel
  */
 public class NoDS {
-    private MapNode  Pos;
+    private MapNode mapNode;
     private ArrayList<NoDS> Filhos;
 
-    public MapNode getPos() {
-        return Pos;
+    public MapNode getMapNode() {
+        return mapNode;
     }
 
-    public void setPos(MapNode Pos) {
-        this.Pos = Pos;
+    public void setMapNode(MapNode mapNode) {
+        this.mapNode = mapNode;
+    }
+    
+    public int[] getPos() {
+        return mapNode.getPos();
     }
 
     public ArrayList<NoDS> getFilhos() {
@@ -32,8 +36,8 @@ public class NoDS {
         this.Filhos = Filhos;
     }
 
-    public NoDS(MapNode Pos) {
-        this.Pos = Pos;
+    public NoDS(MapNode node) {
+        mapNode = node;
     }
     
     
