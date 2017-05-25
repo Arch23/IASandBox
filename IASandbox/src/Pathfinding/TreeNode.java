@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class TreeNode {
     private MapNode mapNode;
+    private TreeNode father;
     private ArrayList<TreeNode> sons;
     private boolean visited;
 
@@ -48,6 +49,15 @@ public class TreeNode {
         mapNode = node;
         visited=false;
     }
+
+    public TreeNode getFather() {
+        return father;
+    }
+
+    public void setFather(TreeNode father) {
+        this.father = father;
+    }
+    
     
     
 }

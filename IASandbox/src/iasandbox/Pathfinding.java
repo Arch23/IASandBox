@@ -236,7 +236,7 @@ public class Pathfinding {
             //Gulosa
             case(1):{
                 method = new PathfindingBF();
-                text="Best-First";
+                text="Breadth-First Search";
                 break;
             }
             //depth first search

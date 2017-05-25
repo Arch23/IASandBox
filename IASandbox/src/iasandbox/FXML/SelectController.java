@@ -32,7 +32,7 @@ public class SelectController implements Initializable {
     private Pane metodPane;
     
     private String[] game={"Tic Tac Toe","Pathfinding"},
-            metodGame2={"A*","Best-First","Depth-First Search"};
+            metodGame2={"A*","Breadth-First","Depth-First Search"};
     
     private ObservableList<String> gameItems;
     private ObservableList<String> game2Items;
