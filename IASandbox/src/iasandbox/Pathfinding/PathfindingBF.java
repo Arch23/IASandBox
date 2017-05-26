@@ -7,8 +7,8 @@ package iasandbox.Pathfinding;
 
 import iasandbox.Pathfinding.BDTree.TreeGen;
 import iasandbox.Pathfinding.BDTree.TreeNode;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -18,9 +18,9 @@ public class PathfindingBF implements PathfindingMethod{
 
     @Override
 public ArrayList<Dots> getPath(int[] origin, int[] dest) {
-        ArrayList<TreeNode> path =null;
+        ArrayDeque<TreeNode> path =null;
         TreeGen objTG = new TreeGen();
-        path = objTG.getPathBFS(origin, dest);
+        path = objTG.getPathBFSR(origin, dest);
         if(path.isEmpty()){
             return(null);
         }else{ 
@@ -28,10 +28,11 @@ public ArrayList<Dots> getPath(int[] origin, int[] dest) {
         }
     }
     
-    private ArrayList<Dots> treeNodeToDots(ArrayList<TreeNode> path){
+    private ArrayList<Dots> treeNodeToDots(ArrayDeque<TreeNode> path){
         ArrayList<Dots> tmp = new ArrayList<>();
-        for(TreeNode it: path){
-            tmp.add(new Dots(it.getPos()[0],it.getPos()[1]));
+        while(!path.isEmpty()){
+            tmp.add(new Dots(path.peek().getPos()[0],path.peek().getPos()[1]));
+            path.pop();
         }
         return(tmp);
     }

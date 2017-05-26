@@ -15,7 +15,6 @@ public class TreeNode {
     private MapNode mapNode;
     private TreeNode father;
     private ArrayList<TreeNode> sons;
-    private boolean visited;
 
     public MapNode getMapNode() {
         return mapNode;
@@ -37,17 +36,9 @@ public class TreeNode {
         this.sons = sons;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
-    }
-
     public TreeNode(MapNode node) {
         mapNode = node;
-        visited=false;
+        sons = new ArrayList<>();
     }
 
     public TreeNode getFather() {

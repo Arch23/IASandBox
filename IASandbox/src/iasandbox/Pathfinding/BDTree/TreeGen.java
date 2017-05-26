@@ -19,6 +19,7 @@ import java.util.Queue;
 public class TreeGen {
 
     private boolean pathFound;
+    private TreeNode objective;
 
     public void genTree(TreeNode node, int[] end, ArrayDeque<TreeNode> path) {
         path.push(node);
@@ -36,6 +37,7 @@ public class TreeGen {
         path.pop();
     }
 
+    //gera a árvore de possibilidades de todos os caminhos
     public void genTree(TreeNode node, TreeNode pai, int[] end, ArrayDeque<TreeNode> path) {
         path.push(node);
         node.setFather(pai); //Marcar quem é o pai no nó , duplo encadeamento
@@ -51,6 +53,26 @@ public class TreeGen {
             } //nó com todos os filhos expandidos
         }
         path.pop();
+    }
+    
+    //gera a árvore até encontrar o nó objetivo apenas
+    public void genTreeDFS(TreeNode node, int[] end, ArrayDeque<TreeNode> path) {
+        path.push(node);
+        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {         
+            node.setSons(new ArrayList<>());
+            pathFound=true;
+        } else {
+            node.setSons(genSons(node, path));
+            for (TreeNode son : node.getSons()) {
+                genTreeDFS(son, end, path);
+                if(pathFound){
+                    break;
+                }
+            }
+        }
+        if(!pathFound){
+            path.pop();
+        }
     }
 
     private boolean isInPath(int[] pos, ArrayDeque<TreeNode> path) {
@@ -103,12 +125,68 @@ public class TreeGen {
         pathFound = false;
         ArrayDeque<TreeNode> path = new ArrayDeque<>();
         TreeNode root = new TreeNode(PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]]);
-        genTree(root, end, path);
-        path.clear();
-        dFS(root, path, end);
+        genTreeDFS(root, end, path);
+//        path.clear();
+//        dFS(root, path, end);
         return (path);
     }
 
+    public ArrayDeque<TreeNode> getPathBFSR(int[] origin, int[] end) {
+        pathFound = false;
+        objective=null;
+        ArrayDeque<TreeNode> path = new ArrayDeque<>();
+        TreeNode root = new TreeNode(PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        genTreeBFSR(end, path, queue);
+        path.clear();
+        if(objective!=null){
+            do{
+                path.add(objective);
+                objective = objective.getFather();
+            }while(!((objective.getPos()[0]==origin[0])&&(objective.getPos()[1]==origin[1])));
+            path.add(objective);
+        }
+        return (path);
+    }
+    
+    private void genTreeBFS(TreeNode node,int[] end,ArrayDeque<TreeNode> path){
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(node);
+        while(!queue.isEmpty()){
+            TreeNode current = queue.remove();
+            if((current.getPos()[0]==end[0])&&(current.getPos()[1]==end[1])){
+                break;
+            }
+            for(TreeNode son : current.getSons()){
+                queue.add(son);
+            }
+        }
+    }
+    
+    private void genTreeBFSR(int[] end,ArrayDeque<TreeNode> path,Queue<TreeNode> queue){
+        TreeNode current = queue.remove();
+        path.add(current);
+        
+        if((current.getPos()[0]==end[0])&&(current.getPos()[1]==end[1])){
+            current.setSons(new ArrayList<>());
+            objective = current;
+            pathFound=true;
+        }else{
+            current.setSons(genSons(current, path));
+            for(TreeNode son:current.getSons()){
+                son.setFather(current);
+                queue.add(son);
+            }
+            if(!queue.isEmpty()){
+                if(!pathFound){
+                    genTreeBFSR(end,path.clone(), queue);
+                }
+            }
+        }
+        path.pop();
+    }
+    
     public ArrayList<TreeNode> getPathBFS(int[] ini, int[] end) {
         TreeNode node = new TreeNode(PathfindingLogic.getInstance().getMap()[ini[0]][ini[1]]);//Inicia a arvore
         ArrayDeque<TreeNode> pathad = new ArrayDeque<>();//Path para montagem da arvore
@@ -118,7 +196,7 @@ public class TreeGen {
         queue.add(node); //Adicionando o primeiro no na fila
         TreeNode aux = null;
         while (!queue.isEmpty()) { //Enquanto a fila não for vazia.....
-            //  System.out.println(Arrays.toString(queue.peek().getPos()));
+            //System.out.println(Arrays.toString(queue.peek().getPos()));
             //Verifica se o primeiro elemento é a solução
             if (queue.peek().getPos()[0] == end[0] && queue.peek().getPos()[1] == end[1]) {
                 aux = queue.peek(); //Se for guarda na aux
@@ -158,34 +236,48 @@ public class TreeGen {
     }
 
 //    public static void main(String[] Args) {
-////        int[][] layout = new int[][]{{0,0,0},{0,1,0},{0,0,0}};
-//        int tam = 3;
+//        int tam = 5;
 //        int[] origin = new int[]{0, 0};
-//        int[] end = new int[]{2, 2};
+//        int[] end = new int[]{4, 3};
 //        int[][] layout = new int[tam][tam];
 //        GenMap objGM = new GenMap();
 //        MapNode[][] map = objGM.init(layout);
-//        ArrayDeque<TreeNode> path = new ArrayDeque<>();
 //        TreeNode root = new TreeNode(map[origin[0]][origin[1]]);
 //        TreeGen objTG = new TreeGen();
-//        objTG.genTree(root, null, end, path);
-//        objTG.printTree(root, end);
-//        objTG.getPathBFS(origin, end);
+////        objTG.genTree(root, null, end, path);
+////        objTG.printTree(root, end);
+//        
+//        ArrayDeque<TreeNode> path = new ArrayDeque<>();
+//        path = objTG.getPathBFSN(origin, end);
+//        for(TreeNode node : path){
+//            System.out.println("nó: "+node.getPos()[0]+" "+node.getPos()[1]);
+//        }
 //    }
-//    
-//    //    private void printTree(TreeNode node, int[] end) {
-////        TreeNode father = node.getFather();
-////        if (father == null) {
-////            System.out.println("RAIZ node: " + node.getPos()[0] + " " + node.getPos()[1]);
-////        } else {
-////            if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
-////                System.out.println("ITS ALIVEEEEE! Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
-////            } else {
-////                System.out.println("Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
-////            }
-////        }
-////        for (TreeNode son : node.getSons()) {
-////            printTree(son, end);
-////        }
-////    }
+    
+    private void printTree(TreeNode node, int[] end) {
+    TreeNode father = node.getFather();
+    if (father == null) {
+        System.out.println("RAIZ node: " + node.getPos()[0] + " " + node.getPos()[1]);
+    } else {
+        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
+            System.out.println("ITS ALIVEEEEE! Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
+        } else {
+            System.out.println("Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
+        }
+    }
+        for (TreeNode son : node.getSons()) {
+            printTree(son, end);
+        }
+    }
+    
+    private void printTreeBFS(TreeNode node,int[] end){
+        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
+            System.out.println("ITS ALIVEEEEE! node: " + node.getPos()[0] + " " + node.getPos()[1]);
+        } else {
+            System.out.println("node: " + node.getPos()[0] + " " + node.getPos()[1]);
+        }
+        for (TreeNode son : node.getSons()) {
+            printTreeBFS(son, end);
+        }
+    }
 }
