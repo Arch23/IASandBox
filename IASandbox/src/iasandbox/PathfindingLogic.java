@@ -88,13 +88,13 @@ public class PathfindingLogic {
                     if(tmp[0]!=-1 && tmp[1]!=-1){
                         origin = tmp;
                         firstClick=false;
-//                        System.out.println("Pegou primeiro click: x "+origin[0]+" y "+origin[1]);
+                        System.out.println("Pegou primeiro click: x "+origin[0]+" y "+origin[1]);
                     }
                 }else{
                     int[] tmp = getCord(event);
                     if(tmp[0]!=-1 && tmp[1]!=-1){
                         dest = tmp;
-//                        System.out.println("Pegou segundo click: x "+dest[0]+" y "+dest[1]);
+                        System.out.println("Pegou segundo click: x "+dest[0]+" y "+dest[1]);
                         magic();
                     }
                 }
@@ -148,6 +148,16 @@ public class PathfindingLogic {
                     }
                     case("obs"):{
                         gc.setFill(Color.BURLYWOOD);
+                        gc.fill();
+                        break;
+                    }
+                    case("open"):{
+                        gc.setFill(Color.CORNFLOWERBLUE);
+                        gc.fill();
+                        break;
+                    }
+                    case("closed"):{
+                        gc.setFill(Color.CRIMSON);
                         gc.fill();
                         break;
                     }

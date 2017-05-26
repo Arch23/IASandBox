@@ -5,6 +5,9 @@
  */
 package iasandbox.Pathfinding;
 
+import iasandbox.Pathfinding.AStar.AStar;
+import iasandbox.Pathfinding.AStar.AStarNode;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**
@@ -15,18 +18,22 @@ public class PathfindingA implements PathfindingMethod{
 
     @Override
     public ArrayList<Dots> getPath(int[] origin, int[] dest) {
-//        ArrayList<Dots> path = new ArrayList<>();
-//        Dots dot1 = new Dots(0, 0);
-//        Dots dot2 = new Dots(0, 1);
-//        Dots dot3 = new Dots(1, 1);
-//        Dots dot4 = new Dots(1, 2);
-//        path.add(dot1);
-//        path.add(dot2);
-//        path.add(dot3);
-//        path.add(dot4);
-//        return(path);
-        return(null);
+        AStar objAS = new AStar();
+        ArrayDeque<AStarNode> path = objAS.start(origin, dest);
+        if(path.isEmpty()){
+            return(null);
+        }else{ 
+            return(treeNodeToDots(path));
+        }
     }
-
+    
+    private ArrayList<Dots> treeNodeToDots(ArrayDeque<AStarNode> path){
+        ArrayList<Dots> tmp = new ArrayList<>();
+        while(!path.isEmpty()){
+            tmp.add(new Dots(path.peek().getPos()[0],path.peek().getPos()[1]));
+            path.pop();
+        }
+        return(tmp);
+    }
     
 }
