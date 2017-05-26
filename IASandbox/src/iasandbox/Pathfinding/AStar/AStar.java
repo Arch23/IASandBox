@@ -21,8 +21,7 @@ public class AStar {
 
     private int stepCost = 1;
     private boolean found;
-    
-    
+
 //    public static void main(String[] Args){
 //        int tam = 4;
 //        int[] origin = new int[]{0,0};
@@ -37,80 +36,89 @@ public class AStar {
 //            System.out.println("node: "+node.getPos()[0]+" "+node.getPos()[1]);
 //        }
 //    }
-    
     public ArrayDeque<AStarNode> start(int[] origin, int[] end) {
         //pegar o mapa
         MapNode[][] map = PathfindingLogic.getInstance().getMap();
-        
 
-        found=false;
+        found = false;
         ArrayDeque<AStarNode> path = new ArrayDeque<>();
         AStarNode objective = null;
-        
+
         //criar listas
+        //lista open guarda os possiveis nós para expanção
         ArrayList<AStarNode> open = new ArrayList<>();
+        //lista closed guarda os nós já expandidos
         ArrayList<AStarNode> closed = new ArrayList<>();
+        
+        //cria e inicializa o nó origem
         AStarNode ori = new AStarNode(map[origin[0]][origin[1]]);
         ori.setG(0);
         ori.setH(0);
         ori.setF();
         open.add(ori);
         open.get(0).getNode().setTipo("open");
-        int cont=0;
+        
+        //inicializa a search
         while (!open.isEmpty()) {
+            //retira o nó com o menor f da lista open
             AStarNode q = findLowerF(open);
-            cont++;
-            
-            System.out.println("node: "+q.getPos()[0]+" "+q.getPos()[1]);
             removeFromList(open, q);
+            
+            //gera os filhos dele
             q.setSons(genSons(q));
             
-//            int i=0;
-//            for(AStarNode aux : q.getSons()){
-//                System.out.println("filho "+i+"-> "+aux.getPos()[0]+" "+aux.getPos()[1]);
-//                i++;
-//            }
-            
+            //para cada filho dele
             for (AStarNode son : q.getSons()) {
+                
+                //verifica se o filho é o destino, se for para a busca
                 if (isEnd(son, end)) {
-                    objective=son;
-                    found=true;
+                    objective = son;
+                    found = true;
                     break;
                 }
-
+                //Se o filho não for o destino calcula a heuristica dele
+                //valor da origem até o nó, considerando todo nó com o mesmo passo
                 son.setG(q.getG() + stepCost);
+                
+                //calcula aproximadamente o valor do nó ate o destino
+                //foi utilizado o método de calculo manhattan
                 son.setH(calcH(son, end));
+                
+                //soma g com h
                 son.setF();
-//                System.out.println("son: "+son.getF());
-                if(!isInOpenWithLower(open, son)){
-                    if(!isInClosedWithLower(closed, son)){
+                
+                
+                if (!isInOpenWithLower(open, son)) {
+                    //se na lista open tiver alguém na mesma posição com f menor que o atual, descarta o nó atual
+                    if (!isInClosedWithLower(closed, son)) {
+                        //se tiver alguém na lista closed na mesma posição com f menor que o atual, descarta o nó atual
                         open.add(son);
                         son.getNode().setTipo("open");
                     }
                 }
             }
-            if(found){
+            //quebra a search se tiver sido encontrado o nó objetivo
+            if (found) {
                 break;
             }
+            //nó totalmente explorado então vai para a lista closed
             closed.add(q);
             q.getNode().setTipo("closed");
         }
-        for(AStarNode n : closed){
-            System.out.println("node: "+n.getPos()[0]+" "+n.getPos()[1]+" /f: "+n.getF()+" /g: "+n.getF()+" /h: "+n.getH());
-        }
-        do{
+        if (objective != null) {
+            do {
+                path.add(objective);
+                objective = objective.getFather();
+            } while (!isOrigin(objective, origin));
             path.add(objective);
-            objective = objective.getFather();
-        }while(!isOrigin(objective, origin));
-        path.add(objective);
-        System.out.println("visitou "+cont+" nós.");
-        return(path);
+        }
+        return (path);
     }
 
     private boolean isEnd(AStarNode node, int[] end) {
         return (((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) ? (true) : (false));
     }
-    
+
     private boolean isOrigin(AStarNode node, int[] origin) {
         return (((node.getPos()[0] == origin[0]) && (node.getPos()[1] == origin[1])) ? (true) : (false));
     }
@@ -151,9 +159,10 @@ public class AStar {
                 lower = node.getF();
             }
         }
-        for (AStarNode node : open) {
-            if (node.getF() == lower) {
-                return (node);
+
+        for (int i = open.size() - 1; i >= 0; i--) {
+            if (open.get(i).getF() == lower) {
+                return (open.get(i));
             }
         }
         return (null);

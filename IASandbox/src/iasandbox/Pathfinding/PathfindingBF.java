@@ -7,6 +7,7 @@ package iasandbox.Pathfinding;
 
 import iasandbox.Pathfinding.BDTree.TreeGen;
 import iasandbox.Pathfinding.BDTree.TreeNode;
+import iasandbox.PathfindingLogic;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -17,10 +18,12 @@ import java.util.ArrayList;
 public class PathfindingBF implements PathfindingMethod{
 
     @Override
-public ArrayList<Dots> getPath(int[] origin, int[] dest) {
+public ArrayList<Dots> getPath(int[] origin, int[] end) {
         ArrayDeque<TreeNode> path =null;
         TreeGen objTG = new TreeGen();
-        path = objTG.getPathBFSR(origin, dest);
+        path = objTG.getPathBFSR(origin, end);
+        PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]].setTipo("origin");
+        PathfindingLogic.getInstance().getMap()[end[0]][end[1]].setTipo("end");
         if(path.isEmpty()){
             return(null);
         }else{ 

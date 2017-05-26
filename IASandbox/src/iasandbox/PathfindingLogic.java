@@ -142,7 +142,7 @@ public class PathfindingLogic {
                         break;
                     }
                     case("parede"):{
-                        gc.setFill(Color.GAINSBORO);
+                        gc.setFill(Color.GREY);
                         gc.fill();
                         break;
                     }
@@ -158,6 +158,16 @@ public class PathfindingLogic {
                     }
                     case("closed"):{
                         gc.setFill(Color.CRIMSON);
+                        gc.fill();
+                        break;
+                    }
+                    case("origin"):{
+                        gc.setFill(Color.WHITE);
+                        gc.fill();
+                        break;
+                    }
+                    case("end"):{
+                        gc.setFill(Color.GOLD);
                         gc.fill();
                         break;
                     }
