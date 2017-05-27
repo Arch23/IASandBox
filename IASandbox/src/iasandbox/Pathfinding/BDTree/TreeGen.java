@@ -8,7 +8,6 @@ package iasandbox.Pathfinding.BDTree;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import iasandbox.PathfindingLogic;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -126,8 +125,6 @@ public class TreeGen {
         ArrayDeque<TreeNode> path = new ArrayDeque<>();
         TreeNode root = new TreeNode(PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]]);
         genTreeDFS(root, end, path);
-//        path.clear();
-//        dFS(root, path, end);
         return (path);
     }
 
@@ -138,7 +135,8 @@ public class TreeGen {
         TreeNode root = new TreeNode(PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]]);
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        genTreeBFSR(end, path, queue);
+//        genTreeBFSR(end, path, queue);
+        genTreeBFS(root, end);
         path.clear();
         if(objective!=null){
             do{
@@ -150,18 +148,74 @@ public class TreeGen {
         return (path);
     }
     
-    private void genTreeBFS(TreeNode node,int[] end,ArrayDeque<TreeNode> path){
+    private void genTreeBFS(TreeNode node,int[] end){
         Queue<TreeNode> queue = new LinkedList<>();
+        ArrayList<TreeNode> closed = new ArrayList<>();
         queue.add(node);
         while(!queue.isEmpty()){
             TreeNode current = queue.remove();
             if((current.getPos()[0]==end[0])&&(current.getPos()[1]==end[1])){
+                current.setSons(new ArrayList<>());
+                objective = current;
                 break;
             }
+            current.setSons(genSonsBFS(current, closed));
             for(TreeNode son : current.getSons()){
-                queue.add(son);
+                if(!isInList(son, closed)){
+                    son.setFather(current);
+                    queue.add(son);
+                }
+            }
+            //nó totalmente expandido
+            closed.add(current);
+        }
+    }
+    
+    private ArrayList<TreeNode> genSonsBFS(TreeNode node, ArrayList<TreeNode> closed) {
+        ArrayList<TreeNode> sons = new ArrayList<>();
+
+        if (node.getMapNode().getDown() != null) {
+            //não cria um filho que já esta no caminho atual
+            if (!isInList(node.getMapNode().getDown(),closed)) {
+                sons.add(new TreeNode(node.getMapNode().getDown()));
             }
         }
+        if (node.getMapNode().getRight() != null) {
+            if (!isInList(node.getMapNode().getRight(),closed)) {
+                sons.add(new TreeNode(node.getMapNode().getRight()));
+            }
+        }
+        if (node.getMapNode().getUp() != null) {
+            if (!isInList(node.getMapNode().getUp(),closed)) {
+                sons.add(new TreeNode(node.getMapNode().getUp()));
+            }
+
+        }
+        if (node.getMapNode().getLeft() != null) {
+            if (!isInList(node.getMapNode().getLeft(),closed)) {
+                sons.add(new TreeNode(node.getMapNode().getLeft()));
+            }
+
+        }
+        return (sons);
+    }
+    
+    private boolean isInList(MapNode node,  ArrayList<TreeNode> closed){
+        for(TreeNode n : closed){
+            if((n.getPos()[0]==node.getPos()[0])&&(n.getPos()[1]==node.getPos()[1])){
+                return(true);
+            }
+        }
+        return(false);
+    }
+    
+    private boolean isInList(TreeNode node,  ArrayList<TreeNode> closed){
+        for(TreeNode n : closed){
+            if((n.getPos()[0]==node.getPos()[0])&&(n.getPos()[1]==node.getPos()[1])){
+                return(true);
+            }
+        }
+        return(false);
     }
     
     private void genTreeBFSR(int[] end,ArrayDeque<TreeNode> path,Queue<TreeNode> queue){
@@ -254,30 +308,30 @@ public class TreeGen {
 //        }
 //    }
     
-    private void printTree(TreeNode node, int[] end) {
-    TreeNode father = node.getFather();
-    if (father == null) {
-        System.out.println("RAIZ node: " + node.getPos()[0] + " " + node.getPos()[1]);
-    } else {
-        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
-            System.out.println("ITS ALIVEEEEE! Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
-        } else {
-            System.out.println("Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
-        }
-    }
-        for (TreeNode son : node.getSons()) {
-            printTree(son, end);
-        }
-    }
+//    private void printTree(TreeNode node, int[] end) {
+//    TreeNode father = node.getFather();
+//    if (father == null) {
+//        System.out.println("RAIZ node: " + node.getPos()[0] + " " + node.getPos()[1]);
+//    } else {
+//        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
+//            System.out.println("ITS ALIVEEEEE! Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
+//        } else {
+//            System.out.println("Father: " + father.getPos()[0] + " " + father.getPos()[1] + " node: " + node.getPos()[0] + " " + node.getPos()[1]);
+//        }
+//    }
+//        for (TreeNode son : node.getSons()) {
+//            printTree(son, end);
+//        }
+//    }
     
-    private void printTreeBFS(TreeNode node,int[] end){
-        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
-            System.out.println("ITS ALIVEEEEE! node: " + node.getPos()[0] + " " + node.getPos()[1]);
-        } else {
-            System.out.println("node: " + node.getPos()[0] + " " + node.getPos()[1]);
-        }
-        for (TreeNode son : node.getSons()) {
-            printTreeBFS(son, end);
-        }
-    }
+//    private void printTreeBFS(TreeNode node,int[] end){
+//        if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {
+//            System.out.println("ITS ALIVEEEEE! node: " + node.getPos()[0] + " " + node.getPos()[1]);
+//        } else {
+//            System.out.println("node: " + node.getPos()[0] + " " + node.getPos()[1]);
+//        }
+//        for (TreeNode son : node.getSons()) {
+//            printTreeBFS(son, end);
+//        }
+//    }
 }

@@ -66,8 +66,8 @@ public class PathfindingConfController implements Initializable {
     
     private void limiter(){
         if(choiceMetod.getValue().equals("Breadth-First")){
-            if(((int) Math.round(size.getValue()))>6){
-                size.setValue(6);
+            if(((int) Math.round(size.getValue()))>8){
+                size.setValue(8);
             }
         }
     }
