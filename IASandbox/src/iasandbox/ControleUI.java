@@ -9,6 +9,7 @@ import iasandbox.TicTacToe.AlfaBetaTree.TreeAlfaBeta;
 import iasandbox.TicTacToe.MiniMaxTree.TreeMiniMax;
 import iasandbox.FXML.GameStatsController;
 import iasandbox.FXML.MainController;
+import iasandbox.FXML.PathfindingConfController;
 import iasandbox.FXML.PlayersController;
 import iasandbox.FXML.StatsTicTacToeController;
 import java.io.IOException;
@@ -36,26 +37,28 @@ public final class ControleUI {
     private Parent selectParent;
     private Parent mainStageParent;
     private Parent playersParent;
-    private Parent loadingParent;
     private Parent statsParent;
     private Parent gameStatsParent;
+    private Parent methodParent;
 
     private Scene selectScene;
     private Scene mainStageScene;
     private Scene playersScene;
-    private Scene loadingScene;
     private Scene statsScene;
     private Scene gameStatsScene;
+    private Scene methodScene;
 
     private MainController mainController;
     private PlayersController playersController;
     private StatsTicTacToeController statsController;
     private GameStatsController gameStatsController;
+    private PathfindingConfController methodController;
 
     private FXMLLoader mainLoader;
     private FXMLLoader playersLoader;
     private FXMLLoader statsLoader;
     private FXMLLoader gameStatsLoader;
+    private FXMLLoader methodLoader;
 
     private ResizableCanvas canvas;
 
@@ -141,7 +144,21 @@ public final class ControleUI {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public void mostraMethods(){
+        try {
+            methodLoader = new FXMLLoader(getClass().getResource("FXML/PathfindingConf.fxml"));
+            methodParent = methodLoader.load();
+            methodScene = new Scene(methodParent);
+            methodController = methodLoader.getController();
+            playersStage.setScene(methodScene);
+            playersStage.setTitle("AI SandBox");
+            playersStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void mostraStats() {
         try {
             statsLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));

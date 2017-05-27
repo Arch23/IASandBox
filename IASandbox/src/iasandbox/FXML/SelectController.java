@@ -26,16 +26,10 @@ public class SelectController implements Initializable {
     private Label label;
     @FXML
     private ChoiceBox<String> choiceGame;
-    @FXML
-    private ChoiceBox<String> choiceMetod;
-    @FXML
-    private Pane metodPane;
     
-    private String[] game={"Tic Tac Toe","Pathfinding"},
-            metodGame2={"A*","Breadth-First","Depth-First Search"};
+    private String[] game={"Tic Tac Toe","Pathfinding"};
     
     private ObservableList<String> gameItems;
-    private ObservableList<String> game2Items;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,14 +43,8 @@ public class SelectController implements Initializable {
             ControleUI.getInstance().mostraPlayers();
         }else{
             ControleUI.getInstance().setGame(1);
-            if(choiceMetod.getValue().equals(metodGame2[0])){
-                ControleUI.getInstance().setMetod(0);
-            }else if(choiceMetod.getValue().equals(metodGame2[1])){
-                ControleUI.getInstance().setMetod(1);
-            }else if(choiceMetod.getValue().equals(metodGame2[2])){
-                ControleUI.getInstance().setMetod(2);
-            }
-            ControleUI.getInstance().mostraMain();
+            
+            ControleUI.getInstance().mostraMethods();
         }
         ControleUI.getInstance().getSelect().hide();
     }
@@ -64,23 +52,9 @@ public class SelectController implements Initializable {
     private void initChoiceBox(){
         //inicializando os observablos list
         gameItems = FXCollections.observableArrayList(game);
-        game2Items = FXCollections.observableArrayList(metodGame2);
         
         //inicializando choicebox
         choiceGame.setItems(gameItems);
         choiceGame.setValue(gameItems.get(0));
-        choiceGame.valueProperty().addListener(listener->changeMetod());
-        metodPane.setDisable(true);
-    }
-    
-    //método para setar os métodos disponíveis para cada game
-    private void changeMetod(){
-        if(choiceGame.getValue().equals(game[0])){
-            metodPane.setDisable(true);
-        }else{
-            metodPane.setDisable(false);
-            choiceMetod.setItems(game2Items);
-            choiceMetod.setValue(game2Items.get(0));
-        }
     }
 }

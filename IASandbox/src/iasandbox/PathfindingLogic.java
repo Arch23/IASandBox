@@ -43,7 +43,9 @@ public class PathfindingLogic {
     private EventHandler<MouseEvent> user;
     private boolean firstClick;
     private int[] origin, dest;
+    
     private int[][] layout;
+    private int size;
     private PathfindingMethod method;
     private ArrayList<Dots> path;
     private String text;
@@ -54,9 +56,7 @@ public class PathfindingLogic {
     /*
         Construct
     */
-    private PathfindingLogic(){
-        
-    }
+    private PathfindingLogic(){}
     /*
         End Construct
     */
@@ -74,6 +74,7 @@ public class PathfindingLogic {
         text="";
         path=null;
         setMethod();
+        layout = new int[size][size];
         
         GenMap obj = new GenMap();
         map = obj.init(layout);
@@ -88,13 +89,13 @@ public class PathfindingLogic {
                     if(tmp[0]!=-1 && tmp[1]!=-1){
                         origin = tmp;
                         firstClick=false;
-                        System.out.println("Pegou primeiro click: x "+origin[0]+" y "+origin[1]);
+//                        System.out.println("Pegou primeiro click: x "+origin[0]+" y "+origin[1]);
                     }
                 }else{
                     int[] tmp = getCord(event);
                     if(tmp[0]!=-1 && tmp[1]!=-1){
                         dest = tmp;
-                        System.out.println("Pegou segundo click: x "+dest[0]+" y "+dest[1]);
+//                        System.out.println("Pegou segundo click: x "+dest[0]+" y "+dest[1]);
                         magic();
                     }
                 }
@@ -292,6 +293,14 @@ public class PathfindingLogic {
 
     public void setMap(MapNode[][] map) {
         this.map = map;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
     /*
         End Getters Setters
