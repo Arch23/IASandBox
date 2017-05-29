@@ -19,16 +19,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import statistics.PFBenchmark.PFBenchXML;
+import statistics.PFBenchmark.PFStats;
 
 /**
  *
  * @author noda2
  */
 public class PathfindingLogic {
-    
+
     /*
         Var
-    */
+     */
     private static PathfindingLogic instance;
     private double hM,
             wM,
@@ -43,39 +45,44 @@ public class PathfindingLogic {
     private EventHandler<MouseEvent> user;
     private boolean firstClick;
     private int[] origin, dest;
-    
+
     private int[][] layout;
     private int size;
     private PathfindingMethod method;
     private ArrayList<Dots> path;
     private String text;
+
     /*
         End var
-    */
-    
-    /*
+     */
+
+ /*
         Construct
-    */
-    private PathfindingLogic(){}
+     */
+    private PathfindingLogic() {
+    }
+
     /*
         End Construct
-    */
-    
-    /*
+     */
+
+ /*
         Methods
-    */
-    public static PathfindingLogic getInstance(){return((instance==null)?(instance = new PathfindingLogic()):(instance));}
-    
+     */
+    public static PathfindingLogic getInstance() {
+        return ((instance == null) ? (instance = new PathfindingLogic()) : (instance));
+    }
+
     public void pathFinding() {
         //inicializando as var
         firstClick = true;
         origin = new int[2];
         dest = new int[2];
-        text="";
-        path=null;
+        text = "";
+        path = null;
         setMethod();
         layout = new int[size][size];
-        
+
         GenMap obj = new GenMap();
         map = obj.init(layout);
         cels = new Rectangle[map.length][map[1].length];
@@ -84,16 +91,16 @@ public class PathfindingLogic {
         user = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(firstClick){
+                if (firstClick) {
                     int[] tmp = getCord(event);
-                    if(tmp[0]!=-1 && tmp[1]!=-1){
+                    if (tmp[0] != -1 && tmp[1] != -1) {
                         origin = tmp;
-                        firstClick=false;
+                        firstClick = false;
 //                        System.out.println("Pegou primeiro click: x "+origin[0]+" y "+origin[1]);
                     }
-                }else{
+                } else {
                     int[] tmp = getCord(event);
-                    if(tmp[0]!=-1 && tmp[1]!=-1){
+                    if (tmp[0] != -1 && tmp[1] != -1) {
                         dest = tmp;
 //                        System.out.println("Pegou segundo click: x "+dest[0]+" y "+dest[1]);
                         magic();
@@ -102,20 +109,18 @@ public class PathfindingLogic {
             }
         };
         ControleUI.getInstance().getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, user);
-    }   
-    
-    
-    
+    }
+
     public void calcPathFinding() {
-        hM = (ControleUI.getInstance().getMainStage().getHeight()*(0.70));
+        hM = (ControleUI.getInstance().getMainStage().getHeight() * (0.70));
         wM = hM;
-        
-        hCel = (hM/map[0].length);
+
+        hCel = (hM / map[0].length);
         wCel = hCel;
-        
-        h1 = ((ControleUI.getInstance().getMainStage().getHeight()-hM)*0.5);
-        h2 = ((ControleUI.getInstance().getMainStage().getHeight()-hM)*0.5);
-        w1 = w2 = ((ControleUI.getInstance().getMainStage().getWidth()-wM)/2);
+
+        h1 = ((ControleUI.getInstance().getMainStage().getHeight() - hM) * 0.5);
+        h2 = ((ControleUI.getInstance().getMainStage().getHeight() - hM) * 0.5);
+        w1 = w2 = ((ControleUI.getInstance().getMainStage().getWidth() - wM) / 2);
     }
 
     public void drawStaticPathFinding() {
@@ -127,47 +132,47 @@ public class PathfindingLogic {
         gc.setFont(new Font(ControleUI.getInstance().getMainStage().getHeight() * 0.05));
         gc.fillText(text, ((ControleUI.getInstance().getMainStage().getWidth() / 2) - (text.length() * ControleUI.getInstance().getMainStage().getHeight() * 0.012)), (h1 - 10));
 
-        gc.setStroke(Color.BLACK); 
+        gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
-        for(int i=0;i<map.length;i++){
-            for(int j=0;j<map[i].length;j++){
-                double x1 = (w1+(i*wCel)), y1 = (h1+(j*hCel)),x2 = (w1+((i+1)*wCel)), y2 = (h1+((j+1)*hCel));
-                cels[i][j] = new Rectangle(x1,y1,(x2-x1),(y2-y1));
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                double x1 = (w1 + (i * wCel)), y1 = (h1 + (j * hCel)), x2 = (w1 + ((i + 1) * wCel)), y2 = (h1 + ((j + 1) * hCel));
+                cels[i][j] = new Rectangle(x1, y1, (x2 - x1), (y2 - y1));
                 gc.beginPath();
-                gc.rect(x1, y1, (x2-x1), (y2-y1));
+                gc.rect(x1, y1, (x2 - x1), (y2 - y1));
                 gc.stroke();
-                switch(map[i][j].getTipo()){
-                    case("campo"):{
+                switch (map[i][j].getTipo()) {
+                    case ("campo"): {
                         gc.setFill(Color.GREEN);
                         gc.fill();
                         break;
                     }
-                    case("parede"):{
+                    case ("parede"): {
                         gc.setFill(Color.GREY);
                         gc.fill();
                         break;
                     }
-                    case("obs"):{
+                    case ("obs"): {
                         gc.setFill(Color.BURLYWOOD);
                         gc.fill();
                         break;
                     }
-                    case("open"):{
+                    case ("open"): {
                         gc.setFill(Color.CORNFLOWERBLUE);
                         gc.fill();
                         break;
                     }
-                    case("closed"):{
+                    case ("closed"): {
                         gc.setFill(Color.CRIMSON);
                         gc.fill();
                         break;
                     }
-                    case("origin"):{
+                    case ("origin"): {
                         gc.setFill(Color.WHITE);
                         gc.fill();
                         break;
                     }
-                    case("end"):{
+                    case ("end"): {
                         gc.setFill(Color.GOLD);
                         gc.fill();
                         break;
@@ -198,92 +203,99 @@ public class PathfindingLogic {
     }
 
     public void drawPlayerMovesPathFinding() {
-        if(path!=null){
+        if (path != null) {
             GraphicsContext gc = ControleUI.getInstance().getMainController().getGC();
-            double dotX1=0,dotY1=0,dotX2=0,dotY2=0;
-            double diam=hCel*0.5;
-            boolean firstDot=true;
-            for(Dots dot : path){
-                dotX1=(w1+(dot.getX()*wCel)+(wCel/2));
-                dotY1=(h1+(dot.getY()*hCel)+(hCel/2));
+            double dotX1 = 0, dotY1 = 0, dotX2 = 0, dotY2 = 0;
+            double diam = hCel * 0.5;
+            boolean firstDot = true;
+            for (Dots dot : path) {
+                dotX1 = (w1 + (dot.getX() * wCel) + (wCel / 2));
+                dotY1 = (h1 + (dot.getY() * hCel) + (hCel / 2));
                 gc.setStroke(Color.RED);
                 gc.setLineWidth(2);
 
-                gc.strokeOval(dotX1-(diam/2), dotY1-(diam/2), diam, diam);
-                
-                if(!firstDot){
+                gc.strokeOval(dotX1 - (diam / 2), dotY1 - (diam / 2), diam, diam);
+
+                if (!firstDot) {
                     gc.strokeLine(dotX1, dotY1, dotX2, dotY2);
-                }else{
-                    firstDot=false;
+                } else {
+                    firstDot = false;
                 }
-                dotX2=dotX1;
-                dotY2=dotY1;
+                dotX2 = dotX1;
+                dotY2 = dotY1;
             }
         }
     }
-    
-    private int[] getCord(MouseEvent e){
-        int[] cord = new int[]{-1,-1};
-        for(int i=0;i<map.length;i++){
-            for(int j=0;j<map[i].length;j++){
-                if(cels[i][j].contains(e.getSceneX(),e.getSceneY())){
-                    if(!map[i][j].getTipo().equals("parede")){
+
+    private int[] getCord(MouseEvent e) {
+        int[] cord = new int[]{-1, -1};
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (cels[i][j].contains(e.getSceneX(), e.getSceneY())) {
+                    if (!map[i][j].getTipo().equals("parede")) {
                         cord[0] = i;
                         cord[1] = j;
                     }
                 }
             }
         }
-        return(cord);
+        return (cord);
     }
-    
-    private void magic(){
-        path=null;
+
+    private void magic() {
+        path = null;
         path = method.getPath(origin, dest);
-        if(path==null){
-            text="Caminho não encontrado!";
+        System.out.println("Nós visitados:" + ControleUI.getInstance().getNumberOfNodesVisited());
+        System.out.println("Nós do caminho:" + ControleUI.getInstance().getNumberOfSteps());
+        System.out.println("Tempo de decisão:" + ControleUI.getInstance().getTempoDecisao());
+        PFStats temp = new PFStats(ControleUI.getInstance().getNumberOfNodesVisited(),
+                ControleUI.getInstance().getNumberOfSteps(), ControleUI.getInstance().getTempoDecisao());
+        new PFBenchXML().geraXMLfile(temp);
+        if (path == null) {
+            text = "Caminho não encontrado!";
         }
         ControleUI.getInstance().getMainController().reDraw();
         endGame();
         ControleUI.getInstance().getMainController().getCanvasPane().requestFocus();
     }
-    
-    private void setMethod(){
-        switch(ControleUI.getInstance().getMetod()){
+
+    private void setMethod() {
+        switch (ControleUI.getInstance().getMetod()) {
             //A*
-            case(0):{
+            case (0): {
                 method = new PathfindingA();
-                text="A*";
+                text = "A*";
                 break;
             }
             //Gulosa
-            case(1):{
+            case (1): {
                 method = new PathfindingBF();
-                text="Breadth-First Search";
+                text = "Breadth-First Search";
                 break;
             }
             //depth first search
-            case(2):{
+            case (2): {
                 method = new PathfindingDFS();
-                text="Depth-First Search";
+                text = "Depth-First Search";
                 break;
             }
         }
     }
-    
-    public void endGame(){
-        if(user!=null){
+
+    public void endGame() {
+        if (user != null) {
             ControleUI.getInstance().getCanvas().removeEventHandler(MouseEvent.MOUSE_CLICKED, user);
         }
     }
+
     /*
         End methods
-    */
-    
-    /*
+     */
+
+ /*
         Getters Setters
-    */
-    public void setLayout(int[][] layout){
+     */
+    public void setLayout(int[][] layout) {
         this.layout = layout;
     }
 
@@ -304,5 +316,5 @@ public class PathfindingLogic {
     }
     /*
         End Getters Setters
-    */
+     */
 }

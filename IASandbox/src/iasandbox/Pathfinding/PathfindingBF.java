@@ -22,7 +22,10 @@ public class PathfindingBF implements PathfindingMethod{
 public ArrayList<Dots> getPath(int[] origin, int[] end) {
         ArrayDeque<TreeNode> path =null;
         TreeGen objTG = new TreeGen();
+        long ini=System.nanoTime();
         path = objTG.getPathBFS(origin, end);
+        long fim=System.nanoTime();
+        ControleUI.getInstance().setTempoDecisao(fim-ini);
         PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]].setTipo("origin");
         PathfindingLogic.getInstance().getMap()[end[0]][end[1]].setTipo("end");
         if(path.isEmpty()){

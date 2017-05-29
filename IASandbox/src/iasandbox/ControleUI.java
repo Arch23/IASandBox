@@ -72,7 +72,7 @@ public final class ControleUI {
     //variáveis para o benchmark
     private int numberOfSteps = 0;
     private int numberOfNodesVisited = 0;
-    
+    private long tempoDecisao = 0;
     private ControleUI() {
     }
 
@@ -280,4 +280,12 @@ public final class ControleUI {
         this.numberOfNodesVisited = numberOfNodesVisited;
     }
 
+    public long getTempoDecisao() {
+        return tempoDecisao;
+    }
+
+    public void setTempoDecisao(long tempoDecisao) {
+        this.tempoDecisao = tempoDecisao;
+    }
+    
 }
