@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="1362.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsPathfindingController">
+   <children>
+      <TableView fx:id="AstarStats" layoutY="71.0" prefHeight="200.0" prefWidth="640.0">
+        <columns>
+          <TableColumn fx:id="AStarTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+          <TableColumn fx:id="AstarNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+            <TableColumn fx:id="AStarNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+            <TableColumn fx:id="AstarTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+        </columns>
+      </TableView>
+      <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="1362.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="7.0" layoutY="36.0" prefHeight="17.0" prefWidth="337.0" text="Busca A*">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="ProfundidadeStats" layoutY="340.0" prefHeight="200.0" prefWidth="640.0">
+         <columns>
+            <TableColumn fx:id="ProfundidadeTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+            <TableColumn fx:id="ProfundidadeNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+            <TableColumn fx:id="ProfundidadeNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+            <TableColumn fx:id="ProfundidadeTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+         </columns>
+      </TableView>
+      <Label layoutX="7.0" layoutY="304.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Profundidade">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="LarguraStats" layoutX="681.0" layoutY="72.0" prefHeight="200.0" prefWidth="640.0">
+         <columns>
+            <TableColumn fx:id="LarguraTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+            <TableColumn fx:id="LarguraNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+            <TableColumn fx:id="LarguraNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+            <TableColumn fx:id="LarguraTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+         </columns>
+      </TableView>
+      <Label layoutX="688.0" layoutY="36.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Largura">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -54,6 +54,11 @@ public class PathfindingConfController implements Initializable {
         ControleUI.getInstance().mostraMain();
         ControleUI.getInstance().getPlayersStage().hide();
     }
+    
+    @FXML
+    private void chamaStats(){
+        ControleUI.getInstance().mostraPathfindingStats();
+    }
 
     private void initChoiceBox() {
 

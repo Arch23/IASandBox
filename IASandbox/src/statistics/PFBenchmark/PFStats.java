@@ -5,14 +5,18 @@
  */
 package statistics.PFBenchmark;
 
+import iasandbox.PathfindingLogic;
+
 /**
  *
  * @author Gabriel
  */
 public class PFStats {
-   private int NosVisitados;
-   private int NosSolution;
-   private long TempoDecisao;
+
+    private int NosVisitados;
+    private int NosSolution;
+    private long TempoDecisao;
+    private int TamMatriz;
 
     public int getNosVisitados() {
         return NosVisitados;
@@ -22,18 +26,19 @@ public class PFStats {
         this.NosVisitados = NosVisitados;
     }
 
-
     public void setTempoDecisao(long TempoDecisao) {
         this.TempoDecisao = TempoDecisao;
     }
-   public PFStats(){
-       
-   }
+
+    public PFStats() {
+
+    }
 
     public PFStats(int NosVisitados, int NosSolution, long TempoDecisao) {
         this.NosVisitados = NosVisitados;
-        this.NosSolution= NosSolution;
+        this.NosSolution = NosSolution;
         this.TempoDecisao = TempoDecisao;
+        this.TamMatriz=PathfindingLogic.getInstance().getSize();
     }
 
     public int getNosSolution() {
@@ -43,5 +48,14 @@ public class PFStats {
     public void setNosSolution(int NosSolution) {
         this.NosSolution = NosSolution;
     }
-   
+
+    public int getTamMatriz() {
+        return TamMatriz;
+    }
+
+    public void setTamMatriz(int TamMatriz) {
+        this.TamMatriz = TamMatriz;
+    }
+    
+
 }

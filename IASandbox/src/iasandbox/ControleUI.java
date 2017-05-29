@@ -11,6 +11,7 @@ import iasandbox.FXML.GameStatsController;
 import iasandbox.FXML.MainController;
 import iasandbox.FXML.PathfindingConfController;
 import iasandbox.FXML.PlayersController;
+import iasandbox.FXML.StatsPathfindingController;
 import iasandbox.FXML.StatsTicTacToeController;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ public final class ControleUI {
     private Parent statsParent;
     private Parent gameStatsParent;
     private Parent methodParent;
+    private Parent pathStatsParent;
 
     private Scene selectScene;
     private Scene mainStageScene;
@@ -47,17 +49,20 @@ public final class ControleUI {
     private Scene statsScene;
     private Scene gameStatsScene;
     private Scene methodScene;
+    private Scene pathStatsScene;
 
     private MainController mainController;
     private PlayersController playersController;
     private StatsTicTacToeController statsController;
     private GameStatsController gameStatsController;
     private PathfindingConfController methodController;
+    private StatsPathfindingController pathStatsController;
 
     private FXMLLoader mainLoader;
     private FXMLLoader playersLoader;
     private FXMLLoader statsLoader;
     private FXMLLoader gameStatsLoader;
+    private FXMLLoader pathStatsLoader;
     private FXMLLoader methodLoader;
 
     private ResizableCanvas canvas;
@@ -67,12 +72,12 @@ public final class ControleUI {
 
     private int player1 = 0;
     private int player2 = 0;
-    
-    
+
     //variáveis para o benchmark
     private int numberOfSteps = 0;
     private int numberOfNodesVisited = 0;
     private long tempoDecisao = 0;
+
     private ControleUI() {
     }
 
@@ -149,8 +154,8 @@ public final class ControleUI {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void mostraMethods(){
+
+    public void mostraMethods() {
         try {
             methodLoader = new FXMLLoader(getClass().getResource("FXML/PathfindingConf.fxml"));
             methodParent = methodLoader.load();
@@ -163,7 +168,7 @@ public final class ControleUI {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void mostraStats() {
         try {
             statsLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));
@@ -185,6 +190,20 @@ public final class ControleUI {
             gameStatsScene = new Scene(gameStatsParent);
             gameStatsController = gameStatsLoader.getController();
             statsStage.setScene(gameStatsScene);
+            statsStage.setTitle("AI SandBox");
+            statsStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void mostraPathfindingStats() {
+        try {
+            pathStatsLoader = new FXMLLoader(getClass().getResource("FXML/StatsPathfinding.fxml"));
+            pathStatsParent = pathStatsLoader.load();
+            pathStatsScene = new Scene(pathStatsParent);
+            pathStatsController = pathStatsLoader.getController();
+            statsStage.setScene(pathStatsScene);
             statsStage.setTitle("AI SandBox");
             statsStage.show();
         } catch (Exception ex) {
@@ -287,5 +306,5 @@ public final class ControleUI {
     public void setTempoDecisao(long tempoDecisao) {
         this.tempoDecisao = tempoDecisao;
     }
-    
+
 }
