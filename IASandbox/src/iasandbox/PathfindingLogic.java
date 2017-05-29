@@ -244,13 +244,11 @@ public class PathfindingLogic {
 
     private void magic() {
         path = null;
-        path = method.getPath(origin, dest);
-        System.out.println("Nós visitados:" + ControleUI.getInstance().getNumberOfNodesVisited());
-        System.out.println("Nós do caminho:" + ControleUI.getInstance().getNumberOfSteps());
-        System.out.println("Tempo de decisão:" + ControleUI.getInstance().getTempoDecisao());
+        path = method.getPath(origin, dest);        
         PFStats temp = new PFStats(ControleUI.getInstance().getNumberOfNodesVisited(),
                 ControleUI.getInstance().getNumberOfSteps(), ControleUI.getInstance().getTempoDecisao());
         new PFBenchXML().geraXMLfile(temp);
+        ControleUI.getInstance().getPathStatsController().atualizaAll();
         if (path == null) {
             text = "Caminho não encontrado!";
         }

@@ -307,4 +307,9 @@ public final class ControleUI {
         this.tempoDecisao = tempoDecisao;
     }
 
+    public StatsPathfindingController getPathStatsController() {
+        return pathStatsController;
+    }
+    
+
 }

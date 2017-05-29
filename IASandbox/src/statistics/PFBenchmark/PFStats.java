@@ -30,15 +30,8 @@ public class PFStats {
         this.TempoDecisao = TempoDecisao;
     }
 
-    public PFStats() {
-
-    }
-
-    public PFStats(int NosVisitados, int NosSolution, long TempoDecisao) {
-        this.NosVisitados = NosVisitados;
-        this.NosSolution = NosSolution;
-        this.TempoDecisao = TempoDecisao;
-        this.TamMatriz=PathfindingLogic.getInstance().getSize();
+    public long getTempoDecisao() {
+        return TempoDecisao;
     }
 
     public int getNosSolution() {
@@ -56,6 +49,16 @@ public class PFStats {
     public void setTamMatriz(int TamMatriz) {
         this.TamMatriz = TamMatriz;
     }
-    
+
+    public PFStats() {
+
+    }
+
+    public PFStats(int NosVisitados, int NosSolution, long TempoDecisao) {
+        this.NosVisitados = NosVisitados;
+        this.NosSolution = NosSolution;
+        this.TempoDecisao = TempoDecisao;
+        this.TamMatriz = PathfindingLogic.getInstance().getSize();
+    }
 
 }

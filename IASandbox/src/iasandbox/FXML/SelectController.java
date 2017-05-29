@@ -48,7 +48,14 @@ public class SelectController implements Initializable {
         }
         ControleUI.getInstance().getSelect().hide();
     }
-    
+    @FXML
+    private void statsPathfinding(){
+        ControleUI.getInstance().mostraPathfindingStats();
+    }
+    @FXML
+    private void statsTicTacToe(){
+        ControleUI.getInstance().mostraGameStats();
+    }
     private void initChoiceBox(){
         //inicializando os observablos list
         gameItems = FXCollections.observableArrayList(game);

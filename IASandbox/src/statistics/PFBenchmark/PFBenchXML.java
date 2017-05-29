@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.PrintWriter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -51,11 +53,11 @@ public class PFBenchXML {
             if (ControleUI.getInstance().getMetod() == 0) {
                 writer = new PrintWriter("AStarTeste" + (pos + 1) + ".xml", "UTF-8");
             }
-            if(ControleUI.getInstance().getMetod()==1){
+            if (ControleUI.getInstance().getMetod() == 1) {
                 writer = new PrintWriter("LarguraTeste" + (pos + 1) + ".xml", "UTF-8");
             }
-            if(ControleUI.getInstance().getMetod()==2){
-                 writer = new PrintWriter("ProfundidadeTeste" + (pos + 1) + ".xml", "UTF-8");
+            if (ControleUI.getInstance().getMetod() == 2) {
+                writer = new PrintWriter("ProfundidadeTeste" + (pos + 1) + ".xml", "UTF-8");
             }
             writer.print(textoxml);
             writer.flush();
@@ -66,17 +68,28 @@ public class PFBenchXML {
         }
     }
 
-    public PFStats xmltoBenchmark() {
+    public ObservableList<PFStats> xmltoBenchmark(int tipoBusca) {
+        ObservableList<PFStats> Lista = FXCollections.observableArrayList();
         try {
             PFStats aux;
-            File xml = new File("Benchmark.xml");
-            aux = (PFStats) xstream.fromXML(xml);
-            return aux;
+            File vetfile[] = new File(".").listFiles((File file) -> {
+                if (tipoBusca == 0) {
+                    return file.getName().contains("AStar");
+                }
+                if (tipoBusca == 1) {
+                    return file.getName().contains("Largura");
+                } else {
+                    return file.getName().contains("Profundidade");
+                }
+            });
+            for (File temp : vetfile) {
+                aux = (PFStats) xstream.fromXML(temp);
+                Lista.add(aux);
+            }
+            return Lista;
         } catch (Exception e) {
             //System.err.println("erro");
-            PFStats aux = new PFStats();
-            geraXMLfile(aux);
-            return aux;
         }
+        return null;
     }
 }
