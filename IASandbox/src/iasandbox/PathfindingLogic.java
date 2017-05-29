@@ -5,8 +5,8 @@
  */
 package iasandbox;
 
-import iasandbox.Pathfinding.BDTree.GenMap;
-import iasandbox.Pathfinding.BDTree.MapNode;
+import iasandbox.Pathfinding.Map.GenMap;
+import iasandbox.Pathfinding.Map.MapNode;
 import iasandbox.Pathfinding.Dots;
 import iasandbox.Pathfinding.PathfindingA;
 import iasandbox.Pathfinding.PathfindingBF;

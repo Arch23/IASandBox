@@ -5,6 +5,7 @@
  */
 package iasandbox.Pathfinding.BDTree;
 
+import iasandbox.Pathfinding.Map.MapNode;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import iasandbox.PathfindingLogic;

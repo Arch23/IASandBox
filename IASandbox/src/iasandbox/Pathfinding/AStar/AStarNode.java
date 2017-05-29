@@ -5,7 +5,7 @@
  */
 package iasandbox.Pathfinding.AStar;
 
-import iasandbox.Pathfinding.BDTree.MapNode;
+import iasandbox.Pathfinding.Map.MapNode;
 import java.util.ArrayList;
 
 /**
