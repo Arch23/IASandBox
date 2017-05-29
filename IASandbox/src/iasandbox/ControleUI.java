@@ -67,7 +67,12 @@ public final class ControleUI {
 
     private int player1 = 0;
     private int player2 = 0;
-
+    
+    
+    //variáveis para o benchmark
+    private int numberOfSteps = 0;
+    private int numberOfNodesVisited = 0;
+    
     private ControleUI() {
     }
 
@@ -257,6 +262,22 @@ public final class ControleUI {
 
     public void setGameStatsController(GameStatsController gameStatsController) {
         this.gameStatsController = gameStatsController;
+    }
+
+    public int getNumberOfSteps() {
+        return numberOfSteps;
+    }
+
+    public void setNumberOfSteps(int numberOfSteps) {
+        this.numberOfSteps = numberOfSteps;
+    }
+
+    public int getNumberOfNodesVisited() {
+        return numberOfNodesVisited;
+    }
+
+    public void setNumberOfNodesVisited(int numberOfNodesVisited) {
+        this.numberOfNodesVisited = numberOfNodesVisited;
     }
 
 }

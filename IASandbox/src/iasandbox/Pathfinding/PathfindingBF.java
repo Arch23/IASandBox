@@ -5,6 +5,7 @@
  */
 package iasandbox.Pathfinding;
 
+import iasandbox.ControleUI;
 import iasandbox.Pathfinding.BDTree.TreeGen;
 import iasandbox.Pathfinding.BDTree.TreeNode;
 import iasandbox.PathfindingLogic;
@@ -21,7 +22,7 @@ public class PathfindingBF implements PathfindingMethod{
 public ArrayList<Dots> getPath(int[] origin, int[] end) {
         ArrayDeque<TreeNode> path =null;
         TreeGen objTG = new TreeGen();
-        path = objTG.getPathBFSR(origin, end);
+        path = objTG.getPathBFS(origin, end);
         PathfindingLogic.getInstance().getMap()[origin[0]][origin[1]].setTipo("origin");
         PathfindingLogic.getInstance().getMap()[end[0]][end[1]].setTipo("end");
         if(path.isEmpty()){
@@ -32,11 +33,14 @@ public ArrayList<Dots> getPath(int[] origin, int[] end) {
     }
     
     private ArrayList<Dots> treeNodeToDots(ArrayDeque<TreeNode> path){
+        int count = 0;
         ArrayList<Dots> tmp = new ArrayList<>();
         while(!path.isEmpty()){
             tmp.add(new Dots(path.peek().getPos()[0],path.peek().getPos()[1]));
             path.pop();
+            count++;
         }
+        ControleUI.getInstance().setNumberOfSteps(count);
         return(tmp);
     }
 }

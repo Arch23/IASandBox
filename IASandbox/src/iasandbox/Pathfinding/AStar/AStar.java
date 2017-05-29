@@ -22,20 +22,6 @@ public class AStar {
     private int stepCost = 1;
     private boolean found;
 
-//    public static void main(String[] Args){
-//        int tam = 4;
-//        int[] origin = new int[]{0,0};
-//        int[] end = new int[]{3,2};
-//        int[][] layout = new int[tam][tam];
-//        int[][] layout = new int[][]{{0,0,1,0},{0,0,1,0},{0,0,0,0},{0,0,0,0}};
-//        GenMap objGM = new GenMap();
-//        AStar objAS = new AStar();
-//        objAS.map = objGM.init(layout);
-//        ArrayDeque<AStarNode> path = objAS.start(origin, end);
-//        for(AStarNode node : path){
-//            System.out.println("node: "+node.getPos()[0]+" "+node.getPos()[1]);
-//        }
-//    }
     public ArrayDeque<AStarNode> start(int[] origin, int[] end) {
         //pegar o mapa
         MapNode[][] map = PathfindingLogic.getInstance().getMap();
@@ -57,9 +43,10 @@ public class AStar {
         ori.setF();
         open.add(ori);
         open.get(0).getNode().setTipo("open");
-        
+        int count = 0;
         //inicializa a search
         while (!open.isEmpty()) {
+            count++;
             //retira o nó com o menor f da lista open
             AStarNode q = findLowerF(open);
             removeFromList(open, q);
@@ -112,6 +99,7 @@ public class AStar {
             } while (!isOrigin(objective, origin));
             path.add(objective);
         }
+        ControleUI.getInstance().setNumberOfNodesVisited(count);
         return (path);
     }
 
