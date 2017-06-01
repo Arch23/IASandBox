@@ -29,10 +29,10 @@ import javafx.scene.paint.Color;
  * @author noda2
  */
 public class MainController implements Initializable {
-    
+
     /*
         Var FXML
-    */
+     */
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -42,18 +42,16 @@ public class MainController implements Initializable {
     @FXML
     private MenuItem changeGame;
     @FXML
-    private MenuItem close;
-    @FXML
-    private MenuItem configurações;
+    private MenuItem mudarPlayers;
     @FXML
     private StackPane stack;
 
     private ResizableCanvas canvas;
     private GraphicsContext GC;
+
     /*
         End var FXML
-    */
-    
+     */
     /**
      * Initializes the controller class.
      *
@@ -64,16 +62,26 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initCanvas();
         bindingElements();
+        if (ControleUI.getInstance().getGame()==1) {
+            mudarPlayers.setText("Mudar Métodos");
+        } else {
+            mudarPlayers.setText("Mudar Player");
+        }
     }
-    
+
     /*
         FXML Methods
-    */
+     */
     @FXML
-    private void mudarPlayers(){
+    private void mudarPlayers() {
         ControleUI.getInstance().getMainStage().hide();
-        ControleUI.getInstance().mostraPlayers();
+        if (ControleUI.getInstance().getGame() == 1) {
+            ControleUI.getInstance().mostraMethods();
+        } else {
+            ControleUI.getInstance().mostraPlayers();
+        }
     }
+
     @FXML
     public void newGame() {
         switch (ControleUI.getInstance().getGame()) {
@@ -89,13 +97,13 @@ public class MainController implements Initializable {
                 PathfindingLogic.getInstance().endGame();
 //                int[][] layout = new int[64][64];
                 int[][] layout = new int[][]{
-                    {0,0,0,0,0,0,0},
-                    {0,0,0,0,0,0,0},
-                    {0,0,0,0,1,0,0},
-                    {0,0,0,0,1,0,0},
-                    {0,1,1,1,1,0,0},
-                    {0,0,0,0,0,0,0},
-                    {0,0,0,0,0,0,0}};
+                    {0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 1, 0, 0},
+                    {0, 0, 0, 0, 1, 0, 0},
+                    {0, 1, 1, 1, 1, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0}};
                 PathfindingLogic.getInstance().setLayout(layout);
                 PathfindingLogic.getInstance().pathFinding();
                 break;
@@ -105,9 +113,9 @@ public class MainController implements Initializable {
 
     @FXML
     private void changeGame() {
-        if(ControleUI.getInstance().getGame()==0){
+        if (ControleUI.getInstance().getGame() == 0) {
             TicTacToeLogic.getInstance().endGame();
-        }else{
+        } else {
             PathfindingLogic.getInstance().endGame();
         }
         ControleUI.getInstance().getMainStage().hide();
@@ -120,12 +128,13 @@ public class MainController implements Initializable {
             newGame();
         }
     }
+
     /*
         End FXML Methods
-    */
-    /*
+     */
+ /*
         Methods
-    */
+     */
     //Liga os tamanhos dos nós de dentro com os pais
     private void bindingElements() {
         canvasPane.prefWidthProperty().bind(ControleUI.getInstance().getMainStage().widthProperty());
@@ -144,7 +153,7 @@ public class MainController implements Initializable {
         canvasPane.widthProperty().addListener(e -> reDraw());
         canvasPane.heightProperty().addListener(e -> reDraw());
     }
-    
+
     //Inicializa o ResizableCanvas
     private void initCanvas() {
         canvas = null;
@@ -157,15 +166,16 @@ public class MainController implements Initializable {
         GC.setStroke(Color.WHITE);
         GC.setLineWidth(2);
     }
-    
+
     //Redesenha a situação atual
     public void reDraw() {
         switch (ControleUI.getInstance().getGame()) {
             case (0): {
                 TicTacToeLogic.getInstance().calcTicTacToe();
-                try{
+                try {
                     TicTacToeLogic.getInstance().drawStaticTicTacToe();
-                }catch(Exception e){}
+                } catch (Exception e) {
+                }
                 TicTacToeLogic.getInstance().drawPlayerMovesTicTacToe();
                 break;
             }
@@ -178,14 +188,12 @@ public class MainController implements Initializable {
         }
     }
 
-    
     /*
         End methods
-    */
-    
-    /*
+     */
+ /*
         Getter e Setter
-    */
+     */
     public Pane getCanvasPane() {
         return canvasPane;
     }
@@ -197,7 +205,8 @@ public class MainController implements Initializable {
     public ResizableCanvas getCanvas() {
         return canvas;
     }
+
     /*
         End Getter e Setter
-    */
+     */
 }
