@@ -29,8 +29,17 @@ public class PFBenchXML {
         xstream.alias("Benchmark", PFStats.class);
     }
 
+    private void verificaPastaeCria() {
+        if (new File("TestesPathfinding").exists()) {
+            //
+        } else {
+            new File("TestesPathfinding").mkdir();
+        }
+    }
+
     public void encontraArquivos() {
-        File vetfile[] = new File(".").listFiles((File file) -> {
+        verificaPastaeCria();
+        File vetfile[] = new File("TestesPathfinding").listFiles((File file) -> {
             if (ControleUI.getInstance().getMetod() == 0) {
                 return file.getName().contains("AStar");
             }
@@ -46,18 +55,20 @@ public class PFBenchXML {
     }
 
     public void geraXMLfile(PFStats bench) {
+        verificaPastaeCria();
         String textoxml = xstream.toXML(bench);
         encontraArquivos();
+
         try {
-            PrintWriter writer = new PrintWriter("lixo.txt");
+            PrintWriter writer = new PrintWriter("TestesPathfinding/lixo.txt");
             if (ControleUI.getInstance().getMetod() == 0) {
-                writer = new PrintWriter("AStarTeste" + (pos + 1) + ".xml", "UTF-8");
+                writer = new PrintWriter("TestesPathfinding/AStarTeste" + (pos + 1) + ".xml", "UTF-8");
             }
             if (ControleUI.getInstance().getMetod() == 1) {
-                writer = new PrintWriter("LarguraTeste" + (pos + 1) + ".xml", "UTF-8");
+                writer = new PrintWriter("TestesPathfinding/LarguraTeste" + (pos + 1) + ".xml", "UTF-8");
             }
             if (ControleUI.getInstance().getMetod() == 2) {
-                writer = new PrintWriter("ProfundidadeTeste" + (pos + 1) + ".xml", "UTF-8");
+                writer = new PrintWriter("TestesPathfinding/ProfundidadeTeste" + (pos + 1) + ".xml", "UTF-8");
             }
             writer.print(textoxml);
             writer.flush();
@@ -69,10 +80,11 @@ public class PFBenchXML {
     }
 
     public ObservableList<PFStats> xmltoBenchmark(int tipoBusca) {
+        verificaPastaeCria();
         ObservableList<PFStats> Lista = FXCollections.observableArrayList();
         try {
             PFStats aux;
-            File vetfile[] = new File(".").listFiles((File file) -> {
+            File vetfile[] = new File("TestesPathfinding").listFiles((File file) -> {
                 if (tipoBusca == 0) {
                     return file.getName().contains("AStar");
                 }

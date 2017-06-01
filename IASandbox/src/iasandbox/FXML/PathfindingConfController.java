@@ -27,7 +27,7 @@ public class PathfindingConfController implements Initializable {
     private ChoiceBox<String> choiceMetod;
     @FXML
     private Slider size;
-    
+
     private String[] methods = {"A*", "Breadth-First", "Depth-First Search"};
 
     private ObservableList<String> methodsC;
@@ -42,6 +42,12 @@ public class PathfindingConfController implements Initializable {
     }
 
     @FXML
+    private void retornaMenu() {
+        ControleUI.getInstance().getMethodStage().close();
+        ControleUI.getInstance().mostraSelect();
+    }
+
+    @FXML
     private void start() {
         if (choiceMetod.getValue().equals(methods[0])) {
             ControleUI.getInstance().setMetod(0);
@@ -52,11 +58,11 @@ public class PathfindingConfController implements Initializable {
         }
         PathfindingLogic.getInstance().setSize((int) Math.round(size.getValue()));
         ControleUI.getInstance().mostraMain();
-        ControleUI.getInstance().getPlayersStage().hide();
+        ControleUI.getInstance().getMethodStage().hide();
     }
-    
+
     @FXML
-    private void chamaStats(){
+    private void chamaStats() {
         ControleUI.getInstance().mostraPathfindingStats();
     }
 
@@ -65,13 +71,13 @@ public class PathfindingConfController implements Initializable {
         methodsC = FXCollections.observableArrayList(methods);
         choiceMetod.setItems(methodsC);
         choiceMetod.setValue(methodsC.get(0));
-        size.valueProperty().addListener(listener->limiter());
-        choiceMetod.valueProperty().addListener(listener->limiter());
+        size.valueProperty().addListener(listener -> limiter());
+        choiceMetod.valueProperty().addListener(listener -> limiter());
     }
-    
-    private void limiter(){
-        if(choiceMetod.getValue().equals("Breadth-First")){
-            if(((int) Math.round(size.getValue()))>8){
+
+    private void limiter() {
+        if (choiceMetod.getValue().equals("Breadth-First")) {
+            if (((int) Math.round(size.getValue())) > 8) {
                 size.setValue(8);
             }
         }

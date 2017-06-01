@@ -31,7 +31,7 @@
       </Pane>
       <MenuBar layoutX="-1.0" layoutY="1.0" prefHeight="25.0" prefWidth="1371.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Opções">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#mostraStatsTempo" text="Stats de Tempo" />
             </items>

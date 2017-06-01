@@ -70,6 +70,11 @@ public class MainController implements Initializable {
         FXML Methods
     */
     @FXML
+    private void mudarPlayers(){
+        ControleUI.getInstance().getMainStage().hide();
+        ControleUI.getInstance().mostraPlayers();
+    }
+    @FXML
     public void newGame() {
         switch (ControleUI.getInstance().getGame()) {
             case (0): {

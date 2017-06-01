@@ -34,6 +34,7 @@ public final class ControleUI {
     private Stage mainStage;
     private Stage playersStage;
     private Stage statsStage;
+    private Stage methodStage;
 
     private Parent selectParent;
     private Parent mainStageParent;
@@ -91,7 +92,7 @@ public final class ControleUI {
         mainStage = new Stage();
         playersStage = new Stage();
         statsStage = new Stage();
-
+        methodStage = new Stage();
         mostraSelect();
     }
 
@@ -161,9 +162,9 @@ public final class ControleUI {
             methodParent = methodLoader.load();
             methodScene = new Scene(methodParent);
             methodController = methodLoader.getController();
-            playersStage.setScene(methodScene);
-            playersStage.setTitle("AI SandBox");
-            playersStage.show();
+            methodStage.setScene(methodScene);
+            methodStage.setTitle("AI SandBox");
+            methodStage.show();
         } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -309,6 +310,10 @@ public final class ControleUI {
 
     public StatsPathfindingController getPathStatsController() {
         return pathStatsController;
+    }
+
+    public Stage getMethodStage() {
+        return methodStage;
     }
     
 

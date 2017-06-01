@@ -122,7 +122,7 @@ public class GameStatsController implements Initializable {
     private ObservableList<FormatedGameStats> encontraArquivosAndLoadList() {
         ObservableList<FormatedGameStats> Lista = FXCollections.observableArrayList();
         EstatisticaXML rank = new EstatisticaXML();
-        File aux = new File(".");
+        File aux = new File("TestesTicTacToe");
         File auxvet[] = aux.listFiles((File file) -> {
             return file.getName().contains("Vs");
         });

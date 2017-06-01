@@ -16,21 +16,11 @@
       </StackPane>
       <MenuBar fx:id="menuBar" prefHeight="22.0" prefWidth="600.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Opções">
             <items>
                   <MenuItem fx:id="novoGame" mnemonicParsing="false" onAction="#newGame" text="Novo Jogo" />
                   <MenuItem fx:id="changeGame" mnemonicParsing="false" onAction="#changeGame" text="Mudar jogo" />
-              <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem fx:id="configurações" mnemonicParsing="false" text="Configurações" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="close" mnemonicParsing="false" onAction="#mudarPlayers" text="Mudar Players" />
             </items>
           </Menu>
         </menus>

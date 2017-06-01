@@ -23,11 +23,19 @@ public class BenchmarkXML {
         xstream = new XStream(new DomDriver());
         xstream.alias("Benchmark", Benchmark.class);
     }
-
+    
+    private void verificaeCriaPasta(){
+        if(new File("TestesTicTacToe").exists()){
+            //
+        }else{
+            new File("TestesTicTacToe").mkdir();
+        }
+    }
     public void geraXMLfile(Benchmark bench) {
+        verificaeCriaPasta();
         String textoxml = xstream.toXML(bench);
         try {
-            PrintWriter writer = new PrintWriter("Benchmark.xml", "UTF-8");
+            PrintWriter writer = new PrintWriter("TestesTicTacToe/Benchmark.xml", "UTF-8");
             writer.print(textoxml);
             writer.flush();
             writer.close();
@@ -40,7 +48,7 @@ public class BenchmarkXML {
     public Benchmark xmltoBenchmark() {
         try {
             Benchmark aux;
-            File xml = new File("Benchmark.xml");
+            File xml = new File("TestesTicTacToe/Benchmark.xml");
             aux = (Benchmark) xstream.fromXML(xml);
             return aux;
         } catch (Exception e) {

@@ -24,7 +24,7 @@
             <Label layoutX="54.0" text="Player 2" />
          </children>
       </Pane>
-      <Button fx:id="start" layoutX="259.0" layoutY="298.0" mnemonicParsing="false" onAction="#saveOptions" text="start game" />
+      <Button fx:id="start" layoutX="280.0" layoutY="298.0" mnemonicParsing="false" onAction="#saveOptions" text="Start" />
       <Pane layoutX="225.0" layoutY="171.0">
          <children>
             <Slider fx:id="Dificuldade" layoutY="17.0" majorTickUnit="1.0" max="10.0" showTickLabels="true" showTickMarks="true" value="10.0" />
@@ -39,12 +39,13 @@
       </Pane>
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Stats">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#mostraStats" text="Stats" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <Button layoutX="277.0" layoutY="333.0" mnemonicParsing="false" onAction="#voltaMenu" text="Voltar" />
    </children>
 </AnchorPane>

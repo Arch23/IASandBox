@@ -14,15 +14,16 @@
       <ChoiceBox fx:id="choiceMetod" layoutX="225.0" layoutY="121.0" prefWidth="150.0" />
       <Label layoutX="279.0" layoutY="83.0" text="Método" />
       <Slider fx:id="size" blockIncrement="1.0" layoutX="151.0" layoutY="181.0" majorTickUnit="10.0" max="64.0" min="2.0" minorTickCount="5" prefHeight="14.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" />
-      <Button layoutX="280.0" layoutY="260.0" mnemonicParsing="false" onAction="#start" text="start" />
+      <Button layoutX="284.0" layoutY="259.0" mnemonicParsing="false" onAction="#start" text="Start" />
       <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Stats">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#chamaStats" text="Stats" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <Button layoutX="280.0" layoutY="299.0" mnemonicParsing="false" onAction="#retornaMenu" text="Voltar" />
    </children>
 </AnchorPane>

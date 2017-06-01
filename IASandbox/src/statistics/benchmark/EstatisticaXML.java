@@ -23,7 +23,13 @@ public class EstatisticaXML {
         xstream = new XStream(new DomDriver());
         xstream.alias("Ranking", Stats.class);
     }
-
+    private void verificaeCriaPasta(){
+        if(new File("TestesTicTacToe").exists()){
+            ////
+        }else{
+            new File("TestesTicTacToe").mkdir();
+        }
+    }
     private String verificaPlayer1(int player) {
         String aux = null;
         switch (player) {
@@ -69,7 +75,7 @@ public class EstatisticaXML {
     private void geraXMLfile(Stats rank, int Player1, int Player2) {
         String textoxml = xstream.toXML(rank);
         try {
-            PrintWriter writer = new PrintWriter(verificaPlayer1(Player1) + "Vs"
+            PrintWriter writer = new PrintWriter("TestesTicTacToe/"+verificaPlayer1(Player1) + "Vs"
                     + verificaPlayer2(Player2) + ".xml", "UTF-8");
             writer.print(textoxml);
             writer.close();
@@ -85,7 +91,7 @@ public class EstatisticaXML {
     private Stats xmltoRank(int Player1, int Player2) {
         try {
             Stats aux;
-            File xml = new File(verificaPlayer1(Player1) + "Vs" + verificaPlayer2(Player2) + ".xml");
+            File xml = new File("TestesTicTacToe/"+verificaPlayer1(Player1) + "Vs" + verificaPlayer2(Player2) + ".xml");
             aux = (Stats) xstream.fromXML(xml);
             return aux;
         } catch (Exception e) {
