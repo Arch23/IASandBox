@@ -72,7 +72,7 @@ public class SelectController implements Initializable {
         //inicializando choicebox
         choiceGame.setItems(gameItems);
         choiceGame.setValue(gameItems.get(0));
-        
+        icon.setImage(new Image(getClass().getResourceAsStream("/iasandbox/img/tic.png")));
         choiceGame.valueProperty().addListener(listener->changeIcon());
     }
 
@@ -80,12 +80,12 @@ public class SelectController implements Initializable {
         switch(choiceGame.getValue()){
             case("Tic Tac Toe"):{
                 icon.setImage(new Image(getClass()
-        .getResourceAsStream("tic.png")));
+        .getResourceAsStream("/iasandbox/img/tic.png")));
                 break;
             }
             case("Pathfinding"):{
                 icon.setImage(new Image(getClass()
-        .getResourceAsStream("map2.png")));
+        .getResourceAsStream("/iasandbox/img/map2.png")));
                 break;
             }
         }

@@ -87,7 +87,6 @@ public class GameStatsController implements Initializable {
         
         menu.prefWidthProperty().bind(root.widthProperty());
         
-        Stats.setSelectionModel(null);
         Grafico.setAnimated(false);
         HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(center, Priority.ALWAYS);

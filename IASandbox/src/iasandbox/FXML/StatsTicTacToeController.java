@@ -60,8 +60,6 @@ public class StatsTicTacToeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         menu.prefWidthProperty().bind(ControleUI.getInstance().getStatsTStage().widthProperty());
-        Stats.setSelectionModel(null);
-        Stats2.setSelectionModel(null);
         carregaTabela();
         carregaTabela2();
     }
