@@ -5,7 +5,6 @@
 *.class
 *.html
 *.jnlp
-*.png
 *.gif
 *.js
 /AISandbox/nbproject/private/
