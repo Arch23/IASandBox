@@ -20,6 +20,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -99,6 +100,13 @@ public final class ControleUI {
         statsStage = new Stage();
         methodStage = new Stage();
         statsTStage = new Stage();
+        
+        select.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
+        mainStage.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
+        playersStage.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
+        methodStage.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
+        statsTStage.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
+        statsStage.getIcons().add((new Image(getClass().getResourceAsStream("/iasandbox/img/logo.png"))));
         
         select.setResizable(false);
         playersStage.setResizable(false);
