@@ -179,8 +179,13 @@ public class MainController implements Initializable {
                 break;
             }
             case (1): {
+                try{
                 PathfindingLogic.getInstance().calcPathFinding();
                 PathfindingLogic.getInstance().drawStaticPathFinding();
+                }
+                catch(Exception e){
+                    
+                }
                 PathfindingLogic.getInstance().drawPlayerMovesPathFinding();
                 break;
             }
