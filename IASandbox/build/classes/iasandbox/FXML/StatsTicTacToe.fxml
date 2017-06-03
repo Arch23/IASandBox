@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsTicTacToeController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="525.0" minWidth="600.0" prefHeight="525.0" prefWidth="600.0" stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsTicTacToeController">
    <children>
-      <TableView fx:id="Stats" layoutX="5.0" layoutY="100.0" prefHeight="200.0" prefWidth="591.0">
+      <TableView fx:id="Stats" layoutX="5.0" layoutY="100.0" prefHeight="200.0" prefWidth="591.0" styleClass="common-table">
         <columns>
           <TableColumn fx:id="Jogador" prefWidth="75.0" text="Jogador" />
           <TableColumn fx:id="TempoTotal" prefWidth="182.0" text="Tempo Total das Jogadas (ns)" />
@@ -17,7 +18,7 @@
             <TableColumn fx:id="MediaTempoJogada" prefWidth="197.0" text="Média de Tempo das Jogadas (ns)" />
         </columns>
       </TableView>
-      <TableView fx:id="Stats2" layoutX="10.0" layoutY="311.0" prefHeight="77.0" prefWidth="571.0">
+      <TableView fx:id="Stats2" layoutX="5.0" layoutY="313.0" prefHeight="77.0" prefWidth="591.0" styleClass="common-table">
         <columns>
           <TableColumn fx:id="Jogador2" prefWidth="120.0" text="Jogador" />
           <TableColumn fx:id="TempoTotalArvMinMax" minWidth="2.0" prefWidth="228.0" text="Tempo Total das Arvores Geradas (ns)" />
@@ -25,7 +26,7 @@
             <TableColumn fx:id="MediaArvMinMax" prefWidth="121.0" text="Média" />
         </columns>
       </TableView>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
+      <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="600.0" styleClass="common-menu">
         <menus>
           <Menu mnemonicParsing="false" text="Opções">
             <items>
@@ -35,4 +36,8 @@
         </menus>
       </MenuBar>
    </children>
+   <styleClass>
+      <String fx:value="root-roboto" />
+      <String fx:value="common-background" />
+   </styleClass>
 </AnchorPane>

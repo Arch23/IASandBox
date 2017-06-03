@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -51,19 +52,24 @@ public class StatsTicTacToeController implements Initializable {
     @FXML
     TableColumn<FormatedBenchMark, Long> MediaArvMinMax;
 
+    @FXML
+    private MenuBar menu;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        menu.prefWidthProperty().bind(ControleUI.getInstance().getStatsTStage().widthProperty());
+        Stats.setSelectionModel(null);
+        Stats2.setSelectionModel(null);
         carregaTabela();
         carregaTabela2();
     }
     
     @FXML
     private void mostraStatsJogo(){
-        System.out.println("Stats de Jogo");
         ControleUI.getInstance().mostraGameStats();
+        ControleUI.getInstance().getStatsTStage().hide();
     }
     public void atualizaAll() {
         carregaTabela();

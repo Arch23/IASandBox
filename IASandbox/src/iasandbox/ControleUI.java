@@ -35,6 +35,7 @@ public final class ControleUI {
     private Stage playersStage;
     private Stage statsStage;
     private Stage methodStage;
+    private Stage statsTStage;
 
     private Parent selectParent;
     private Parent mainStageParent;
@@ -43,6 +44,7 @@ public final class ControleUI {
     private Parent gameStatsParent;
     private Parent methodParent;
     private Parent pathStatsParent;
+    private Parent statsTParent;
 
     private Scene selectScene;
     private Scene mainStageScene;
@@ -51,6 +53,7 @@ public final class ControleUI {
     private Scene gameStatsScene;
     private Scene methodScene;
     private Scene pathStatsScene;
+    private Scene statsTScene;
 
     private MainController mainController;
     private PlayersController playersController;
@@ -58,6 +61,7 @@ public final class ControleUI {
     private GameStatsController gameStatsController;
     private PathfindingConfController methodController;
     private StatsPathfindingController pathStatsController;
+    private StatsTicTacToeController statsTController;
 
     private FXMLLoader mainLoader;
     private FXMLLoader playersLoader;
@@ -65,6 +69,7 @@ public final class ControleUI {
     private FXMLLoader gameStatsLoader;
     private FXMLLoader pathStatsLoader;
     private FXMLLoader methodLoader;
+    private FXMLLoader statsTLoader;
 
     private ResizableCanvas canvas;
 
@@ -93,6 +98,12 @@ public final class ControleUI {
         playersStage = new Stage();
         statsStage = new Stage();
         methodStage = new Stage();
+        statsTStage = new Stage();
+        
+        select.setResizable(false);
+        playersStage.setResizable(false);
+        methodStage.setResizable(false);
+        statsTStage.setResizable(false);
         mostraSelect();
     }
 
@@ -172,13 +183,15 @@ public final class ControleUI {
 
     public void mostraStats() {
         try {
-            statsLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));
-            statsParent = statsLoader.load();
-            statsScene = new Scene(statsParent);
-            statsController = statsLoader.getController();
-            statsStage.setScene(statsScene);
-            statsStage.setTitle("AI SandBox");
-            statsStage.show();
+            statsTLoader = new FXMLLoader(getClass().getResource("FXML/StatsTicTacToe.fxml"));
+            statsTParent = statsTLoader.load();
+            statsTScene = new Scene(statsTParent);
+            statsTController = statsTLoader.getController();
+            statsTStage.setScene(statsTScene);
+            statsTStage.setTitle("AI SandBox");
+            statsTStage.setMinHeight(525);
+            statsTStage.setMinWidth(600);
+            statsTStage.show();
         } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -193,6 +206,9 @@ public final class ControleUI {
             statsStage.setScene(gameStatsScene);
             statsStage.setTitle("AI SandBox");
             statsStage.show();
+            statsStage.setMinHeight(650);
+            statsStage.setMinWidth(1250);
+            statsStage.setResizable(true);
         } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,6 +223,9 @@ public final class ControleUI {
             statsStage.setScene(pathStatsScene);
             statsStage.setTitle("AI SandBox");
             statsStage.show();
+            statsStage.setMinHeight(550);
+            statsStage.setMinWidth(1200);
+            statsStage.setResizable(false);
         } catch (Exception ex) {
             Logger.getLogger(ControleUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -314,6 +333,14 @@ public final class ControleUI {
 
     public Stage getMethodStage() {
         return methodStage;
+    }
+
+    public Stage getStatsStage() {
+        return statsStage;
+    }
+
+    public Stage getStatsTStage() {
+        return statsTStage;
     }
     
 

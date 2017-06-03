@@ -10,18 +10,23 @@ import statistics.benchmark.Stats;
 import iasandbox.ControleUI;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
+import javafx.geometry.Pos;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import misc.FormatedGameStats;
 
 /**
@@ -50,7 +55,19 @@ public class GameStatsController implements Initializable {
     @FXML
     private TableColumn<FormatedGameStats, Double> porcentE;
     @FXML
-    private BarChart<String,Number> Grafico;
+    private StackedBarChart<String,Number> Grafico;
+    @FXML
+    private Region left;
+    @FXML
+    private Region center;
+    @FXML
+    private Region right;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private HBox box;
     /**
      * Initializes the controller class.
      */
@@ -58,8 +75,25 @@ public class GameStatsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         carregaTabela();
         carregaGrafico();
+        setUp();
     }
 
+    private void setUp(){
+        box.setAlignment(Pos.CENTER);
+        box.prefWidthProperty().bind(root.widthProperty());
+        
+        root.prefWidthProperty().bind(ControleUI.getInstance().getStatsStage().widthProperty());
+        root.prefHeightProperty().bind(ControleUI.getInstance().getStatsStage().heightProperty());
+        
+        menu.prefWidthProperty().bind(root.widthProperty());
+        
+        Stats.setSelectionModel(null);
+        Grafico.setAnimated(false);
+        HBox.setHgrow(left, Priority.ALWAYS);
+        HBox.setHgrow(center, Priority.ALWAYS);
+        HBox.setHgrow(right, Priority.ALWAYS);
+    }
+    
     public void atualizaAll() {
         carregaTabela();
         carregaGrafico();
@@ -68,6 +102,7 @@ public class GameStatsController implements Initializable {
     @FXML
     private void mostraStatsTempo() {
         ControleUI.getInstance().mostraStats();
+        ControleUI.getInstance().getStatsStage().hide();
     }
 
     private void carregaTabela() {

@@ -86,8 +86,12 @@ public class PathfindingLogic {
         GenMap obj = new GenMap();
         map = obj.init(layout);
         cels = new Rectangle[map.length][map[1].length];
-        calcPathFinding();
-        drawStaticPathFinding();
+        try{
+            calcPathFinding();
+            drawStaticPathFinding();
+        }catch(Exception e){
+        
+        }
         user = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -111,23 +115,20 @@ public class PathfindingLogic {
         ControleUI.getInstance().getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, user);
     }
 
-    public void calcPathFinding() {
+    public void calcPathFinding() throws Exception{
         hM = (ControleUI.getInstance().getMainStage().getHeight() * (0.70));
         wM = hM;
-        try{
+        
         hCel = (hM / map[0].length);
         wCel = hCel;
-        }
-        catch(Exception e){
-          //  
-        }
+        
 
         h1 = ((ControleUI.getInstance().getMainStage().getHeight() - hM) * 0.5);
         h2 = ((ControleUI.getInstance().getMainStage().getHeight() - hM) * 0.5);
         w1 = w2 = ((ControleUI.getInstance().getMainStage().getWidth() - wM) / 2);
     }
 
-    public void drawStaticPathFinding() {
+    public void drawStaticPathFinding() throws Exception{
         GraphicsContext gc = ControleUI.getInstance().getMainController().getGC();
         gc.clearRect(0, 0, ControleUI.getInstance().getMainStage().getWidth(), ControleUI.getInstance().getMainStage().getHeight());
         gc.setFill(Color.BLACK);

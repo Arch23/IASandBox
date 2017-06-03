@@ -65,6 +65,7 @@ public class TreeGen {
     
     //gera e percorre a árvore utilizando a busca em profundidade
     public void genTreeDFS(TreeNode node, int[] end, ArrayDeque<TreeNode> path) {
+        getMapNodeFromSon(node).setTipo("open");
         count++;
         path.push(node);
         if ((node.getPos()[0] == end[0]) && (node.getPos()[1] == end[1])) {         
@@ -89,9 +90,10 @@ public class TreeGen {
         Queue<TreeNode> queue = new LinkedList<>();
         ArrayList<TreeNode> closed = new ArrayList<>();
         queue.add(node);
-        while(!queue.isEmpty()){
+        while(!queue.isEmpty()){ 
             count++;
             TreeNode current = queue.remove();
+            getMapNodeFromSon(current).setTipo("open");
             if((current.getPos()[0]==end[0])&&(current.getPos()[1]==end[1])){
                 current.setSons(new ArrayList<>());
                 objective = current;
@@ -204,6 +206,10 @@ public class TreeGen {
             }
         }
         return(false);
+    }
+    
+    private MapNode getMapNodeFromSon(TreeNode node){
+        return(PathfindingLogic.getInstance().getMap()[node.getPos()[0]][node.getPos()[1]]);
     }
     /*
     end methods

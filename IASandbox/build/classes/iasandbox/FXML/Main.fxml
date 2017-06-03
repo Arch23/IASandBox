@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.MainController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.MainController">
    <children>
-      <StackPane fx:id="stack" layoutY="-2.0" prefHeight="400.0" prefWidth="600.0">
+      <StackPane fx:id="stack" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Pane fx:id="canvasPane" onKeyPressed="#spaceRestart" prefHeight="377.0" prefWidth="600.0" />
          </children>
@@ -23,7 +24,17 @@
               <MenuItem fx:id="mudarPlayers" mnemonicParsing="false" onAction="#mudarPlayers" text="Mudar Players" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Stats">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#statsPathfinding" text="Pathfinding" />
+                  <MenuItem mnemonicParsing="false" onAction="#statsTicTacToe" text="Tic Tac Toe" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
+   <styleClass>
+      <String fx:value="common-background" />
+      <String fx:value="root-roboto" />
+   </styleClass>
 </AnchorPane>

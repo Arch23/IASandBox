@@ -95,16 +95,6 @@ public class MainController implements Initializable {
             }
             case (1): {
                 PathfindingLogic.getInstance().endGame();
-//                int[][] layout = new int[64][64];
-                int[][] layout = new int[][]{
-                    {0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 1, 0, 0},
-                    {0, 0, 0, 0, 1, 0, 0},
-                    {0, 1, 1, 1, 1, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0},
-                    {0, 0, 0, 0, 0, 0, 0}};
-                PathfindingLogic.getInstance().setLayout(layout);
                 PathfindingLogic.getInstance().pathFinding();
                 break;
             }
@@ -127,6 +117,15 @@ public class MainController implements Initializable {
         if (key.getCode() == KeyCode.SPACE) {
             newGame();
         }
+    }
+    
+    @FXML
+    private void statsPathfinding(){
+        ControleUI.getInstance().mostraPathfindingStats();
+    }
+    @FXML
+    private void statsTicTacToe(){
+        ControleUI.getInstance().mostraGameStats();
     }
 
     /*

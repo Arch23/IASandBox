@@ -1,0 +1,58 @@
+@font-face {
+   font-family: Roboto;
+   src: url('../Font/Roboto-Regular.ttf');
+}
+
+
+.root-roboto{
+   -fx-font-family: Roboto;
+}
+
+.common-background{
+   -fx-background-color: WHITE;
+}
+
+.common-btn{
+   -fx-border-radius: 5px;
+   -fx-background-color: WHITE;
+   -fx-border-color: BLACK;
+   -fx-border-width: 2px;
+   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 2, 2);
+   -fx-background-insets: 0,1,2,3;
+   -fx-background-radius: 6,6,6,6;
+}
+
+.common-btn:pressed{
+   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 2, 0, 2, 2);
+}
+
+.table-cel{
+   -fx-background-color:WHITE;
+
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+   -fx-background-color: WHITE;
+   -fx-border-style: hidden hidden solid hidden;
+   -fx-border-color: BLACK;
+   -fx-border-width: 2px;
+}
+
+.common-table{
+   -fx-border-color: BLACK;
+   -fx-border-width: 2px;
+}
+
+.common-menu{
+   -fx-border-color: BLACK;
+   -fx-border-width: 2px;
+   -fx-border-style: solid hidden solid hidden;
+   -fx-background-color: WHITE;
+}
+
+.common-menu-main{
+   -fx-border-color: BLACK;
+   -fx-background-color: WHITE;
+}

@@ -1,51 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="1362.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsPathfindingController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.StatsPathfindingController">
    <children>
-      <TableView fx:id="AstarStats" layoutY="71.0" prefHeight="200.0" prefWidth="640.0">
-        <columns>
-          <TableColumn fx:id="AStarTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
-          <TableColumn fx:id="AstarNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
-            <TableColumn fx:id="AStarNosSolucao" prefWidth="135.0" text="Distância da Solução" />
-            <TableColumn fx:id="AstarTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
-        </columns>
-      </TableView>
-      <Label layoutX="7.0" layoutY="36.0" prefHeight="17.0" prefWidth="337.0" text="Busca A*">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TableView fx:id="ProfundidadeStats" layoutY="340.0" prefHeight="200.0" prefWidth="640.0">
-         <columns>
-            <TableColumn fx:id="ProfundidadeTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
-            <TableColumn fx:id="ProfundidadeNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
-            <TableColumn fx:id="ProfundidadeNosSolucao" prefWidth="135.0" text="Distância da Solução" />
-            <TableColumn fx:id="ProfundidadeTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
-         </columns>
-      </TableView>
-      <Label layoutX="7.0" layoutY="304.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Profundidade">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TableView fx:id="LarguraStats" layoutX="681.0" layoutY="72.0" prefHeight="200.0" prefWidth="640.0">
-         <columns>
-            <TableColumn fx:id="LarguraTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
-            <TableColumn fx:id="LarguraNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
-            <TableColumn fx:id="LarguraNosSolucao" prefWidth="135.0" text="Distância da Solução" />
-            <TableColumn fx:id="LarguraTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
-         </columns>
-      </TableView>
-      <Label layoutX="688.0" layoutY="36.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Largura">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <GridPane layoutX="31.0" layoutY="40.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane>
+               <children>
+                  <TableView fx:id="AstarStats" layoutX="-2.0" layoutY="35.0" prefHeight="200.0" prefWidth="565.0" styleClass="common-table">
+                    <columns>
+                      <TableColumn fx:id="AStarTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+                      <TableColumn fx:id="AstarNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+                        <TableColumn fx:id="AStarNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+                        <TableColumn fx:id="AstarTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Label layoutX="5.0" prefHeight="17.0" prefWidth="337.0" text="Busca A*">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane GridPane.rowIndex="1">
+               <children>
+                  <TableView fx:id="ProfundidadeStats" layoutX="-3.0" layoutY="36.0" prefHeight="200.0" prefWidth="565.0" styleClass="common-table">
+                     <columns>
+                        <TableColumn fx:id="ProfundidadeTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+                        <TableColumn fx:id="ProfundidadeNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+                        <TableColumn fx:id="ProfundidadeNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+                        <TableColumn fx:id="ProfundidadeTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Label layoutX="4.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Profundidade">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane GridPane.columnIndex="1">
+               <children>
+                  <TableView fx:id="LarguraStats" layoutX="9.0" layoutY="35.0" prefHeight="200.0" prefWidth="565.0" styleClass="common-table">
+                     <columns>
+                        <TableColumn fx:id="LarguraTamMatriz" prefWidth="141.0" text="Tamanho da Matriz" />
+                        <TableColumn fx:id="LarguraNosVisitados" minWidth="3.0" prefWidth="151.0" text="Nós Visitados" />
+                        <TableColumn fx:id="LarguraNosSolucao" prefWidth="135.0" text="Distância da Solução" />
+                        <TableColumn fx:id="LarguraTempoDecisao" minWidth="3.0" prefWidth="212.0" text="Tempo da Decisão (ns)" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <Label layoutX="16.0" prefHeight="17.0" prefWidth="337.0" text="Busca em Largura">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
    </children>
+   <styleClass>
+      <String fx:value="common-background" />
+      <String fx:value="root-roboto" />
+   </styleClass>
 </AnchorPane>

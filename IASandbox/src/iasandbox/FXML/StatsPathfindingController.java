@@ -62,6 +62,9 @@ public class StatsPathfindingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         atualizaAll();
+        ProfundidadeStats.setSelectionModel(null);
+        LarguraStats.setSelectionModel(null);
+        AstarStats.setSelectionModel(null);
     }
 
     public void atualizaAll() {

@@ -6,6 +6,7 @@
 package iasandbox.FXML;
 
 import iasandbox.ControleUI;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,7 +15,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -26,13 +29,19 @@ public class SelectController implements Initializable {
     private Label label;
     @FXML
     private ChoiceBox<String> choiceGame;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private ImageView icon;
     
     private String[] game={"Tic Tac Toe","Pathfinding"};
     
     private ObservableList<String> gameItems;
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        menu.prefWidthProperty().bind(ControleUI.getInstance().getSelect().widthProperty());
         initChoiceBox();
     }
 
@@ -63,5 +72,22 @@ public class SelectController implements Initializable {
         //inicializando choicebox
         choiceGame.setItems(gameItems);
         choiceGame.setValue(gameItems.get(0));
+        
+        choiceGame.valueProperty().addListener(listener->changeIcon());
+    }
+
+    private void changeIcon() {
+        switch(choiceGame.getValue()){
+            case("Tic Tac Toe"):{
+                icon.setImage(new Image(getClass()
+        .getResourceAsStream("tic.png")));
+                break;
+            }
+            case("Pathfinding"):{
+                icon.setImage(new Image(getClass()
+        .getResourceAsStream("map2.png")));
+                break;
+            }
+        }
     }
 }

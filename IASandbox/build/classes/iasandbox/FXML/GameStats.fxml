@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
+<?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1371.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.GameStatsController">
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.GameStatsController">
    <children>
-      <Pane layoutX="-1.0" layoutY="54.0" prefHeight="200.0" prefWidth="600.0">
+      <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="1200.0" styleClass="common-menu">
+        <menus>
+          <Menu mnemonicParsing="false" text="Opções">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#mostraStatsTempo" text="Stats de Tempo" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox fx:id="box" layoutX="34.0" layoutY="38.0">
          <children>
-            <TableView fx:id="Stats" prefHeight="337.0" prefWidth="612.0">
+            <Region fx:id="left" prefHeight="0.0" prefWidth="0.0" />
+            <TableView fx:id="Stats" focusTraversable="false" maxWidth="615.0" minWidth="615.0" prefHeight="540.0" prefWidth="615.0">
               <columns>
                 <TableColumn fx:id="Player1" prefWidth="75.0" text="Jogador 1" />
                 <TableColumn fx:id="Player2" prefWidth="75.0" text="Jogador 2" />
@@ -26,25 +38,26 @@
                   <TableColumn fx:id="porcentD" prefWidth="75.0" text="\%D" />
                   <TableColumn fx:id="porcentE" prefWidth="85.0" text="\%E" />
               </columns>
+               <styleClass>
+                  <String fx:value="common-background" />
+                  <String fx:value="common-table" />
+               </styleClass>
             </TableView>
+            <Region fx:id="center" prefHeight="0.0" prefWidth="0.0" />
+            <StackedBarChart fx:id="Grafico" prefHeight="540.0" prefWidth="518.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis animated="false" side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
+            <Region fx:id="right" prefHeight="0.0" prefWidth="0.0" />
          </children>
-      </Pane>
-      <MenuBar layoutX="-1.0" layoutY="1.0" prefHeight="25.0" prefWidth="1371.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Opções">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#mostraStatsTempo" text="Stats de Tempo" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <BarChart fx:id="Grafico" animated="false" layoutX="632.0" layoutY="54.0" prefHeight="489.0" prefWidth="725.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
+      </HBox>
    </children>
+   <styleClass>
+      <String fx:value="root-roboto" />
+      <String fx:value="common-background" />
+   </styleClass>
 </AnchorPane>

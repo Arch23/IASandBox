@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -10,34 +11,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.PlayersController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iasandbox.FXML.PlayersController">
    <children>
       <Pane layoutX="225.0" layoutY="26.0">
          <children>
-            <ChoiceBox fx:id="choicePlayer1" layoutY="28.0" prefWidth="150.0" />
-            <Label layoutX="54.0" text="Player 1" />
+            <ChoiceBox fx:id="choicePlayer1" layoutY="28.0" prefWidth="150.0" styleClass="common-btn" />
+            <Label layoutX="54.0" layoutY="4.0" text="Player 1" />
          </children>
       </Pane>
       <Pane layoutX="225.0" layoutY="104.0">
          <children>
-            <ChoiceBox fx:id="choicePlayer2" layoutY="28.0" prefWidth="150.0" />
-            <Label layoutX="54.0" text="Player 2" />
+            <ChoiceBox fx:id="choicePlayer2" layoutY="28.0" prefWidth="150.0" styleClass="common-btn" />
+            <Label layoutX="54.0" layoutY="2.0" text="Player 2" />
          </children>
       </Pane>
-      <Button fx:id="start" layoutX="280.0" layoutY="298.0" mnemonicParsing="false" onAction="#saveOptions" text="Start" />
+      <Button fx:id="start" layoutX="229.0" layoutY="295.0" mnemonicParsing="false" onAction="#saveOptions" prefHeight="27.0" prefWidth="150.0" styleClass="common-btn" text="Start" />
       <Pane layoutX="225.0" layoutY="171.0">
          <children>
-            <Slider fx:id="Dificuldade" layoutY="17.0" majorTickUnit="1.0" max="10.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+            <Slider fx:id="Dificuldade" layoutY="17.0" majorTickUnit="1.0" max="10.0" prefHeight="37.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" value="10.0" />
             <Label layoutX="6.0" text="Dificuldade Player 1" />
          </children>
       </Pane>
       <Pane layoutX="225.0" layoutY="226.0">
          <children>
             <Label layoutX="2.0" prefHeight="17.0" prefWidth="105.0" text="Dificuldade Player 2" />
-            <Slider fx:id="Dificuldade2" layoutY="17.0" majorTickUnit="1.0" max="10.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+            <Slider fx:id="Dificuldade2" layoutY="17.0" majorTickUnit="1.0" max="10.0" prefHeight="37.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" value="10.0" />
          </children>
       </Pane>
-      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
+      <MenuBar prefHeight="25.0" prefWidth="600.0" styleClass="common-menu">
         <menus>
           <Menu mnemonicParsing="false" text="Stats">
             <items>
@@ -46,6 +47,10 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="277.0" layoutY="333.0" mnemonicParsing="false" onAction="#voltaMenu" text="Voltar" />
+      <Button layoutX="229.0" layoutY="338.0" mnemonicParsing="false" onAction="#voltaMenu" prefHeight="27.0" prefWidth="150.0" styleClass="common-btn" text="Voltar" />
    </children>
+   <styleClass>
+      <String fx:value="root-roboto" />
+      <String fx:value="common-background" />
+   </styleClass>
 </AnchorPane>
