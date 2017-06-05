@@ -31,7 +31,11 @@ public class FormatedBenchMark {
         this.Jogador = Jogador;
         this.TempoTotalArvMinMax = TempoTotalArvMinMax;
         this.VezesArvMinMax = VezesArvMinMax;
-        this.MediaArvMinMax=(TempoTotalArvMinMax/VezesArvMinMax);
+        try{
+            this.MediaArvMinMax=(TempoTotalArvMinMax/VezesArvMinMax);
+        }catch(ArithmeticException e){
+            this.MediaArvMinMax=0;
+        }
     }
     
     

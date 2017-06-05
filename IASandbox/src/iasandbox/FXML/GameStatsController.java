@@ -11,6 +11,8 @@ import iasandbox.ControleUI;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -113,7 +115,10 @@ public class GameStatsController implements Initializable {
         porcentV.setCellValueFactory(new PropertyValueFactory<>("porcentV"));
         porcentE.setCellValueFactory(new PropertyValueFactory<>("porcentE"));
         porcentD.setCellValueFactory(new PropertyValueFactory<>("porcentD"));
-        Stats.setItems(encontraArquivosAndLoadList());
+        try {
+            Stats.setItems(encontraArquivosAndLoadList());
+        } catch (Exception ex) {
+        }
     }
     
     private void carregaGrafico(){
@@ -123,7 +128,12 @@ public class GameStatsController implements Initializable {
         catch(Exception e){
             //
         }
-        ObservableList<FormatedGameStats> ListaAux= encontraArquivosAndLoadList();
+        ObservableList<FormatedGameStats> ListaAux;
+        try {
+            ListaAux = encontraArquivosAndLoadList();
+        } catch (Exception ex) {
+            ListaAux = FXCollections.observableArrayList();
+        }
         XYChart.Series<String,Number> empate = new XYChart.Series<>();
         empate.setName("Empate");
         empate.getData().clear();
@@ -153,7 +163,7 @@ public class GameStatsController implements Initializable {
         Grafico.getData().add(vitorias);
     }
 
-    private ObservableList<FormatedGameStats> encontraArquivosAndLoadList() {
+    private ObservableList<FormatedGameStats> encontraArquivosAndLoadList() throws Exception {
         ObservableList<FormatedGameStats> Lista = FXCollections.observableArrayList();
         EstatisticaXML rank = new EstatisticaXML();
         File aux = new File("TestesTicTacToe");
